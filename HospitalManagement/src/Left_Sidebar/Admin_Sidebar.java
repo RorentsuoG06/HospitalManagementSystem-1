@@ -4,6 +4,10 @@ import Appointments.Admin_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Admin_Dashboard;
 import Generating_Reports.Admin_Reports;
+import Inventory.InventoryPanel;
+import Inventory.LogisticsPanel;
+import Inventory.PatientCentralPanel;
+import Inventory.UserManagementPanel;
 import Login_Startup.Login;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,12 +16,13 @@ import javax.swing.*;
 
 public class Admin_Sidebar extends JPanel implements ActionListener{
 
-    private JButton btnDashboard, btnAppointment, btnReport, btnLogout;
+    private JButton btnDashboard, btnUManagement, btnPInfo, btnAppointment, btnInventory, btnIManagement, btnLogistics, btnReport, btnLogout;
     private Admin_SideBarFrame navPage;
     
     public Admin_Sidebar(Admin_SideBarFrame navPage) {
         this.navPage = navPage;
         setLayout(null);
+        
         //Left Sidebar
         JPanel leftSidebar = new JPanel();
         leftSidebar.setLayout(null);
@@ -37,71 +42,19 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         lblLogoTitle.setFont(new Font("Calibri", Font.ITALIC, 28));
         leftSidebar.add(lblLogoTitle);
         
-        btnDashboard = new JButton("Dashboard");
-        btnDashboard.setLayout(null);
-        btnDashboard.setBounds(20, 260, 260, 45);
-        btnDashboard.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnDashboard.setForeground(Color.WHITE);
-        btnDashboard.setBackground(darkBlue);
-        btnDashboard.setBorderPainted(false);
-        btnDashboard.setFocusPainted(false);
-        btnDashboard.setContentAreaFilled(true);
-        btnDashboard.setOpaque(true);
-        btnDashboard.setHorizontalAlignment(SwingConstants.LEFT);
-        btnDashboard.setMargin(new Insets(0, 10, 0, 0));
+        btnDashboard = btnSideBar("Dashboard", 20, 260, 260, 45, darkBlue);
         leftSidebar.add(btnDashboard);
         
-        JButton btnUManagement = new JButton("User Management");
-        btnUManagement.setLayout(null);
-        btnUManagement.setBounds(20, 320, 260, 45);
-        btnUManagement.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnUManagement.setForeground(Color.WHITE);
-        btnUManagement.setBackground(darkBlue);
-        btnUManagement.setBorderPainted(false);
-        btnUManagement.setFocusPainted(false);
-        btnUManagement.setContentAreaFilled(true);
-        btnUManagement.setOpaque(true);
-        btnUManagement.setHorizontalAlignment(SwingConstants.LEFT);
-        btnUManagement.setMargin(new Insets(0, 10, 0, 0));
+        btnUManagement = btnSideBar("User Management", 20, 320, 260,45, darkBlue);
         leftSidebar.add(btnUManagement);
         
-        JButton btnPInfo = new JButton("Patient Central");
-        btnPInfo.setBounds(20, 380, 260, 45);
-        btnPInfo.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnPInfo.setForeground(Color.WHITE);
-        btnPInfo.setBackground(darkBlue);
-        btnPInfo.setBorderPainted(false);
-        btnPInfo.setFocusPainted(false);
-        btnPInfo.setContentAreaFilled(false);
-        btnPInfo.setOpaque(true);
-        btnPInfo.setHorizontalAlignment(SwingConstants.LEFT);
-        btnPInfo.setMargin(new Insets(0, 10, 0, 0));
+        btnPInfo = btnSideBar("Patient Central", 20, 380, 260, 45, darkBlue);
         leftSidebar.add(btnPInfo);
         
-        btnAppointment = new JButton("Appointment");
-        btnAppointment.setBounds(20, 440, 260, 45);
-        btnAppointment.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnAppointment.setForeground(Color.WHITE);
-        btnAppointment.setBackground(darkBlue);
-        btnAppointment.setBorderPainted(false);
-        btnAppointment.setFocusPainted(false);
-        btnAppointment.setContentAreaFilled(false);
-        btnAppointment.setOpaque(true);
-        btnAppointment.setHorizontalAlignment(SwingConstants.LEFT);
-        btnAppointment.setMargin(new Insets(0, 10, 0, 0));
+        btnAppointment = btnSideBar("Appointment", 20, 440, 260, 45, darkBlue);
         leftSidebar.add(btnAppointment);
         
-        JButton btnInventory = new JButton("Inventory  +");
-        btnInventory.setBounds(20, 500, 260, 45);
-        btnInventory.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnInventory.setForeground(Color.WHITE);
-        btnInventory.setBackground(darkBlue);
-        btnInventory.setBorderPainted(false);
-        btnInventory.setFocusPainted(false);
-        btnInventory.setContentAreaFilled(false);
-        btnInventory.setOpaque(true);
-        btnInventory.setHorizontalAlignment(SwingConstants.LEFT);
-        btnInventory.setMargin(new Insets(0, 10, 0, 0));
+        btnInventory = btnSideBar("Inventory  +", 20, 500, 260, 45, darkBlue);
         leftSidebar.add(btnInventory);
         
         JPanel pnlInventory = new JPanel();
@@ -114,33 +67,19 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         String[] InventoryOptions = {"Inventory Management", "Logistics"};
         int InveOption = 0;
         for (String InventoryOp : InventoryOptions) {
-            JButton btnPOptions = new JButton(InventoryOp);
-            btnPOptions.setBounds(0, InveOption, 240, 35);
-            btnPOptions.setForeground(Color.WHITE);
-            btnPOptions.setBackground(darkBlue);
-            btnPOptions.setFont(new Font("Calibri", Font.BOLD, 18));
-            btnPOptions.setBorderPainted(false);
-            btnPOptions.setFocusPainted(false);
-            btnPOptions.setContentAreaFilled(false);
-            btnPOptions.setOpaque(true);
-            btnPOptions.setHorizontalAlignment(SwingConstants.LEFT);
-            btnPOptions.setMargin(new Insets(0, 10, 0, 0));
+            JButton btnPOptions = btnInve(InventoryOp, 0, InveOption, 240, 35);
             pnlInventory.add(btnPOptions);
+            
+            if(InventoryOp.equals("Inventory Management")) {
+                btnIManagement = btnPOptions;
+            } else if (InventoryOp.equals("Logistics")) {
+                btnLogistics = btnPOptions;
+            }
+            
             InveOption += 40;
         }
         
-        btnReport = new JButton("Report & Documents");
-        btnReport.setLayout(null);
-        btnReport.setBounds(20, 560, 260, 45);
-        btnReport.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnReport.setForeground(Color.WHITE);
-        btnReport.setBackground(darkBlue);
-        btnReport.setBorderPainted(false);
-        btnReport.setFocusPainted(false);
-        btnReport.setContentAreaFilled(false);
-        btnReport.setOpaque(true);
-        btnReport.setHorizontalAlignment(SwingConstants.LEFT);
-        btnReport.setMargin(new Insets(0, 10, 0, 0));
+        btnReport = btnSideBar("Report & Documents", 20, 560, 260, 45, darkBlue);
         leftSidebar.add(btnReport);
         
         btnInventory.addActionListener(e -> {
@@ -160,18 +99,8 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
             leftSidebar.revalidate();
         });
 
-        JButton btnAppearance = new JButton("Appearance");
-        btnAppearance.setLayout(null);
-        btnAppearance.setBounds(20, 830, 260, 45);
-        btnAppearance.setFont(new Font("Calibri", Font.BOLD, 20));
-        btnAppearance.setForeground(Color.WHITE);
-        btnAppearance.setBackground(darkBlue);
-        btnAppearance.setBorderPainted(false);
-        btnAppearance.setFocusPainted(false);
-        btnAppearance.setContentAreaFilled(false);
-        btnAppearance.setOpaque(true);
-        btnAppearance.setHorizontalAlignment(SwingConstants.LEFT);
-        btnAppearance.setMargin(new Insets(0, 10, 0, 0));
+        // For show only
+        JButton btnAppearance = btnSideBar("Appearance", 20, 830, 260, 45, darkBlue);
         leftSidebar.add(btnAppearance);
         
         JRadioButton rbtnDarkMode = new JRadioButton("Dark Mode");
@@ -182,24 +111,17 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         rbtnDarkMode.setOpaque(true);
         leftSidebar.add(rbtnDarkMode);
         
-        btnLogout = new JButton("Logout");
-        btnLogout.setBounds(20, 930, 260, 45);
-        btnLogout.setFont(new Font("Calibri", Font.BOLD, 18));
-        btnLogout.setForeground(Color.BLACK);
-        btnLogout.setBackground(veryLightBlue);
-        btnLogout.setBorderPainted(false);
-        btnLogout.setFocusPainted(false);
-        btnLogout.setContentAreaFilled(true);
-        btnLogout.setOpaque(true);
-        btnLogout.setHorizontalAlignment(SwingConstants.CENTER);
+        btnLogout = btnLog("Logout", 20, 930, 260, 45, veryLightBlue);
         leftSidebar.add(btnLogout);
         
         btnDashboard.addActionListener(this);
+        btnPInfo.addActionListener(this);
+        btnUManagement.addActionListener(this);
+        btnIManagement.addActionListener(this);
+        btnLogistics.addActionListener(this);
         btnAppointment.addActionListener(this);
         btnReport.addActionListener(this);
-        btnLogout.addActionListener(this);
-        
-        
+        btnLogout.addActionListener(this);   
     }
 
     @Override
@@ -219,12 +141,64 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
             }
         } else if (ae.getSource() == btnDashboard) {
             navPage.turnPage(new Admin_Dashboard());
+        } else if (ae.getSource() == btnUManagement) {
+            navPage.turnPage(new UserManagementPanel());
+        } else if (ae.getSource() == btnPInfo) {
+            navPage.turnPage(new PatientCentralPanel());
         } else if (ae.getSource() == btnAppointment) {
             navPage.turnPage(new Admin_SchedAppointment());
+        } else if (ae.getSource() == btnIManagement) {
+            navPage.turnPage(new InventoryPanel());
+        } else if (ae.getSource() == btnLogistics) {
+            navPage.turnPage(new LogisticsPanel());
         } else if (ae.getSource() == btnReport) {
             navPage.turnPage(new Admin_Reports());
         }
     } 
 
-}
+    private JButton btnSideBar(String text, int x, int y, int wid, int hei, Color darkblue) {
+        JButton btnDesign = new JButton(text);
+        btnDesign.setBounds(x, y, wid, hei);
+        btnDesign.setFont(new Font("Calibri", Font.BOLD, 20));
+        btnDesign.setForeground(Color.WHITE);
+        btnDesign.setBackground(darkblue);
+        btnDesign.setBorderPainted(false);
+        btnDesign.setFocusPainted(false);
+        btnDesign.setContentAreaFilled(false);
+        btnDesign.setOpaque(true);
+        btnDesign.setHorizontalAlignment(SwingConstants.LEFT);
+        btnDesign.setMargin(new Insets(0, 10, 0, 0));
+        return btnDesign;
+    }
     
+    private JButton btnInve(String text, int x, int y, int wid, int hei) {
+            JButton btnPOptions = new JButton(text);
+            btnPOptions.setBounds(x, y, wid, hei);
+            btnPOptions.setForeground(Color.WHITE);
+            btnPOptions.setBackground(darkBlue);
+            btnPOptions.setFont(new Font("Calibri", Font.BOLD, 18));
+            btnPOptions.setBorderPainted(false);
+            btnPOptions.setFocusPainted(false);
+            btnPOptions.setContentAreaFilled(false);
+            btnPOptions.setOpaque(true);
+            btnPOptions.setHorizontalAlignment(SwingConstants.LEFT);
+            btnPOptions.setMargin(new Insets(0, 10, 0, 0));
+            return btnPOptions;
+    }
+    
+    private JButton btnLog(String text, int x, int y, int wid, int hei, Color veryLightBlue) {
+        JButton btnLout = new JButton(text);
+        btnLout.setBounds(x, y, wid, hei);
+        btnLout.setFont(new Font("Calibri", Font.BOLD, 20));
+        btnLout.setForeground(Color.BLACK);
+        btnLout.setBackground(veryLightBlue);
+        btnLout.setBorderPainted(false);
+        btnLout.setFocusPainted(false);
+        btnLout.setContentAreaFilled(false);
+        btnLout.setOpaque(true);
+        btnLout.setHorizontalAlignment(SwingConstants.CENTER);
+        btnLout.setMargin(new Insets(0, 10, 0, 0));
+        return btnLout;
+    }
+    
+}

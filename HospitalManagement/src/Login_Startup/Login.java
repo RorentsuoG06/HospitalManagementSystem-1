@@ -35,8 +35,8 @@ public class Login extends JFrame implements ActionListener{
         
         JPanel pnlLogin = new JPanel();
         pnlLogin.setLayout(null);
-        pnlLogin.setBounds(700, 340, 520, 400);
-        pnlLogin.setBackground(new Color(245, 245, 245, 235));
+        pnlLogin.setBounds(700, 250, 520, 500);
+        pnlLogin.setBackground(Color.WHITE);
         pnlLogin.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(borderLBLUE, 1, true),
             BorderFactory.createEmptyBorder(20, 20, 20, 20)
@@ -49,31 +49,37 @@ public class Login extends JFrame implements ActionListener{
 
         lblbackground.add(pnlLogin);
         
-        JLabel lblTitle = new JLabel("eTriage | Hospital Management System", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Calibri", Font.BOLD, 28));
-        lblTitle.setBounds(20, 30, 480, 40);
-        lblTitle.setForeground(new Color(57, 90, 127));
+        ImageIcon imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
+        Image imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        JLabel lblLogo = new JLabel(new ImageIcon(imgbg));
+        lblLogo.setBounds(170, 30, 180, 180);
+        pnlLogin.add(lblLogo);
+        
+        JLabel lblTitle = new JLabel("eTriage", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("Calibri", Font.ITALIC, 24));
+        lblTitle.setBounds(20, 170, 480, 40);
+        lblTitle.setForeground(Color.BLACK);
         pnlLogin.add(lblTitle);
         
         JLabel lblUser = new JLabel("Username: ");
         lblUser.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblUser.setBounds(80, 130, 120, 30);
+        lblUser.setBounds(80, 230, 120, 30);
         pnlLogin.add(lblUser);
         
         txtUsername = new JTextField();
-        txtUsername.setBounds(200, 130, 240, 35);
+        txtUsername.setBounds(200, 230, 240, 35);
         txtUsername.setBackground(LightGray);
-        txtUsername.setFont(new Font("Calibri", Font.PLAIN, 16));
         txtUsername.setBorder(createInputBorder());
+        txtUsername.setFont(new Font("Calibri", Font.PLAIN, 16));
         pnlLogin.add(txtUsername);
 
         JLabel lblPass = new JLabel("Password:");
         lblPass.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblPass.setBounds(80, 190, 120, 30);
+        lblPass.setBounds(80, 290, 120, 30);
         pnlLogin.add(lblPass);
 
         txtPassword = new JPasswordField();
-        txtPassword.setBounds(200, 190, 240, 35);
+        txtPassword.setBounds(200, 290, 240, 35);
         txtPassword.setBackground(LightGray);
         txtPassword.setFont(new Font("Calibri", Font.PLAIN, 16));
         txtPassword.setBorder(createInputBorder());
@@ -82,12 +88,12 @@ public class Login extends JFrame implements ActionListener{
         lblForgot = new JLabel("Forgot Password?");
         lblForgot.setFont(new Font("Calibri", Font.PLAIN, 16));
         lblForgot.setForeground(Color.BLUE);
-        lblForgot.setBounds(260, 240, 200, 30);
+        lblForgot.setBounds(260, 350, 200, 30);
         lblForgot.setCursor(new Cursor(Cursor.HAND_CURSOR));
         pnlLogin.add(lblForgot);
 
         btnLogin = new JButton("LOGIN");
-        btnLogin.setBounds(240, 290, 150, 45);
+        btnLogin.setBounds(240, 400, 150, 45);
         btnLogin.setBackground(darkBlue);
         btnLogin.setFocusPainted(false);
         btnLogin.setBorderPainted(false);

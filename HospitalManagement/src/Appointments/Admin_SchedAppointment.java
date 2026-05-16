@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +18,11 @@ import javax.swing.table.JTableHeader;
 public class Admin_SchedAppointment extends JPanel implements ActionListener{
 
     private JPanel pnlMain;
+    private DefaultTableModel tblModel;
+    private JTextField txtPatient, txtDoc, txtTreatment;
+    private JTable tblAppoint;
+    private JLabel lblTPatient, lblUCases, lblPAppointments;
+    private JButton btnAdd, btnRef, btnAdmit, btnCom, btnUr, btnRev;
     
     public Admin_SchedAppointment() {
         setLayout(null);
@@ -30,384 +35,220 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
-        JPanel pnlPatients = new JPanel();
-        pnlPatients.setLayout(null);
-        pnlPatients.setBounds(30, 30, 250, 40);
-        pnlPatients.setBackground(Blue);
-        pnlMain.add(pnlPatients);
+        JLabel lblTitle = new JLabel("Appointment Dashboard");
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 24));
+        lblTitle.setForeground(Color.BLACK);
+        lblTitle.setBounds(30, 20, 400, 40);
+        pnlMain.add(lblTitle);
         
-        JLabel lblPatients = new JLabel("150 Today's Patients", SwingConstants.CENTER);
-        lblPatients.setBounds(0, 0, 250, 40);
-        lblPatients.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblPatients.setForeground(Color.WHITE);
-        pnlPatients.add(lblPatients);
+        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
+        lblDT.setForeground(Color.darkGray);
+        lblDT.setBounds(1390, 20, 400, 40);
+        pnlMain.add(lblDT);
         
-        JPanel pnlAvail = new JPanel();
-        pnlAvail.setLayout(null);
-        pnlAvail.setBounds(290, 30, 250, 40);
-        pnlAvail.setBackground(Green);
-        pnlMain.add(pnlAvail);
-        
-        JLabel lblAvail = new JLabel("4 Doctor's Available", SwingConstants.CENTER);
-        lblAvail.setBounds(0, 0, 250, 40);
-        lblAvail.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblAvail.setForeground(Color.BLACK);
-        pnlAvail.add(lblAvail);
-        
-        JPanel pnlUrgent = new JPanel();
-        pnlUrgent.setLayout(null);
-        pnlUrgent.setBounds(560, 30, 250, 40);
-        pnlUrgent.setBackground(LightRed);
-        pnlMain.add(pnlUrgent);
-        
-        JLabel lblUrgent = new JLabel("6 Urgent Cases", SwingConstants.CENTER);
-        lblUrgent.setBounds(0, 0, 250, 40);
-        lblUrgent.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblUrgent.setForeground(Color.BLACK);
-        pnlUrgent.add(lblUrgent);
-        
-        JPanel pnlApp = new JPanel();
-        pnlApp.setLayout(null);
-        pnlApp.setBounds(830, 30, 250, 40);
-        pnlApp.setBackground(Yellow);
-        pnlMain.add(pnlApp);
-        
-        JLabel lblApp = new JLabel("18 Pending Appointments", SwingConstants.CENTER);
-        lblApp.setBounds(0, 0, 250, 40);
-        lblApp.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblApp.setForeground(Color.BLACK);
-        pnlApp.add(lblApp);
+        JPanel tabPatients = createTab("Today's Patients", "0", Blue);
+        tabPatients.setBounds(30, 80, 250, 100);
+        pnlMain.add(tabPatients);
+        lblTPatient = (JLabel) tabPatients.getComponent(1);
+
+        JPanel tabUrgent = createTab("Urgent Cases", "0", LightRed);
+        tabUrgent.setBounds(300, 80, 250, 100);
+        pnlMain.add(tabUrgent);
+        lblUCases = (JLabel) tabUrgent.getComponent(1);
+
+        JPanel tabPending = createTab("Pending Appointments", "0", Yellow);
+        tabPending.setBounds(570, 80, 250, 100);
+        pnlMain.add(tabPending);
+        lblPAppointments = (JLabel) tabPending.getComponent(1);
         
         JPanel pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
-        pnlSelection.setBounds(70, 100, 1500, 230);
         pnlSelection.setBackground(Color.WHITE);
+        pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
+        pnlSelection.setBounds(30, 210, 1130, 80);
         pnlMain.add(pnlSelection);
         
-        JLabel pnlSelectTitle = new JLabel("Appointment Details Panel");
-        pnlSelectTitle.setBounds(20, 10, 300, 40);
-        pnlSelectTitle.setFont(new Font("Calibri", Font.BOLD, 22));
-        pnlSelectTitle.setForeground(Color.BLACK);
-        pnlSelection.add(pnlSelectTitle);
+        JLabel lblPatient = new JLabel("Patient: ");
+        lblPatient.setBounds(15, 28, 80, 25);
+        lblPatient.setFont(new Font("Calibri", Font.BOLD, 16));
+        pnlSelection.add(lblPatient);
         
-        JLabel pnlSelectText= new JLabel("Choose an option to see appointment information.");
-        pnlSelectText.setBounds(20, 40, 450, 40);
-        pnlSelectText.setFont(new Font("Calibri", Font.PLAIN, 18));
-        pnlSelectText.setForeground(Color.BLACK);
-        pnlSelection.add(pnlSelectText);
+        txtPatient = new JTextField();
+        txtPatient.setBounds(80, 26, 150, 28);
+        pnlSelection.add(txtPatient);
         
-        JPanel pnlQuickStats = new JPanel();
-        pnlQuickStats.setLayout(null);
-        pnlQuickStats.setBounds(130, 90, 300, 120);
-        pnlQuickStats.setBackground(Color.WHITE);
-        pnlQuickStats.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlSelection.add(pnlQuickStats);
+        JLabel lblDoc = new JLabel("Doctor: ");
+        lblDoc.setBounds(260, 28, 80, 25);
+        lblDoc.setFont(new Font("Calibri", Font.BOLD, 16));
+        pnlSelection.add(lblDoc);
         
-        JLabel lblQSTitle = new JLabel("Quick Stats");
-        lblQSTitle.setBounds(20, 20, 200, 20);
-        lblQSTitle.setFont(new Font("Calibri", Font.BOLD, 20));
-        lblQSTitle.setForeground(Color.BLACK);
-        pnlQuickStats.add(lblQSTitle);
+        txtDoc = new JTextField();
+        txtDoc.setBounds(320, 26, 150, 28);
+        pnlSelection.add(txtDoc);
         
-        JLabel lblQSSubtitle = new JLabel("View patient and appointment summary.");
-        lblQSSubtitle.setBounds(20, 50, 300, 25);
-        lblQSSubtitle.setFont(new Font("Calibri", Font.PLAIN, 16));
-        lblQSSubtitle.setForeground(Color.DARK_GRAY);
-        pnlQuickStats.add(lblQSSubtitle);
+        JLabel lblTreatment = new JLabel("Treatment: ");
+        lblTreatment.setBounds(500, 28, 100, 25);
+        lblTreatment.setFont(new Font("Calibri", Font.BOLD, 16));
+        pnlSelection.add(lblTreatment);
         
-        JPanel pnlUpcoming = new JPanel();
-        pnlUpcoming.setLayout(null);
-        pnlUpcoming.setBounds(440, 90, 300, 120);
-        pnlUpcoming.setBackground(Color.WHITE);
-        pnlUpcoming.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlSelection.add(pnlUpcoming);
+        txtTreatment = new JTextField();
+        txtTreatment.setBounds(580, 26, 150, 28);
+        pnlSelection.add(txtTreatment);
         
-        JLabel lblUpTitle = new JLabel("Upcoming Appointments");
-        lblUpTitle.setBounds(20, 20, 250, 20);
-        lblUpTitle.setFont(new Font("Calibri", Font.BOLD, 20));
-        lblUpTitle.setForeground(Color.BLACK);
-        pnlUpcoming.add(lblUpTitle);
+        btnAdd = new JButton("Add Appointment");
+        btnAdd.setBounds(760, 22, 150, 35);
+        btnAdd.setBackground(Green);
+        btnAdd.setForeground(Color.WHITE);
+        btnAdd.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnAdd.addActionListener(e -> addAppointment());
+        pnlSelection.add(btnAdd);
         
-        JLabel lblUpSubtitle = new JLabel("See upcoming visits today.");
-        lblUpSubtitle.setBounds(20, 50, 250, 25);
-        lblUpSubtitle.setFont(new Font("Calibri", Font.PLAIN, 16));
-        lblUpSubtitle.setForeground(Color.DARK_GRAY);
-        pnlUpcoming.add(lblUpSubtitle);
+        btnRef = new JButton("Refresh");
+        btnRef.setBounds(940, 20, 150, 35);
+        btnRef.setBackground(Blue);
+        btnRef.setForeground(Color.WHITE);
+        btnRef.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnRef.addActionListener(e -> RefreshApp());
+        pnlSelection.add(btnRef);
         
-        JPanel pnlAlerts = new JPanel();
-        pnlAlerts.setLayout(null);
-        pnlAlerts.setBounds(750, 90, 300, 120);
-        pnlAlerts.setBackground(Color.WHITE);
-        pnlAlerts.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlSelection.add(pnlAlerts);
+        String[] clm = {"Patient", "Doctor", "Treatment", "Status"};
+        tblModel = new DefaultTableModel(clm, 0);
+        tblAppoint = new JTable(tblModel);
+        tblAppoint.setRowHeight(35);
+        tblAppoint.setFont(new Font("Calibri", Font.PLAIN, 16));
+        tblAppoint.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 18));
+        tblAppoint.getTableHeader().setBackground(lightBlue);
         
-        JLabel lblAlertsTitle = new JLabel("Alerts & Notifications");
-        lblAlertsTitle.setBounds(20, 20, 250, 20);
-        lblAlertsTitle.setFont(new Font("Calibri", Font.BOLD, 20));
-        lblAlertsTitle.setForeground(Color.BLACK);
-        pnlAlerts.add(lblAlertsTitle);
+        JScrollPane srcApp = new JScrollPane(tblAppoint);
+        srcApp.setBounds(30, 310, 1560, 530);
+        pnlMain.add(srcApp);
         
-        JLabel lblAlertsSubtitle = new JLabel("Check urgent reminders.");
-        lblAlertsSubtitle.setBounds(20, 50, 300, 16);
-        lblAlertsSubtitle.setFont(new Font("Calibri", Font.PLAIN, 16));
-        lblAlertsSubtitle.setForeground(Color.DARK_GRAY);
-        pnlAlerts.add(lblAlertsSubtitle);
+        JPanel pnlBot = new JPanel();
+        pnlBot.setLayout(null);
+        pnlBot.setBounds(30, 860, 1560, 50);
+        pnlBot.setBackground(Color.WHITE);
+        pnlBot.setBorder(BorderFactory.createLineBorder(borderLBLUE));
+        pnlMain.add(pnlBot);
         
-        JPanel pnlAvail2 = new JPanel();
-        pnlAvail2.setLayout(null);
-        pnlAvail2.setBounds(1070, 90, 300, 120);
-        pnlAvail2.setBackground(Color.WHITE);
-        pnlAvail2.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlSelection.add(pnlAvail2);
+        btnAdmit = new JButton("Admit");
+        btnAdmit.setBounds(20, 15, 120, 30);
+        btnAdmit.setBackground(darkBlue);
+        btnAdmit.setForeground(Color.WHITE);
+        btnAdmit.addActionListener(e -> updateStatus("Admitted"));
+        pnlBot.add(btnAdmit);
         
-        JLabel lblAvailTitle = new JLabel("Doctor Availability");
-        lblAvailTitle.setBounds(20, 20, 250, 20);
-        lblAvailTitle.setFont(new Font("Calibri", Font.BOLD, 20));
-        lblAvailTitle.setForeground(Color.BLACK);
-        pnlAvail2.add(lblAvailTitle);
+        btnCom = new JButton("Complete");
+        btnCom.setBounds(160, 15, 120, 30);
+        btnCom.setBackground(Blue);
+        btnCom.setForeground(Color.WHITE);
+        btnCom.addActionListener(e -> updateStatus("Complete"));
+        pnlBot.add(btnCom);
         
-        JLabel lblAvailSubtitle = new JLabel("Check doctor schedules.");
-        lblAvailSubtitle.setBounds(20, 50, 250, 20);
-        lblAvailSubtitle.setFont(new Font("Calibri", Font.PLAIN, 16));
-        lblAvailSubtitle.setForeground(Color.DARK_GRAY);
-        pnlAvail2.add(lblAvailSubtitle);
+        btnUr = new JButton("Urgent");
+        btnUr.setBounds(300, 15, 120, 30);
+        btnUr.setBackground(LightRed);
+        btnUr.setForeground(Color.WHITE);
+        btnUr.addActionListener(ee -> updateStatus("Urgent"));
+        pnlBot.add(btnUr);
         
-        JPanel pnlDepart = new JPanel(); 
-        pnlDepart.setLayout(null); 
-        pnlDepart.setBounds(70, 350, 1500, 50); 
-        pnlDepart.setBackground(Color.WHITE); 
-        pnlMain.add(pnlDepart); 
+        btnRev = new JButton("Remove");
+        btnRev.setBounds(300, 15, 120, 30);
+        btnRev.setBackground(LightRed);
+        btnRev.setForeground(Color.WHITE);
+        btnRev.addActionListener(ee -> RemoveApp());
+        pnlBot.add(btnRev);
         
-        JLabel lblDepart = new JLabel("Doctor Department:"); 
-        lblDepart.setBounds(40, 13, 200, 30); 
-        lblDepart.setFont(new Font("Calibri", Font.BOLD, 22)); 
-        pnlDepart.add(lblDepart); 
-        String[] departments = { "Department: All", "General Medicine", "Pediatrics", "Internal Medicine", "Cardiology", 
-                                 "Endocrinology", "Gastroenterology", "Neurology", "Pulmonology", "Nephrology", "Orthopedics", 
-                                 "Surgery", "Physical Therapy", "Rehabilitation", "Ophthalmology", "ENT", "Dermatology", "OB-GYN", 
-                                 "Family Medicine", "Psychiatry", "Emergency", "Dentistry", "Radiology", "Anesthesiology"}; 
+        addSampData();
+    }
+    
+    private JPanel createTab(String title, String value, Color color) {
+       JPanel tab = new JPanel();
+       tab.setLayout(null);
+       tab.setBackground(color);
+       
+       JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblTitle.setForeground(Color.WHITE);
+        lblTitle.setBounds(20, 20, 200, 25);
+        tab.add(lblTitle);
         
-        JComboBox<String> cmbDepart = new JComboBox<>(departments); 
-        cmbDepart.setFont(new Font("Calibri", Font.PLAIN, 16)); 
-        cmbDepart.setBounds(240, 10, 300, 30); 
-        pnlDepart.add(cmbDepart); 
+        JLabel lblValue = new JLabel(value);
+        lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
+        lblValue.setForeground(Color.WHITE);
+        lblValue.setBounds(20, 50, 200, 40);
+        tab.add(lblValue);
         
-        String[] status = { "Status: All", "Available", "In Consultation", 
-            "Waiting for Patient", "Fully Booked", "On Break", "On Leave", 
-            "Off Duty", "Emergency Handling"}; 
+        return tab;
+    }
+    
+    private void addAppointment() {
+        String patient = txtPatient.getText().trim();
+        String doctor = txtDoc.getText().trim();
+        String treatment = txtTreatment.getText().trim();
         
-        JComboBox<String> cmbstatus = new JComboBox<>(status); 
-        cmbstatus.setFont(new Font("Calibri", Font.PLAIN, 16)); 
-        cmbstatus.setBounds(560, 10, 300, 30); 
-        pnlDepart.add(cmbstatus); 
+        if (patient.isEmpty() || doctor.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter Patient and Doctor.");
+            return;
+        }
         
-        String[] dateOptions = { "Date: All", "Today", "Tomorrow", "This Week", "Next Week"}; 
+        tblModel.addRow(new Object[]{patient, doctor, treatment, "Pending"});
+        txtPatient.setText("");
+        txtDoc.setText("");
+        txtTreatment.setText("");
+        updateSummary();
+    }
+    
+    private void RefreshApp() {
+        tblModel.setRowCount(0);
+        addSampData();
+        JOptionPane.showMessageDialog(this, "Table refreshed!");
+    }
+    
+    private void updateStatus(String status) {
+        int row = tblAppoint.getSelectedRow();
+        if (row >= 0) {
+            tblModel.setValueAt(status, row, 3);
+            updateSummary();
+        } else {
+            JOptionPane.showMessageDialog(this, "Select an Appointment.");
+        }
+    }
+    
+    private void RemoveApp() {
+        int row = tblAppoint.getSelectedRow();
+        if (row >= 0) {
+            tblModel.removeRow(row);
+            updateSummary();
+        }
+    }
+    
+    private void updateSummary() {
+        int total = tblModel.getRowCount();
+        int urgent = 0, pending = 0;
+        for (int i = 0; i < total; i++) {
+            String status = tblModel.getValueAt(i, 3).toString();
+            if (status.equals("Urgent")) urgent++;
+            if (status.equals("Pending")) pending++;
+        }
+        lblTPatient.setText(String.valueOf(total));
+        lblUCases.setText(String.valueOf(urgent));
+        lblPAppointments.setText(String.valueOf(pending));
+    }
+    
+    private void addSampData() {
+        tblModel.addRow(new Object[]{"Maria Santos", "Dr. Reyes", "Cardiac", "Pending"});
+        tblModel.addRow(new Object[]{"Daniel Cruz", "Dr. Villanueva", "Orthopedia", "Pending"});
+        tblModel.addRow(new Object[]{"Angela Ramirez", "Dr. Delgado", "Diabetes", "Pending"});
+        tblModel.addRow(new Object[]{"Roberto Garcia", "Dr. Mendoza", "Dental", "Pending"});
+        tblModel.addRow(new Object[]{"Melvin Mallon", "Dr. Santiago", "General", "Pending"});
+        tblModel.addRow(new Object[]{"Joshua Garcia", "Dr. Santiago", "General", "Pending"});
         
-        JComboBox<String> cmbDate = new JComboBox<>(dateOptions); 
-        cmbDate.setFont(new Font("Calibri", Font.PLAIN, 16)); 
-        cmbDate.setBounds(880, 10, 300, 30); 
-        pnlDepart.add(cmbDate);
-        
-        JButton btnClear = new JButton("Clear");
-        btnClear.setBounds(1200, 10, 130, 30);
-        btnClear.setFont(new Font("Calibri", Font.BOLD, 18));
-        btnClear.setBackground(lightBlue);
-        btnClear.setFocusPainted(false);
-        pnlDepart.add(btnClear);
-        
-        JButton btnRef = new JButton("Refresh");
-        btnRef.setBounds(1350, 10, 130, 30);
-        btnRef.setFont(new Font("Calibri", Font.BOLD, 18));
-        btnRef.setBackground(lightBlue);
-        btnRef.setFocusPainted(false);
-        pnlDepart.add(btnRef);
-        
-        JPanel pnlDoctor = new JPanel();
-        pnlDoctor.setLayout(null);
-        pnlDoctor.setBounds(70, 420, 1500, 480);
-        pnlDoctor.setBackground(Color.WHITE);
-        pnlMain.add(pnlDoctor);
-        
-        JButton btnPatientApp = new JButton("Patient Appointments");
-        btnPatientApp.setBounds(20, 10, 220, 40);
-        btnPatientApp.setFont(new Font("Calibri", Font.BOLD, 18));
-        btnPatientApp.setBackground(darkBlue);
-        btnPatientApp.setForeground(Color.WHITE);
-        pnlDoctor.add(btnPatientApp);
-
-        JButton btnDoctorAvail = new JButton("Doctor Availability");
-        btnDoctorAvail.setBounds(250, 10, 220, 40);
-        btnDoctorAvail.setFont(new Font("Calibri", Font.BOLD, 18));
-        pnlDoctor.add(btnDoctorAvail);
-        
-        JButton btnSave = new JButton("Save");
-        btnSave.setBounds(1360, 10, 120, 40);
-        btnSave.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnSave.setBackground(darkBlue);
-        btnSave.setForeground(Color.WHITE);
-        btnSave.setFocusPainted(false);
-        pnlDoctor.add(btnSave);
-        
-        JPanel pnlTableContainer = new JPanel();
-        pnlTableContainer.setLayout(null);
-        pnlTableContainer.setBounds(20, 60, 1460, 400);
-        pnlDoctor.add(pnlTableContainer);
-
-                Runnable showPatientTable = () -> {
-            pnlTableContainer.removeAll();
-
-            String[] clmPatient = {
-                "Patient ID", "Patient Name", "Doctor",
-                "Treatment", "Status", "Action"
-            };
-
-            String[][] rwPatient = {
-                {"10021", "Maria Santos", "Dr. Reyes", "Cardiac", "Pending", "Waiting"},
-                {"10022", "Daniel Cruz", "Dr. Villanueva", "Orthopedia", "Pending", "Available"},
-                {"10023", "Angela Ramirez", "Dr. Delgado", "Diabetes", "Complete", "Done"},
-                {"10024", "Roberto Garcia", "Dr. Mendoza", "Dental", "Complete", "Done"},
-                {"10025", "Elena Cruz", "Dr. Santiago", "General", "Urgent", "Priority"}
-            };
-
-            JTable tblPatient = new JTable(rwPatient, clmPatient);
-            tblPatient.setRowHeight(30);
-            tblPatient.setFont(new Font("Calibri", Font.PLAIN, 16));
-
-            String[] patientStatuses = {"Select Status: ", "Pending", "Complete", "Urgent", "Cancelled", "Rescheduled"};
-            
-            JComboBox<String> cmbPatientStatus = new JComboBox<>(patientStatuses);
-            tblPatient.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(cmbPatientStatus));
-            
-            tblPatient.getColumnModel().getColumn(4).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-
-            JLabel lblStatus = new JLabel(value.toString(), SwingConstants.CENTER);
-            lblStatus.setOpaque(true);
-            lblStatus.setFont(new Font("Calibri", Font.BOLD, 14));
-
-            switch (value.toString()) {
-                case "Pending":
-                    lblStatus.setBackground(PaleYellow);
-                    break;
-                case "Complete":
-                    lblStatus.setBackground(MintGreen);
-                    break;
-                case "Urgent":
-                    lblStatus.setBackground(SoftPink);
-                    break;
-                case "Cancelled":
-                    lblStatus.setBackground(Teal);
-                    break;
-                case "Rescheduled":
-                    lblStatus.setBackground(Lavender);
-                    break;
-                default:
-                    lblStatus.setBackground(Color.WHITE);
-            }
-
-                    if (isSelected) {
-                        lblStatus.setBackground(veryLightBlue);
-                    }
-
-                    return lblStatus;
-                });
-            
-            JScrollPane scrPatient = new JScrollPane(tblPatient);
-            scrPatient.setBounds(0, 0, 1460, 400);
-            
-            pnlTableContainer.add(scrPatient);
-            pnlTableContainer.revalidate();
-            pnlTableContainer.repaint();
-        };
-
-        Runnable showDoctorTable = () -> {
-            pnlTableContainer.removeAll();
-
-            String[] clmDoctor = {
-                "Doctor Name", "Department", "Status",
-                "Shift", "Appointments", "Next Available", "Room"
-            };
-
-            String[][] rwDoctor = {
-                {"Dr. Reyes", "Cardiology", "Available", "8AM-4PM", "3", "11:15 AM", "201"},
-                {"Dr. Villanueva", "Orthopedics", "Busy", "9AM-5PM", "6", "2:30 PM", "305"},
-                {"Dr. Delgado", "Endocrinology", "Fully Booked", "8AM-2PM", "8", "-", "210"},
-                {"Dr. Santos", "General", "On Leave", "-", "0", "-", "-"},
-                {"Dr. Mendoza", "Dentistry", "Available", "10AM-6PM", "2", "4:45 PM", "110"}
-            };
-
-            JTable tblDoctor = new JTable(rwDoctor, clmDoctor);
-            tblDoctor.setRowHeight(30);
-            tblDoctor.setFont(new Font("Calibri", Font.PLAIN, 16));
-
-            String[] doctorStatuses = {"Select Status: ", "Available", "Busy", "Fully Booked", "On Leave", "Off Duty"};
-            JComboBox<String> cmbDoctorStatus = new JComboBox<>(doctorStatuses);
-            tblDoctor.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cmbDoctorStatus));
-            
-            tblDoctor.getColumnModel().getColumn(2).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-
-            JLabel lblStatus = new JLabel(value.toString(), SwingConstants.CENTER);
-            lblStatus.setOpaque(true);
-            lblStatus.setFont(new Font("Calibri", Font.BOLD, 14));
-
-            switch (value.toString()) {
-                case "On Leave":
-                    lblStatus.setBackground(Lavender);
-                    break;
-                case "Available":
-                    lblStatus.setBackground(MintGreen);
-                    break;
-                case "Fully Booked":
-                    lblStatus.setBackground(SoftPink);
-                    break;
-                case "Off Duty":
-                    lblStatus.setBackground(LightGray);
-                    break;
-                case "Busy":
-                    lblStatus.setBackground(Teal);
-                    break;
-                default:
-                    lblStatus.setBackground(Color.WHITE);
-            }
-
-                    if (isSelected) {
-                        lblStatus.setBackground(veryLightBlue);
-                    }
-
-                    return lblStatus;
-                });
-            
-            JScrollPane scroll = new JScrollPane(tblDoctor);
-            scroll.setBounds(0, 0, 1460, 400);
-
-            pnlTableContainer.add(scroll);
-            pnlTableContainer.revalidate();
-            pnlTableContainer.repaint();
-        };
-
-        btnPatientApp.addActionListener(e -> {
-            showPatientTable.run();
-
-            btnPatientApp.setBackground(darkBlue);
-            btnPatientApp.setForeground(Color.WHITE);
-
-            btnDoctorAvail.setBackground(Color.WHITE);
-            btnDoctorAvail.setForeground(Color.BLACK);
-        });
-
-        btnDoctorAvail.addActionListener(e -> {
-            showDoctorTable.run();
-
-            btnDoctorAvail.setBackground(darkBlue);
-            btnDoctorAvail.setForeground(Color.WHITE);
-
-            btnPatientApp.setBackground(Color.WHITE);
-            btnPatientApp.setForeground(Color.BLACK);
-        });
-        showPatientTable.run();
+        updateSummary();
     }
     
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
