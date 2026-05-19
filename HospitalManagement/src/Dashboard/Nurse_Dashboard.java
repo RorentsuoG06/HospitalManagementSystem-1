@@ -27,6 +27,12 @@ public class Nurse_Dashboard extends JPanel{
         lblMainPlaceholder.setFont(new Font("Calibri", Font.BOLD, 28));
         pnlMain.add(lblMainPlaceholder);
         
+        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
+        lblDT.setForeground(Color.darkGray);
+        lblDT.setBounds(1390, 20, 400, 40);
+        pnlMain.add(lblDT);
+        
         JPanel pnlPatients = new JPanel();
         pnlPatients.setLayout(null);
         pnlPatients.setBounds(70, 100, 280, 120);

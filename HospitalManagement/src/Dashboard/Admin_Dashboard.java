@@ -13,7 +13,6 @@ public class Admin_Dashboard extends JPanel implements ActionListener{
     private JPanel pnlMain;
     
     public Admin_Dashboard() {
-        
         setLayout(null);
         setBounds(0, 0, 1620, 930);
         
@@ -28,6 +27,12 @@ public class Admin_Dashboard extends JPanel implements ActionListener{
         lblMainPlaceholder.setBounds(50, 45, 300, 30);
         lblMainPlaceholder.setFont(new Font("Calibri", Font.BOLD, 28));
         pnlMain.add(lblMainPlaceholder);
+        
+        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
+        lblDT.setForeground(Color.darkGray);
+        lblDT.setBounds(1390, 20, 400, 40);
+        pnlMain.add(lblDT);
         
         JPanel pnlPatients = new JPanel();
         pnlPatients.setLayout(null);
@@ -101,7 +106,7 @@ public class Admin_Dashboard extends JPanel implements ActionListener{
         lblBCount.setFont(new Font("Calibri", Font.BOLD, 28));
         pnlBeds.add(lblBCount);
         
-        JLabel lblMonth = new JLabel("April 2026", SwingConstants.CENTER);
+        JLabel lblMonth = new JLabel("May 2026", SwingConstants.CENTER);
         lblMonth.setFont(new Font("Calibri", Font.BOLD, 24));
         lblMonth.setBounds(1170, 100, 420, 50);
         lblMonth.setOpaque(true);
@@ -110,11 +115,11 @@ public class Admin_Dashboard extends JPanel implements ActionListener{
         pnlMain.add(lblMonth);
         
         String [] days = {"Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"};
-        String[][] DateNum = {{"", "", "", "1", "2", "3", "4"},
-                              {"5", "6", "7", "8", "9", "10", "11"},
-                              {"12", "13", "14", "15", "16", "17", "18"},
-                              {"19", "20", "21", "22", "23", "24", "25"},
-                              {"26", "27", "28", "29", "30", "", ""}};
+        String[][] DateNum = {{"", "", "", "", "1", "2", "3"},
+                              {"4", "5", "6", "7", "8", "9", "10"},
+                              {"11", "12", "13", "14", "15", "16", "17"},
+                              {"18", "19", "20", "21", "22", "23", "24"},
+                              {"25", "26", "27", "28", "29", "30", "31"}};
         
         JTable TblCalendar = new JTable(DateNum, days);
         TblCalendar.setRowHeight(60);

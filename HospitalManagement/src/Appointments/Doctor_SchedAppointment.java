@@ -29,9 +29,21 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
+        JLabel lbltitle = new JLabel("Doctor Appointment");
+        lbltitle.setFont(new Font("Calibri", Font.BOLD, 24));
+        lbltitle.setForeground(Color.BLACK);
+        lbltitle.setBounds(30, 20, 400, 40);
+        pnlMain.add(lbltitle);
+        
+        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
+        lblDT.setForeground(Color.darkGray);
+        lblDT.setBounds(1390, 20, 400, 40);
+        pnlMain.add(lblDT);
+        
         JPanel pnlPatients = new JPanel();
         pnlPatients.setLayout(null);
-        pnlPatients.setBounds(30, 30, 250, 40);
+        pnlPatients.setBounds(300, 30, 250, 40);
         pnlPatients.setBackground(Blue);
         pnlMain.add(pnlPatients);
         
@@ -43,7 +55,7 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         
         JPanel pnlAvail = new JPanel();
         pnlAvail.setLayout(null);
-        pnlAvail.setBounds(290, 30, 250, 40);
+        pnlAvail.setBounds(560, 30, 250, 40);
         pnlAvail.setBackground(Green);
         pnlMain.add(pnlAvail);
         
@@ -55,7 +67,7 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         
         JPanel pnlUrgent = new JPanel();
         pnlUrgent.setLayout(null);
-        pnlUrgent.setBounds(560, 30, 250, 40);
+        pnlUrgent.setBounds(820, 30, 250, 40);
         pnlUrgent.setBackground(LightRed);
         pnlMain.add(pnlUrgent);
         
@@ -67,7 +79,7 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         
         JPanel pnlApp = new JPanel();
         pnlApp.setLayout(null);
-        pnlApp.setBounds(830, 30, 250, 40);
+        pnlApp.setBounds(1080, 30, 250, 40);
         pnlApp.setBackground(Yellow);
         pnlMain.add(pnlApp);
         
@@ -226,7 +238,7 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         btnToday.setFocusPainted(false);
         pnlSched.add(btnToday);
         
-        JLabel lblMonth = new JLabel("April 2026");
+        JLabel lblMonth = new JLabel("May 2026");
         lblMonth.setBounds(400, 70, 200, 35);
         lblMonth.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSched.add(lblMonth);
@@ -256,11 +268,12 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         pnlSched.add(btnMonth);
         
         String [] days = {"Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"};
-        String[][] DateNum = {{"", "", "", "1", "2", "3", "4"},
-                              {"5", "6", "7", "8", "9", "10", "11"},
-                              {"12", "13", "14", "15", "16", "17", "18"},
-                              {"19", "20", "21", "22", "23", "24", "25"},
-                              {"26", "27", "28", "29", "30", "", ""}};
+        String[][] DateNum = {{"", "", "", "", "", "1", "2"},
+                              {"3", "4", "5", "6", "7", "8", "9"},
+                              {"10", "11", "12", "13", "14", "15", "16"},
+                              {"17", "18", "19", "20", "21", "22", "23"},
+                              {"24", "25", "26", "27", "28", "29", "30"},
+                              {"31", "", "", "", "", "", ""}};
         
         JTable TblCalendar = new JTable(DateNum, days);
         TblCalendar.setRowHeight(75);
@@ -310,15 +323,15 @@ public class Doctor_SchedAppointment extends JPanel implements ActionListener{
         JButton btnEdit2 = new JButton("Edit");
         btnEdit2.setBounds(220, 750, 120, 35);
         btnEdit2.setFont(new Font("Calibri", Font.PLAIN, 16));
-        btnEdit2.setBackground(darkBlue);
-        btnEdit2.setForeground(Color.WHITE);
+        btnEdit2.setBackground(lightBlue);
+        btnEdit2.setForeground(Color.BLACK);
         btnEdit2.setFocusPainted(false);
         pnlSched.add(btnEdit2);
         
         JButton btnCancel = new JButton("Cancel");
         btnCancel.setBounds(630, 750, 120, 35);
         btnCancel.setFont(new Font("Calibri", Font.PLAIN, 16));
-        btnCancel.setBackground(darkBlue);
+        btnCancel.setBackground(LightRed);
         btnCancel.setForeground(Color.WHITE);
         btnCancel.setFocusPainted(false);
         pnlSched.add(btnCancel);
