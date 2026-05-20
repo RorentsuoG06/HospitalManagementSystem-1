@@ -1,5 +1,6 @@
 package Left_Sidebar;
 
+import Prescriptions.nurse_Prescription;
 import Appointments.Nurse_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Nurse_Dashboard;
@@ -145,7 +146,7 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
         } else if (ae.getSource() == btnMHis) {
             //navPage.turnPage(new Admin_Reports());
         } else if (ae.getSource() == btnPres) {
-            //navPage.turnPage(new  );
+            navPage.turnPage(new nurse_Prescription() );
         } else if (ae.getSource() == btnAppointment) {
             navPage.turnPage(new  Nurse_SchedAppointment());
         } else if (ae.getSource() == btnInventory) {

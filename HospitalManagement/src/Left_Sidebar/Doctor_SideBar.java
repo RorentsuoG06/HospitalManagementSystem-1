@@ -1,5 +1,6 @@
 package Left_Sidebar;
 
+import Prescriptions.doctor_Prescription;
 import Appointments.Doctor_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Doctor_Dashboard;
@@ -145,7 +146,7 @@ public class Doctor_SideBar extends JPanel implements ActionListener{
         } else if (ae.getSource() == btnMHis) {
             //navPage.turnPage(new Admin_Reports());
         } else if (ae.getSource() == btnPres) {
-            //navPage.turnPage(new  );
+            navPage.turnPage(new  doctor_Prescription());
         } else if (ae.getSource() == btnAppointment) {
             navPage.turnPage(new  Doctor_SchedAppointment());
         } else if (ae.getSource() == btnInventory) {
