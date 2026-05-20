@@ -8,7 +8,6 @@ import Inventory.LogisticsPanel;
 import Inventory.PatientCentralPanel;
 import Inventory.UserManagementPanel;
 import Login_Startup.Login;
-import Prescriptions.admin_Prescription;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -151,7 +150,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         } else if (ae.getSource() == btnPInfo) {
             navPage.turnPage(new PatientCentralPanel());
         } else if (ae.getSource() == btnAppointment) {
-            navPage.turnPage(new admin_Prescription());
+           // navPage.turnPage(new );
         } else if (ae.getSource() == btnIManagement) {
             navPage.turnPage(new InventoryPanel());
         } else if (ae.getSource() == btnLogistics) {

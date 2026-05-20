@@ -1,6 +1,7 @@
 package Prescriptions;
 
 import static Color_Palette.ColorPalette.*;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,82 +12,59 @@ public class nurse_Prescription extends JPanel {
     private JPanel pnlMain;
     private JTable table;
     private DefaultTableModel model;
-   private JTextField txtFreq;
-   private JTextField txtDur;
+
+    private JTextField txtFreq;
+    private JTextField txtDur;
+
     private JButton btnUpdate;
 
     public nurse_Prescription() {
 
         setLayout(null);
+        setBounds(0, 0, 1620, 930);
         setBackground(veryLightBlue);
 
         pnlMain = new JPanel(null);
-        pnlMain.setBackground(veryLightBlue);
         pnlMain.setBounds(0, 0, 1620, 930);
+        pnlMain.setBackground(veryLightBlue);
         add(pnlMain);
 
-        JLabel lblMainTitle = new JLabel("Nurse Prescription");
-        lblMainTitle.setBounds(60, 35, 400, 40);
-        lblMainTitle.setFont(new Font("Calibri", Font.BOLD, 34));
+        JLabel lblMainTitle = new JLabel("Nurse Prescription Dashboard");
+        lblMainTitle.setBounds(30, 20, 500, 45);
+        lblMainTitle.setFont(new Font("Calibri", Font.BOLD, 30));
+        lblMainTitle.setForeground(darkBlue);
         pnlMain.add(lblMainTitle);
 
-        createCard(
-                pnlMain,
-                "Patients Assigned",
-                "24",
-                LightRed,
-                60,
-                110
-        );
+        JLabel lblDate = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDate.setBounds(1300, 20, 300, 40);
+        lblDate.setFont(new Font("Calibri", Font.BOLD, 18));
+        lblDate.setForeground(Color.DARK_GRAY);
+        pnlMain.add(lblDate);
 
-        createCard(
-                pnlMain,
-                "Today's Tasks",
-                "12",
-                Blue,
-                350,
-                110
-        );
+        JPanel tabPrescription = createTopCard("Total Prescriptions", "3", darkBlue);
+        tabPrescription.setBounds(30, 90, 500, 110);
+        pnlMain.add(tabPrescription);
 
-        createCard(
-                pnlMain,
-                "Medication Schedule",
-                "8",
-                Yellow,
-                640,
-                110
-        );
+        JPanel tabPatients = createTopCard("Patients Assigned", "3", mediumBlue);
+        tabPatients.setBounds(550, 90, 500, 110);
+        pnlMain.add(tabPatients);
 
-        createCard(
-                pnlMain,
-                "Critical Cases",
-                "3",
-                Green,
-                930,
-                110
-        );
+        JPanel tabMedicine = createTopCard("Medicine Schedule", "3", TealGreen);
+        tabMedicine.setBounds(1070, 90, 500, 110);
+        pnlMain.add(tabMedicine);
 
         JPanel pnlPrescription = new JPanel(null);
-        pnlPrescription.setBounds(60, 270, 1130, 540);
+        pnlPrescription.setBounds(30, 240, 1560, 620);
         pnlPrescription.setBackground(Color.WHITE);
-        pnlPrescription.setBorder(
-                BorderFactory.createLineBorder(
-                        new Color(220, 220, 220)
-                )
-        );
-
+        pnlPrescription.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
         pnlMain.add(pnlPrescription);
 
-        JLabel lblPrescriptionTitle =
-                new JLabel("Prescription Management");
-
-        lblPrescriptionTitle.setFont(
-                new Font("Calibri", Font.BOLD, 28)
-        );
-
-        lblPrescriptionTitle.setBounds(30, 20, 400, 35);
+        JLabel lblPrescriptionTitle = new JLabel("Prescription Management");
+        lblPrescriptionTitle.setBounds(30, 20, 450, 40);
+        lblPrescriptionTitle.setFont(new Font("Calibri", Font.BOLD, 28));
+        lblPrescriptionTitle.setForeground(darkBlue);
         pnlPrescription.add(lblPrescriptionTitle);
-        
+
         String[] col = {
             "Patient",
             "Drug",
@@ -113,115 +91,102 @@ public class nurse_Prescription extends JPanel {
             "7 days"
         });
 
+        model.addRow(new String[]{
+            "Michael Cruz",
+            "Ibuprofen",
+            "400mg",
+            "1x/day",
+            "3 days"
+        });
+
         table = new JTable(model);
-        table.setRowHeight(32);
+        table.setRowHeight(35);
         table.setFont(new Font("Calibri", Font.PLAIN, 16));
+        table.setSelectionBackground(SBlue);
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Calibri", Font.BOLD, 16));
+        
+        header.setFont(new Font("Calibri", Font.BOLD, 18));
+        header.setBackground(lightBlue);
+        header.setForeground(Color.BLACK);
+
         JScrollPane sp = new JScrollPane(table);
-        sp.setBounds(30, 80, 1070, 260);
+        sp.setBounds(30, 80, 1490, 300);
+        sp.setBorder(BorderFactory.createLineBorder(borderLBLUE));
         pnlPrescription.add(sp);
 
+        JPanel pnlUpdate = new JPanel(null);
+        pnlUpdate.setBounds(180, 420, 1180, 140);
+        pnlUpdate.setBackground(veryLightBlue);
+        pnlUpdate.setBorder(BorderFactory.createLineBorder(borderLBLUE));
+        pnlPrescription.add(pnlUpdate);
 
         JLabel lblFreq = new JLabel("Frequency");
-        lblFreq.setBounds(250, 390, 100, 25);
-        lblFreq.setFont(new Font("Calibri", Font.BOLD, 18));
-        pnlPrescription.add(lblFreq);
+        lblFreq.setBounds(130, 25, 120, 30);
+        lblFreq.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblFreq.setForeground(darkBlue);
+        pnlUpdate.add(lblFreq);
 
         txtFreq = new JTextField();
-        txtFreq.setBounds(250, 420, 180, 38);
-        txtFreq.setFont(new Font("Calibri", Font.PLAIN, 16));
-        pnlPrescription.add(txtFreq);
+        txtFreq.setBounds(130, 60, 280, 40);
+        txtFreq.setFont(new Font("Calibri", Font.PLAIN, 17));
+        pnlUpdate.add(txtFreq);
 
         JLabel lblDur = new JLabel("Duration");
-        lblDur.setBounds(500, 390, 100, 25);
-        lblDur.setFont(new Font("Calibri", Font.BOLD, 18));
-        pnlPrescription.add(lblDur);
-        
+        lblDur.setBounds(500, 25, 120, 30);
+        lblDur.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblDur.setForeground(darkBlue);
+        pnlUpdate.add(lblDur);
+
         txtDur = new JTextField();
-        txtDur.setBounds(500, 420, 180, 38);
-        txtDur.setFont(new Font("Calibri", Font.PLAIN, 16));
-        pnlPrescription.add(txtDur);
+        txtDur.setBounds(500, 60, 280, 40);
+        txtDur.setFont(new Font("Calibri", Font.PLAIN, 17));
+        pnlUpdate.add(txtDur);
 
         btnUpdate = new JButton("Update Prescription");
-        btnUpdate.setBounds(430, 485, 250, 42);
+        btnUpdate.setBounds(860, 58, 240, 45);
         btnUpdate.setBackground(Blue);
         btnUpdate.setForeground(Color.WHITE);
         btnUpdate.setFocusPainted(false);
         btnUpdate.setFont(new Font("Calibri", Font.BOLD, 18));
-        pnlPrescription.add(btnUpdate);
-        
-        table.getSelectionModel().addListSelectionListener(e -> {
+        pnlUpdate.add(btnUpdate);
 
+        table.getSelectionModel().addListSelectionListener(e -> {
             int row = table.getSelectedRow();
 
             if (row >= 0) {
-
-                txtFreq.setText(
-                        model.getValueAt(row, 3).toString()
-                );
-
-                txtDur.setText(
-                        model.getValueAt(row, 4).toString()
-                );
+                txtFreq.setText(model.getValueAt(row, 3).toString());
+                txtDur.setText(model.getValueAt(row, 4).toString());
             }
         });
 
         btnUpdate.addActionListener(e -> {
-
             int row = table.getSelectedRow();
 
             if (row >= 0) {
-
-                model.setValueAt(
-                        txtFreq.getText(),
-                        row,
-                        3
-                );
-
-                model.setValueAt(
-                        txtDur.getText(),
-                        row,
-                        4
-                );
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Prescription updated successfully!"
-                );
-
+                model.setValueAt(txtFreq.getText(), row, 3);
+                model.setValueAt(txtDur.getText(), row, 4);
+                JOptionPane.showMessageDialog(null, "Prescription updated successfully!");
             } else {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Please select a patient first!"
-                );
+                JOptionPane.showMessageDialog(null, "Please select a patient first!");
             }
         });
     }
-    
-    private void createCard(
-            JPanel parent,
-            String title,
-            String count,
-            Color bg,
-            int x,
-            int y
-    ) {
+
+    private JPanel createTopCard(String title, String value, Color bg) {
         JPanel card = new JPanel(null);
-        card.setBounds(x, y, 250, 120);
         card.setBackground(bg);
         JLabel lblTitle = new JLabel(title);
-        lblTitle.setBounds(15, 15, 220, 25);
+        lblTitle.setBounds(20, 18, 300, 30);
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         card.add(lblTitle);
 
-        JLabel lblCount = new JLabel(count);
-        lblCount.setBounds(175, 58, 80, 40);
-        lblCount.setForeground(Color.WHITE);
-        lblCount.setFont(new Font("Calibri", Font.BOLD, 30));
-        card.add(lblCount);
-        parent.add(card);
-    }    
+        JLabel lblValue = new JLabel(value);
+        lblValue.setBounds(20, 55, 200, 40);
+        lblValue.setForeground(Color.WHITE);
+        lblValue.setFont(new Font("Calibri", Font.BOLD, 34));
+        card.add(lblValue);
+
+        return card;
+    }
 }

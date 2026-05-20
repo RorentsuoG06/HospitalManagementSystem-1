@@ -190,10 +190,10 @@ public class Admin_Reports extends JPanel implements ActionListener{
         btnSf.addActionListener(e -> {
            pnlPrev.removeAll();
            
-           StaffAttendance StaffAtt = new StaffAttendance();
-           StaffAtt.setBounds(0, 0, 1060, 900);
+           //StaffAttendance StaffAtt = new StaffAttendance();
+          // StaffAtt.setBounds(0, 0, 1060, 900);
            
-           pnlPrev.add(StaffAtt);
+           //pnlPrev.add(StaffAtt);
            pnlPrev.revalidate();
            pnlPrev.repaint();
            

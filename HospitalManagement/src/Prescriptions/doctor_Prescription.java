@@ -1,180 +1,384 @@
 package Prescriptions;
+
+import static Color_Palette.ColorPalette.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
+import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
-public class doctor_Prescription extends JPanel implements ActionListener{
-    
-    //gitnang bahagi
-   private   ArrayList<String[]> prescriptions = new ArrayList<>();
-   private  DefaultTableModel model;
-   private   JTable table;
-   private  JPanel centerPanel;
-   private  JLabel lblName, lblMed, lblStep1, lblStep2, lblStep3 ;
-   private  JComboBox<String> cbDose;
-   private JTextField txtPat, txtDrugs, txtFreq, txtDur;
-    JButton btnAdd, btnDelete, btnUpdate;
+public class doctor_Prescription extends JPanel implements ActionListener {
+
+    private JPanel pnlMain, pnlForm, pnlBottom;
+
+    private JLabel lblTitle, lblDate;
+    private JLabel lblTPrescription, lblTPatients, lblTMedicine;
+
+    private JLabel lblPatient, lblDrug, lblDose, lblFreq, lblDur;
+
+    private JTextField txtPat, txtDrug, txtFreq, txtDur;
+
+    private JComboBox<String> cbDose;
+
+    private JButton btnAdd, btnDelete, btnUpdate;
+
+    private JTable table;
+    private DefaultTableModel model;
+
+    private ArrayList<String[]> prescriptions = new ArrayList<>();
+
     public doctor_Prescription() {
-        
-        setMinimumSize(new Dimension(1000, 1000));
+
         setLayout(null);
-        setBounds(0,0,1620,930);
-        setBackground(Color.WHITE);
-     
-        //gitnang bahagi
-        centerPanel = new JPanel();
-        centerPanel.setLayout(null);
-        centerPanel.setBounds(400, 150, 650, 700);
-        centerPanel.setBackground(Color.WHITE);
+        setBounds(0, 0, 1620, 930);
 
-        lblName = new JLabel("Patient: ");
-        lblName.setBounds(20, 10, 50, 30);
-        centerPanel.add(lblName);
-        
+        pnlMain = new JPanel(null);
+        pnlMain.setBounds(0, 0, 1620, 930);
+        pnlMain.setBackground(veryLightBlue);
+        add(pnlMain);
+
+        lblTitle = new JLabel("Prescription Dashboard");
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 30));
+        lblTitle.setForeground(darkBlue);
+        lblTitle.setBounds(30, 20, 500, 40);
+        pnlMain.add(lblTitle);
+
+        lblDate = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDate.setFont(new Font("Calibri", Font.BOLD, 18));
+        lblDate.setForeground(Color.darkGray);
+        lblDate.setBounds(1290, 20, 300, 40);
+        pnlMain.add(lblDate);
+
+        JPanel tabPrescription =
+                createTab("Total Prescriptions", "0", darkBlue);
+        tabPrescription.setBounds(30, 80, 500, 110);
+        pnlMain.add(tabPrescription);
+
+        lblTPrescription =
+                (JLabel) tabPrescription.getComponent(1);
+
+        JPanel tabPatients =
+                createTab("Total Patients", "0", mediumBlue);
+        tabPatients.setBounds(550, 80, 500, 110);
+        pnlMain.add(tabPatients);
+
+        lblTPatients =
+                (JLabel) tabPatients.getComponent(1);
+        JPanel tabMedicine =
+                createTab("Medicine Types", "0", TealGreen);
+        tabMedicine.setBounds(1070, 80, 500, 110);
+        pnlMain.add(tabMedicine);
+        lblTMedicine =
+                (JLabel) tabMedicine.getComponent(1);
+
+        pnlForm = new JPanel(null);
+        pnlForm.setBounds(30, 220, 1560, 110);
+        pnlForm.setBackground(Color.WHITE);
+        pnlForm.setBorder(
+                BorderFactory.createLineBorder(borderLBLUE)
+        );
+        pnlMain.add(pnlForm);
+        Font lblFont = new Font("Calibri", Font.BOLD, 18);
+
+        lblPatient = new JLabel("Patient:");
+        lblPatient.setFont(lblFont);
+        lblPatient.setBounds(20, 38, 100, 30);
+        pnlForm.add(lblPatient);
         txtPat = new JTextField();
-        txtPat.setBounds(80, 10, 200, 30);
-        centerPanel.add(txtPat);
-        
-        lblMed = new JLabel("Select a drug");
-        lblMed.setBounds(20, 60, 75, 30);
-        centerPanel.add(lblMed);
-        
-        txtDrugs = new JTextField();
-        txtDrugs.setBounds(105, 60, 200, 30);
-        centerPanel.add(txtDrugs);
-        
-        lblStep1 = new JLabel("Step 1: Dosage");
-        lblStep1.setBounds(20, 100, 150, 20);
-        centerPanel.add(lblStep1);
+        txtPat.setBounds(100, 38, 180, 30);
+        pnlForm.add(txtPat);
 
-        cbDose = new JComboBox<>(new String[]{"Select dosage","5mg", "10mg", "50mg", "100mg", "400mg", "500mg"});
-        cbDose.setBounds(20, 130, 120, 30);
-        centerPanel.add(cbDose);
+        lblDrug = new JLabel("Drug:");
+        lblDrug.setFont(lblFont);
+        lblDrug.setBounds(310, 38, 80, 30);
+        pnlForm.add(lblDrug);
+        txtDrug = new JTextField();
+        txtDrug.setBounds(370, 38, 180, 30);
+        pnlForm.add(txtDrug);
 
-        lblStep2 = new JLabel("Step 2: Frequency");
-        lblStep2.setBounds(180, 100, 150, 20);
-        centerPanel.add(lblStep2);
+        lblDose = new JLabel("Dosage:");
+        lblDose.setFont(lblFont);
+        lblDose.setBounds(580, 38, 100, 30);
+        pnlForm.add(lblDose);
 
+        cbDose = new JComboBox<>(
+                new String[]{
+                    "Select",
+                    "5mg",
+                    "10mg",
+                    "50mg",
+                    "100mg",
+                    "400mg",
+                    "500mg"
+                }
+        );
+        cbDose.setBounds(660, 38, 140, 30);
+        pnlForm.add(cbDose);
+        
+        lblFreq = new JLabel("Frequency:");
+        lblFreq.setFont(lblFont);
+        lblFreq.setBounds(830, 38, 100, 30);
+        pnlForm.add(lblFreq);
         txtFreq = new JTextField();
-        txtFreq.setBounds(180, 130, 180, 30);
-        centerPanel.add(txtFreq);
+        txtFreq.setBounds(930, 38, 150, 30);
+        pnlForm.add(txtFreq);
 
-        lblStep3 = new JLabel("Step 3: Duration");
-        lblStep3.setBounds(380, 100, 150, 20);
-        centerPanel.add(lblStep3);
-
+        lblDur = new JLabel("Duration:");
+        lblDur.setFont(lblFont);
+        lblDur.setBounds(1110, 38, 100, 30);
+        pnlForm.add(lblDur);
         txtDur = new JTextField();
-        txtDur.setBounds(380, 130, 120, 30);
-        centerPanel.add(txtDur);
+        txtDur.setBounds(1200, 38, 120, 30);
+        pnlForm.add(txtDur);
 
-
-        btnAdd = new JButton("Add to List");
-        btnAdd.setBounds(20, 170, 150, 30);
-        centerPanel.add(btnAdd);
-        
-        btnDelete = new JButton("Delete");
-        btnDelete.setBounds(180, 170, 100, 30);
-        centerPanel.add(btnDelete);
-        
-        btnUpdate = new JButton("Update");
-        btnUpdate.setBounds(290, 170, 100, 30);
-        centerPanel.add(btnUpdate);
-       
-        String[] col = {"Patient", "Drug", "Dosage", "Frequency", "Duration"};
-        model = new DefaultTableModel(col, 0);
-        table = new JTable(model);
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBounds(20, 220, 580, 200);
-        centerPanel.add(sp);
-        
-        add(centerPanel);
-      
+        btnAdd = new JButton("Add Prescription");
+        btnAdd.setBounds(1360, 32, 170, 40);
+        btnAdd.setBackground(Green);
+        btnAdd.setForeground(Color.WHITE);
+        btnAdd.setFont(new Font("Calibri", Font.BOLD, 16));
+        btnAdd.setFocusPainted(false);
         btnAdd.addActionListener(this);
-        btnDelete.addActionListener(this);
+        pnlForm.add(btnAdd);
+
+        String[] cols = {
+            "Patient",
+            "Drug",
+            "Dosage",
+            "Frequency",
+            "Duration"
+        };
+
+        model = new DefaultTableModel(cols, 0);
+        table = new JTable(model);
+        table.setRowHeight(35);
+        table.setFont(new Font("Calibri", Font.PLAIN, 16));
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Calibri", Font.BOLD, 18));
+        header.setBackground(lightBlue);
+        JScrollPane sp = new JScrollPane(table);
+        sp.setBounds(30, 360, 1560, 470);
+        sp.setBorder(
+                BorderFactory.createLineBorder(borderLBLUE)
+        );
+        pnlMain.add(sp);
+
+        pnlBottom = new JPanel(null);
+        pnlBottom.setBounds(30, 850, 1560, 50);
+        pnlBottom.setBackground(Color.WHITE);
+        pnlBottom.setBorder(
+                BorderFactory.createLineBorder(borderLBLUE)
+        );
+        pnlMain.add(pnlBottom);
+
+        btnUpdate = new JButton("Update");
+        btnUpdate.setBounds(20, 10, 120, 30);
+        btnUpdate.setBackground(mediumBlue);
+        btnUpdate.setForeground(Color.WHITE);
+        btnUpdate.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnUpdate.setFocusPainted(false);
         btnUpdate.addActionListener(this);
+        pnlBottom.add(btnUpdate);
+
+        btnDelete = new JButton("Delete");
+        btnDelete.setBounds(160, 10, 120, 30);
+        btnDelete.setBackground(LightRed);
+        btnDelete.setForeground(Color.WHITE);
+        btnDelete.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnDelete.setFocusPainted(false);
+        btnDelete.addActionListener(this);
+        pnlBottom.add(btnDelete);
+
+        addSampleData();
+    }
+    private JPanel createTab(
+            String title,
+            String value,
+            Color color
+    ) {
+
+        JPanel tab = new JPanel(null);
+        tab.setBackground(color);
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(
+                new Font("Calibri", Font.BOLD, 20)
+        );
+        lblTitle.setForeground(Color.WHITE);
+        lblTitle.setBounds(20, 20, 300, 30);
+        tab.add(lblTitle);
+        JLabel lblValue = new JLabel(value);
+        
+        lblValue.setFont(
+                new Font("Calibri", Font.BOLD, 32)
+        );
+        lblValue.setForeground(Color.WHITE);
+        lblValue.setBounds(20, 55, 200, 40);
+        tab.add(lblValue);
+        
+        return tab;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String patient = txtPat.getText();
-        String text = txtDrugs.getText();
-        Object dosage = cbDose.getSelectedItem();
-        String freq = txtFreq.getText();
-        String dur = txtDur.getText();
-        if(e.getSource() == btnAdd){
-        if(patient == null || patient.trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Input a name first!");
-                return;
-            } else if (text == null || text.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Input a drug first!");
-                return;
-            } else if (dosage == null || dosage.toString().equals("Select dosage")) {
-                JOptionPane.showMessageDialog(this, "Select a Dosage first!");
-                return;
-            } else if (freq == null || freq.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Input a Frequency first!");
-                return;
-            } else if (dur == null || dur.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Input a Duration first!");
-                return;
-            } 
-            
-            String[] rowData = {
-                patient,
-                text,
-                dosage.toString(),
-                freq,
-                dur
-            }; 
-            prescriptions.add(rowData);
-            model.addRow(rowData);
-            
-            txtPat.setText("");
-            txtDrugs.setText("");
-            cbDose.setSelectedIndex(0);
-            txtFreq.setText("");
-            txtDur.setText("");
+        if (e.getSource() == btnAdd) {
+
+            addPrescription();
         }
+        if (e.getSource() == btnDelete) {
+
+            deletePrescription();
+        }
+        if (e.getSource() == btnUpdate) {
+
+            updatePrescription();
+        }
+    }
+    private void addPrescription() {
+
+        if (txtPat.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Enter patient name!"
+            );
+            return;
+        }
+        if (txtDrug.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Enter medicine!"
+            );
+            return;
+        }
+        if (cbDose.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Select dosage!"
+            );
+            return;
+        }
+        String[] row = {
+            txtPat.getText(),
+            txtDrug.getText(),
+            cbDose.getSelectedItem().toString(),
+            txtFreq.getText(),
+            txtDur.getText()
+        };
+        prescriptions.add(row);
+        model.addRow(row);
+        updateSummary();
+        clearFields();
+        JOptionPane.showMessageDialog(
+                this,
+                "Prescription added!"
+        );
+    }
+
+    private void deletePrescription() {
+        int row = table.getSelectedRow();
         
-        if (e.getSource() == btnDelete){
+        if (row >= 0) {
+            model.removeRow(row);
+            prescriptions.remove(row);
+            updateSummary();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Prescription deleted!"
+            );
+
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Select prescription first!"
+            );
+        } }
+
+    private void updatePrescription() {
         int row = table.getSelectedRow();
 
         if (row >= 0) {
-        model.removeRow(row);          
-        prescriptions.remove(row);     
+            model.setValueAt(txtPat.getText(), row, 0);
+            model.setValueAt(txtDrug.getText(), row, 1);
+            model.setValueAt(
+                    cbDose.getSelectedItem(),
+                    row,
+                    2
+            );
+            model.setValueAt(txtFreq.getText(), row, 3);
+            model.setValueAt(txtDur.getText(), row, 4);
+            updateSummary();
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Prescription updated!"
+            );
         } else {
-        JOptionPane.showMessageDialog(this, "Select a prescription first!");
-        }
-        
-        }
-        
-        if (e.getSource() == btnUpdate ){
-            int row = table.getSelectedRow();
-
-    if (row >= 0) {
-        // updating the table
-        model.setValueAt(txtPat.getText(), row, 0);
-        model.setValueAt(txtDrugs.getText(), row, 1);
-        model.setValueAt(cbDose.getSelectedItem(), row, 2);
-        model.setValueAt(txtFreq.getText(), row, 3);
-        model.setValueAt(txtDur.getText(), row, 4);
-
-        // updating the array 
-        prescriptions.get(row)[0] = txtPat.getText();
-        prescriptions.get(row)[1] = txtDrugs.getText();
-        prescriptions.get(row)[2] = cbDose.getSelectedItem().toString();
-        prescriptions.get(row)[3] = txtFreq.getText();
-        prescriptions.get(row)[4] = txtDur.getText();
-
-    } else {
-        JOptionPane.showMessageDialog(this, "Select a prescription to update!");
-    }
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Select row first!"
+            );
         }
     }
-    
+
+    private void updateSummary() {
+        int totalPrescription = model.getRowCount();
+        int totalPatients = model.getRowCount();
+        java.util.HashSet<String> meds =
+                new java.util.HashSet<>();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            meds.add(
+                    model.getValueAt(i, 1).toString()
+            );
+        }
+        lblTPrescription.setText(
+                String.valueOf(totalPrescription)
+        );
+        lblTPatients.setText(
+                String.valueOf(totalPatients)
+        );
+        lblTMedicine.setText(
+                String.valueOf(meds.size())
+        );
+    }
+
+    private void clearFields() {
+
+        txtPat.setText("");
+        txtDrug.setText("");
+        txtFreq.setText("");
+        txtDur.setText("");
+        cbDose.setSelectedIndex(0);
+    }
+
+    private void addSampleData() {
+        model.addRow(
+                new Object[]{
+                    "John Doe",
+                    "Paracetamol",
+                    "500mg",
+                    "2x/day",
+                    "5 days"
+                }
+        );
+        model.addRow(
+                new Object[]{
+                    "Maria Santos",
+                    "Ibuprofen",
+                    "400mg",
+                    "3x/day",
+                    "7 days"
+                }
+        );
+        model.addRow(
+                new Object[]{
+                    "Mark Cruz",
+                    "Amoxicillin",
+                    "250mg",
+                    "1x/day",
+                    "10 days"
+                }
+        );
+        updateSummary();
+    }
 }
-
-
