@@ -1,12 +1,13 @@
 package Left_Sidebar;
 
-import Prescriptions.nurse_Prescription;
+import Prescriptions.Prescription_Nurse;
 import Appointments.Nurse_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Nurse_Dashboard;
 import Generating_Report_Nurses.Nurses_Report;
 import Inventory.RequestPanel_Nurse;
 import Login_Startup.Login;
+import MedicalHistory.MedicalHistory_Nurse;
 import Patient_Information.PatientInfo_Nurse;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -142,11 +143,9 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
         } else if (ae.getSource() == btnProfile) {
             navPage.turnPage(new PatientInfo_Nurse());
         } else if (ae.getSource() == btnMHis) {
-            //navPage.turnPage(new Admin_Reports());
-        } else if (ae.getSource() == btnMHis) {
-            //navPage.turnPage(new Admin_Reports());
+            navPage.turnPage(new MedicalHistory_Nurse());
         } else if (ae.getSource() == btnPres) {
-            navPage.turnPage(new nurse_Prescription() );
+            navPage.turnPage(new Prescription_Nurse());
         } else if (ae.getSource() == btnAppointment) {
             navPage.turnPage(new  Nurse_SchedAppointment());
         } else if (ae.getSource() == btnInventory) {

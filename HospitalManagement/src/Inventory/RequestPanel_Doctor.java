@@ -7,13 +7,14 @@ import java.awt.*;
 
 public class RequestPanel_Doctor extends JPanel {
     
-    private JPanel pnlMain;
+    private JPanel pnlMain,tabItem,tabLows,tabValue,pnlSelection,pnlBot,tabUpdate;
     private DefaultTableModel tblModel;
     private JTextField txtItem, txtQty, txtPrice;
-    private JLabel lblTItem, lblLStock, lblTValue;
+    private JLabel lblTItem, lblLStock, lblTValue,lbltitle,lblDT,lblCate,lblItem,lblQty,lblPrice,lblTitle,lblValue;
     private JTable tblInve;
     private JButton btnAdd, btnQty, btnRemove;
     private JComboBox<String> cmbCate;
+    private JScrollPane srcInve;
     
     public RequestPanel_Doctor() {
         setLayout(null);
@@ -25,41 +26,41 @@ public class RequestPanel_Doctor extends JPanel {
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
-        JLabel lbltitle = new JLabel("Medical Supply Request");
+        lbltitle = new JLabel("Medical Supply Request");
         lbltitle.setFont(new Font("Calibri", Font.BOLD, 24));
         lbltitle.setForeground(Color.BLACK);
         lbltitle.setBounds(30, 20, 400, 40);
         pnlMain.add(lbltitle);
         
-        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT = new JLabel("May 21, 2026 | 10:00 AM");
         lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
         lblDT.setForeground(Color.darkGray);
         lblDT.setBounds(1390, 20, 400, 40);
         pnlMain.add(lblDT);
    
-        JPanel tabItem = createTab("Total Items Requested", "0", darkBlue);
+        tabItem = createTab("Total Items Requested", "0", darkBlue);
         tabItem.setBounds(30, 80, 500, 100);
         pnlMain.add(tabItem);
         lblTItem = (JLabel) tabItem.getComponent(1);
         
-        JPanel tabLows = createTab("Low Stock", "0", Yellow);
+        tabLows = createTab("Low Stock", "0", Yellow);
         tabLows.setBounds(550, 80, 500, 100);
         pnlMain.add(tabLows);
         lblLStock = (JLabel) tabLows.getComponent(1);
         
-        JPanel tabValue = createTab("Total Value", "₱0", mediumBlue);
+        tabValue = createTab("Total Value", "₱0", mediumBlue);
         tabValue.setBounds(1070, 80, 500, 100);
         pnlMain.add(tabValue);
         lblTValue = (JLabel) tabValue.getComponent(1);
       
-        JPanel pnlSelection = new JPanel();
+        pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
         pnlSelection.setBackground(Color.WHITE);
         pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
         pnlSelection.setBounds(30, 210, 1180, 80);
         pnlMain.add(pnlSelection);
         
-        JLabel lblCate = new JLabel("Category:");
+        lblCate = new JLabel("Category:");
         lblCate.setBounds(15, 28, 80, 25);
         lblCate.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblCate);
@@ -68,7 +69,7 @@ public class RequestPanel_Doctor extends JPanel {
         cmbCate.setBounds(95, 26, 150, 28);
         pnlSelection.add(cmbCate);
         
-        JLabel lblItem = new JLabel("Item:");
+        lblItem = new JLabel("Item:");
         lblItem.setBounds(260, 28, 60, 25);
         lblItem.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblItem);
@@ -77,7 +78,7 @@ public class RequestPanel_Doctor extends JPanel {
         txtItem.setBounds(310, 26, 180, 28);
         pnlSelection.add(txtItem);
         
-        JLabel lblQty = new JLabel("Qty:");
+        lblQty = new JLabel("Qty:");
         lblQty.setBounds(500, 28, 80, 25);
         lblQty.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblQty);
@@ -86,7 +87,7 @@ public class RequestPanel_Doctor extends JPanel {
         txtQty.setBounds(540, 26, 180, 28);
         pnlSelection.add(txtQty);
         
-        JLabel lblPrice = new JLabel("Price:");
+        lblPrice = new JLabel("Price:");
         lblPrice.setBounds(740, 28, 100, 25);
         lblPrice.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblPrice);
@@ -112,11 +113,11 @@ public class RequestPanel_Doctor extends JPanel {
         tblInve.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 18));
         tblInve.getTableHeader().setBackground(lightBlue);
         
-        JScrollPane srcInve = new JScrollPane(tblInve);
+        srcInve = new JScrollPane(tblInve);
         srcInve.setBounds(30, 310, 1560, 510);
         pnlMain.add(srcInve);
         
-        JPanel pnlBot = new JPanel();
+        pnlBot = new JPanel();
         pnlBot.setLayout(null);
         pnlBot.setBackground(Color.WHITE);
         pnlBot.setBorder(BorderFactory.createLineBorder(borderLBLUE));
@@ -145,23 +146,23 @@ public class RequestPanel_Doctor extends JPanel {
     }
     
     private JPanel createTab(String title, String value, Color color) {
-        JPanel tab = new JPanel();
-        tab.setLayout(null);
-        tab.setBackground(color);
+        tabUpdate = new JPanel();
+        tabUpdate.setLayout(null);
+        tabUpdate.setBackground(color);
         
-        JLabel lblTitle = new JLabel(title);
+        lblTitle = new JLabel(title);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setBounds(20, 20, 250, 25);
-        tab.add(lblTitle);
+        tabUpdate.add(lblTitle);
         
-        JLabel lblValue = new JLabel(value);
+        lblValue = new JLabel(value);
         lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
         lblValue.setForeground(Color.WHITE);
         lblValue.setBounds(20, 50, 150, 40);
-        tab.add(lblValue);
+        tabUpdate.add(lblValue);
         
-        return tab;
+        return tabUpdate;
     }
     
     private void addItem() {

@@ -1,5 +1,6 @@
 package Left_Sidebar;
 
+import Appointments.Admin_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Admin_Dashboard;
 import Generating_Reports_Admin.Admin_Reports;
@@ -150,7 +151,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         } else if (ae.getSource() == btnPInfo) {
             navPage.turnPage(new PatientCentralPanel());
         } else if (ae.getSource() == btnAppointment) {
-           // navPage.turnPage(new );
+           navPage.turnPage(new Admin_SchedAppointment());
         } else if (ae.getSource() == btnIManagement) {
             navPage.turnPage(new InventoryPanel());
         } else if (ae.getSource() == btnLogistics) {

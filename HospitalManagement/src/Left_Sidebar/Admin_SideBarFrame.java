@@ -16,10 +16,12 @@ import javax.swing.*;
 public class Admin_SideBarFrame extends JFrame{
      
     private JPanel window;
-    private JPanel header;
+    private JPanel hdr;
     private JTextField txtSearch;
     private JLabel lblAdminName, lblAdminIcon;
     private ImageIcon imgAdmin;
+    private Image imdAd, imgAD;
+    
     
      public Admin_SideBarFrame() {
         setTitle("eTriage | Hospital Management System");
@@ -33,29 +35,29 @@ public class Admin_SideBarFrame extends JFrame{
         sidebar.setBounds(0, 0, 300, 1080); 
         add(sidebar);
         
-        header = new JPanel();
-        header.setLayout(null);
-        header.setBounds(300, 0, 1620, 70);
-        header.setBackground(lightBlue);
-        add(header);
+        hdr = new JPanel();
+        hdr.setLayout(null);
+        hdr.setBounds(300, 0, 1620, 70);
+        hdr.setBackground(lightBlue);
+        add(hdr);
         
         txtSearch = new JTextField("Search...");
         txtSearch.setBounds(970, 18, 260, 35);
         txtSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
-        header.add(txtSearch);
+        hdr.add(txtSearch);
         
         lblAdminName = new JLabel("Admin | John Smith");
         lblAdminName.setFont(new Font("Calibri", Font.BOLD, 20));
         lblAdminName.setBounds(1320, 20, 300, 35);
-        header.add(lblAdminName);
+        hdr.add(lblAdminName);
         
         imgAdmin = new ImageIcon(getClass().getResource("/resources/ADMIN.PHOTO.png"));
-        Image imgDoc = imgAdmin.getImage();
-        Image imgDocScaled = imgDoc.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        imdAd = imgAdmin.getImage();
+        imgAD= imdAd.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 
-        lblAdminIcon = new JLabel(new ImageIcon(imgDocScaled));
+        lblAdminIcon = new JLabel(new ImageIcon(imgAD));
         lblAdminIcon.setBounds(1250, 13, 60, 60);
-        header.add(lblAdminIcon);
+        hdr.add(lblAdminIcon);
 
         // Main content area
         window = new JPanel();

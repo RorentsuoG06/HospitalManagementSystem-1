@@ -7,13 +7,14 @@ import java.awt.*;
 
 public class UserManagementPanel extends JPanel {
     
-    private JPanel pnlMain;
+    private JPanel pnlMain,tabAdmin,tabDoc,tabNur,pnlSelection,pnlBot,tabUpdate;
     private DefaultTableModel tblModel;
     private JTextField txtName, txtID, txtAge;
     private String currentRole = "Doctor";
     private JTable tblUM;
-    private JLabel lblAd, lblDoc, lblNur;
+    private JLabel lblAd, lblDoc, lblNur,lbltitle,lblDT,lblName,lblID,lblAge,lblTitle,lblValue;
     private JButton btnDoctor, btnNurse, btnAdmin, btnSave, btnEdit, btnDelete, btnRefresh;
+    private JScrollPane srcUM;
     
     public UserManagementPanel() {
         setLayout(null);
@@ -25,13 +26,13 @@ public class UserManagementPanel extends JPanel {
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
-        JLabel lbltitle = new JLabel("User Management Dashboard");
+        lbltitle = new JLabel("User Management Dashboard");
         lbltitle.setFont(new Font("Calibri", Font.BOLD, 24));
         lbltitle.setForeground(Color.BLACK);
         lbltitle.setBounds(30, 20, 400, 40);
         pnlMain.add(lbltitle);
         
-        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT = new JLabel("May 21, 2026 | 10:00 AM");
         lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
         lblDT.setForeground(Color.darkGray);
         lblDT.setBounds(1390, 20, 400, 40);
@@ -64,29 +65,29 @@ public class UserManagementPanel extends JPanel {
         btnNurse.addActionListener(e -> switchRole("Nurse"));
         pnlMain.add(btnNurse);
         
-        JPanel tabAdmin = createTab("Admin", "0", darkBlue);
+        tabAdmin = createTab("Admin", "0", darkBlue);
         tabAdmin.setBounds(30, 130, 250, 60);
         pnlMain.add(tabAdmin);
         lblAd = (JLabel) tabAdmin.getComponent(1);
 
-        JPanel tabDoc = createTab("Doctor", "0", mediumBlue);
+        tabDoc = createTab("Doctor", "0", mediumBlue);
         tabDoc.setBounds(300, 130, 250, 60);
         pnlMain.add(tabDoc);
         lblDoc = (JLabel) tabDoc.getComponent(1);
 
-        JPanel tabNur = createTab("Nurse", "0", lightBlue);
+        tabNur = createTab("Nurse", "0", lightBlue);
         tabNur.setBounds(570, 130, 250, 60);
         pnlMain.add(tabNur);
         lblNur = (JLabel) tabNur.getComponent(1);
       
-        JPanel pnlSelection = new JPanel();
+        pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
         pnlSelection.setBackground(Color.WHITE);
         pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
         pnlSelection.setBounds(30, 210, 1130, 80);
         pnlMain.add(pnlSelection);
         
-        JLabel lblName = new JLabel("Name:");
+        lblName = new JLabel("Name:");
         lblName.setBounds(15, 28, 60, 25);
         lblName.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblName);
@@ -95,7 +96,7 @@ public class UserManagementPanel extends JPanel {
         txtName.setBounds(70, 26, 180, 28);
         pnlSelection.add(txtName);
         
-        JLabel lblID = new JLabel("ID:");
+        lblID = new JLabel("ID:");
         lblID.setBounds(270, 28, 80, 25);
         lblID.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblID);
@@ -104,7 +105,7 @@ public class UserManagementPanel extends JPanel {
         txtID.setBounds(300, 26, 180, 28);
         pnlSelection.add(txtID);
         
-        JLabel lblAge = new JLabel("Age:");
+        lblAge = new JLabel("Age:");
         lblAge.setBounds(500, 28, 100, 25);
         lblAge.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblAge);
@@ -139,11 +140,11 @@ public class UserManagementPanel extends JPanel {
         tblUM.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 18));
         tblUM.getTableHeader().setBackground(lightBlue);
         
-        JScrollPane srcUM = new JScrollPane(tblUM);
+        srcUM = new JScrollPane(tblUM);
         srcUM.setBounds(30, 310, 1560, 530);
         pnlMain.add(srcUM);
         
-        JPanel pnlBot = new JPanel();
+        pnlBot = new JPanel();
         pnlBot.setLayout(null);
         pnlBot.setBackground(Color.WHITE);
         pnlBot.setBorder(BorderFactory.createLineBorder(borderLBLUE));
@@ -177,23 +178,23 @@ public class UserManagementPanel extends JPanel {
     }
     
     private JPanel createTab(String title, String value, Color color) {
-       JPanel tab = new JPanel();
-       tab.setLayout(null);
-       tab.setBackground(color);
+       tabUpdate = new JPanel();
+       tabUpdate.setLayout(null);
+       tabUpdate.setBackground(color);
        
-       JLabel lblTitle = new JLabel(title);
+        lblTitle = new JLabel(title);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setBounds(20, 20, 200, 25);
-        tab.add(lblTitle);
+        tabUpdate.add(lblTitle);
         
-        JLabel lblValue = new JLabel(value);
+        lblValue = new JLabel(value);
         lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
         lblValue.setForeground(Color.WHITE);
         lblValue.setBounds(200, 20, 100, 25);
-        tab.add(lblValue);
+        tabUpdate.add(lblValue);
         
-        return tab;
+        return tabUpdate;
     }
     
     private void addUser() {

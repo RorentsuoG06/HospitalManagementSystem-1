@@ -1,12 +1,13 @@
 package Left_Sidebar;
 
-import Prescriptions.doctor_Prescription;
+import Prescriptions.Prescription_Doctor;
 import Appointments.Doctor_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Doctor_Dashboard;
 import Generating_Report_Doctors.Doctor_Report;
 import Inventory.RequestPanel_Doctor;
 import Login_Startup.Login;
+import MedicalHistory.MedicalHistory_Doctor;
 import Patient_Information.PatientInfo_Doctor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -142,11 +143,9 @@ public class Doctor_SideBar extends JPanel implements ActionListener{
         } else if (ae.getSource() == btnProfile) {
             navPage.turnPage(new PatientInfo_Doctor());
         } else if (ae.getSource() == btnMHis) {
-            //navPage.turnPage(new Admin_Reports());
-        } else if (ae.getSource() == btnMHis) {
-            //navPage.turnPage(new Admin_Reports());
+            navPage.turnPage(new MedicalHistory_Doctor());
         } else if (ae.getSource() == btnPres) {
-            navPage.turnPage(new  doctor_Prescription());
+            navPage.turnPage(new  Prescription_Doctor());
         } else if (ae.getSource() == btnAppointment) {
             navPage.turnPage(new  Doctor_SchedAppointment());
         } else if (ae.getSource() == btnInventory) {

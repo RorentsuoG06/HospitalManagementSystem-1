@@ -8,10 +8,10 @@ import javax.swing.*;
 
 public class Nurses_Report extends JPanel implements ActionListener{
     
-    private JButton btnMedication, btnVitals, btnCareTask, btnSend, btnEdit, btnPrint;
-    private JButton btnMComplete, btnMIncomplete, btnMMissing;
-    private JLabel lblType, lblStatus;
-    private JPanel pnlMain, pnlPrev;
+    private JButton btnMedication, btnVitals, btnCareTask, btnSend, btnEdit, btnPrint,btnMComplete, btnMIncomplete, btnMMissing;
+    private JLabel lblType, lblStatus, lblDT,lblNurse,lbltext,lblRType,lblPrev;
+    private JPanel pnlMain, pnlPrev,pnlRType,pnlB;
+    private JScrollPane scroll;
     private String currentReportType = "";
     
     public Nurses_Report() {
@@ -24,13 +24,13 @@ public class Nurses_Report extends JPanel implements ActionListener{
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
-        JLabel lblNurse = new JLabel("Nurse Reports");
+        lblNurse = new JLabel("Nurse Reports");
         lblNurse.setBounds(30, 20, 300, 50);
         lblNurse.setFont(new Font("Calibri", Font.BOLD, 28));
         lblNurse.setForeground(Color.BLACK);
         pnlMain.add(lblNurse);
         
-        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT = new JLabel("May 21, 2026 | 10:00 AM");
         lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
         lblDT.setForeground(Color.darkGray);
         lblDT.setBounds(1390, 20, 400, 40);
@@ -42,19 +42,19 @@ public class Nurses_Report extends JPanel implements ActionListener{
         lblType.setForeground(Color.BLACK);
         pnlMain.add(lblType);
         
-        JLabel lbltext = new JLabel("Manage medication, vitals, and care task documents.");
+        lbltext = new JLabel("Manage medication, vitals, and care task documents.");
         lbltext.setBounds(30, 60, 500, 30);
         lbltext.setFont(new Font("Calibri", Font.PLAIN, 18));
         lbltext.setForeground(Color.BLACK);
         pnlMain.add(lbltext);
         
-        JPanel pnlRType = new JPanel();
+        pnlRType = new JPanel();
         pnlRType.setLayout(null);
         pnlRType.setBounds(30, 110, 450, 800);
         pnlRType.setBackground(Color.WHITE);
         pnlMain.add(pnlRType);
         
-        JLabel lblRType = new JLabel("Select Report Type");
+        lblRType = new JLabel("Select Report Type");
         lblRType.setBounds(30, 20, 240, 30);
         lblRType.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlRType.add(lblRType);
@@ -64,7 +64,6 @@ public class Nurses_Report extends JPanel implements ActionListener{
         btnMedication.setFont(new Font("Calibri", Font.BOLD, 18));
         btnMedication.setBackground(Color.WHITE);
         btnMedication.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        btnMedication.addActionListener(this);
         pnlRType.add(btnMedication);
         
         btnVitals = new JButton("Vital Signs Report");
@@ -72,7 +71,6 @@ public class Nurses_Report extends JPanel implements ActionListener{
         btnVitals.setFont(new Font("Calibri", Font.BOLD, 20));
         btnVitals.setBackground(Color.WHITE);
         btnVitals.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        btnVitals.addActionListener(this);
         pnlRType.add(btnVitals);
         
         btnCareTask = new JButton("Care Task Summary");
@@ -80,16 +78,19 @@ public class Nurses_Report extends JPanel implements ActionListener{
         btnCareTask.setFont(new Font("Calibri", Font.BOLD, 20));
         btnCareTask.setBackground(Color.WHITE);
         btnCareTask.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        btnCareTask.addActionListener(this);
         pnlRType.add(btnCareTask);
         
-        JPanel pnlB = new JPanel();
+        btnMedication.addActionListener(this);
+        btnVitals.addActionListener(this);
+        btnCareTask.addActionListener(this);
+        
+        pnlB = new JPanel();
         pnlB.setLayout(null);
         pnlB.setBounds(500, 110, 1100, 800);
         pnlB.setBackground(Color.WHITE);
         pnlMain.add(pnlB);
 
-        JLabel lblPrev = new JLabel("Report Preview");
+        lblPrev = new JLabel("Report Preview");
         lblPrev.setBounds(30, 20, 200, 40);
         lblPrev.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlB.add(lblPrev);
@@ -125,7 +126,7 @@ public class Nurses_Report extends JPanel implements ActionListener{
         pnlPrev.setLayout(null);
         pnlPrev.setBackground(Color.WHITE);
         
-        JScrollPane scroll = new JScrollPane(pnlPrev);
+        scroll = new JScrollPane(pnlPrev);
         scroll.setBounds(30, 80, 1040, 610);
         scroll.setBorder(null);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -133,21 +134,21 @@ public class Nurses_Report extends JPanel implements ActionListener{
         pnlB.add(scroll);
         
         btnEdit = new JButton("Edit Report");
-        btnEdit.setBounds(590, 710, 150, 35);
+        btnEdit.setBounds(500, 740, 150, 35);
         btnEdit.setBackground(darkBlue);
         btnEdit.setForeground(Color.WHITE);
         btnEdit.addActionListener(e -> editReport());
         pnlB.add(btnEdit);
         
         btnSend = new JButton("Send to Doctor");
-        btnSend.setBounds(760, 710, 180, 35);
+        btnSend.setBounds(660, 740, 170, 35);
         btnSend.setBackground(Green);
         btnSend.setForeground(Color.BLACK);
         btnSend.addActionListener(e -> sendReport());
         pnlB.add(btnSend);
         
         btnPrint = new JButton("Print Report");
-        btnPrint.setBounds(960, 710, 120, 35);
+        btnPrint.setBounds(840, 740, 180, 35);
         btnPrint.setBackground(LightGray);
         btnPrint.setForeground(Color.BLACK);
         btnPrint.addActionListener(e -> printReport());

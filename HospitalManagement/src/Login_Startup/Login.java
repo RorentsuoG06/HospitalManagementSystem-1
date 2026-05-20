@@ -12,10 +12,15 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.border.*;
 
 public class Login extends JFrame implements ActionListener{
+    
+    private JPanel pnlLogin;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin;
-    private JLabel lblForgot;
+    private JLabel lblbackground, lblLogo, lblTitle, lblUser, lblPass, lblForgot;
+    private ImageIcon imgBg, imgDlogo;
+    private Image BgImage, imgbg;
+    
     
     public Login() {
         setTitle("Hospital Login");
@@ -27,13 +32,13 @@ public class Login extends JFrame implements ActionListener{
         setLayout(null);
         setLocationRelativeTo(null);
         
-        ImageIcon imgBg = new ImageIcon(getClass().getResource("/resources/OOP - LOGIN BG.jpg"));
-        Image BgImage = imgBg.getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
-        JLabel lblbackground = new JLabel(new ImageIcon(BgImage));
+        imgBg = new ImageIcon(getClass().getResource("/resources/OOP - LOGIN BG.jpg"));
+        BgImage = imgBg.getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
+        lblbackground = new JLabel(new ImageIcon(BgImage));
         lblbackground.setBounds(0, 0, 1920, 1080);
         add(lblbackground);
         
-        JPanel pnlLogin = new JPanel();
+        pnlLogin = new JPanel();
         pnlLogin.setLayout(null);
         pnlLogin.setBounds(700, 250, 520, 500);
         pnlLogin.setBackground(Color.WHITE);
@@ -49,19 +54,19 @@ public class Login extends JFrame implements ActionListener{
 
         lblbackground.add(pnlLogin);
         
-        ImageIcon imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
-        Image imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-        JLabel lblLogo = new JLabel(new ImageIcon(imgbg));
+        imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
+        imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        lblLogo = new JLabel(new ImageIcon(imgbg));
         lblLogo.setBounds(170, 30, 180, 180);
         pnlLogin.add(lblLogo);
         
-        JLabel lblTitle = new JLabel("eTriage", SwingConstants.CENTER);
+        lblTitle = new JLabel("eTriage", SwingConstants.CENTER);
         lblTitle.setFont(new Font("Calibri", Font.ITALIC, 24));
         lblTitle.setBounds(20, 170, 480, 40);
         lblTitle.setForeground(Color.BLACK);
         pnlLogin.add(lblTitle);
         
-        JLabel lblUser = new JLabel("Username: ");
+        lblUser = new JLabel("Username: ");
         lblUser.setFont(new Font("Calibri", Font.BOLD, 18));
         lblUser.setBounds(80, 230, 120, 30);
         pnlLogin.add(lblUser);
@@ -73,7 +78,7 @@ public class Login extends JFrame implements ActionListener{
         txtUsername.setFont(new Font("Calibri", Font.PLAIN, 16));
         pnlLogin.add(txtUsername);
 
-        JLabel lblPass = new JLabel("Password:");
+        lblPass = new JLabel("Password:");
         lblPass.setFont(new Font("Calibri", Font.BOLD, 18));
         lblPass.setBounds(80, 290, 120, 30);
         pnlLogin.add(lblPass);

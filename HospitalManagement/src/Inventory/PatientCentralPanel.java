@@ -7,12 +7,13 @@ import java.awt.*;
 
 public class PatientCentralPanel extends JPanel {
     
-    private JPanel pnlMain;
+    private JPanel pnlMain,tabPatient,tabAdmission,tabBed,tabApp,pnlSelection,pnlBot,tabUpdate;
     private DefaultTableModel tblModel;
     private JTextField txtName, txtRoom;
-    private JLabel lblTPatient, lblAct;
+    private JLabel lblTPatient, lblAct,lbltitle,lblDT,lblName,lblRoom, lblTitle, lblValue;
     private JTable tblPC;
     private JButton btnAdd, btnAdmit, btnDischarge, btnRemove;
+    private JScrollPane srcRoom;
     
     public PatientCentralPanel() {
         setLayout(null);
@@ -27,13 +28,13 @@ public class PatientCentralPanel extends JPanel {
         int panelWidth = 1620;
         int startX = 30;
        
-        JLabel lbltitle = new JLabel("Patient Central Dashboard");
+        lbltitle = new JLabel("Patient Central Dashboard");
         lbltitle.setFont(new Font("Calibri", Font.BOLD, 24));
         lbltitle.setForeground(Color.BLACK);
         lbltitle.setBounds(startX, 20, 400, 40);
         pnlMain.add(lbltitle);
         
-        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT = new JLabel("May 21, 2026 | 10:00 AM");
         lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
         lblDT.setForeground(Color.darkGray);
         lblDT.setBounds(1390, 20, 400, 40);
@@ -43,32 +44,32 @@ public class PatientCentralPanel extends JPanel {
         int tabHeight = 100;
         int tabY = 80;
         
-        JPanel tabPatient = createTab("Total Patients", "0", darkBlue);
+        tabPatient = createTab("Total Patients", "0", darkBlue);
         tabPatient.setBounds(startX, tabY, tabWidth, tabHeight);
         pnlMain.add(tabPatient);
         lblTPatient = (JLabel) tabPatient.getComponent(1);
         
-        JPanel tabAdmission = createTab("Active Admissions", "0", mediumBlue);
+        tabAdmission = createTab("Active Admissions", "0", mediumBlue);
         tabAdmission.setBounds(startX + tabWidth + 20, tabY, tabWidth, tabHeight);
         pnlMain.add(tabAdmission);
         lblAct = (JLabel) tabAdmission.getComponent(1);
         
-        JPanel tabBed = createTab("Available Beds", "50", Green);
+        tabBed = createTab("Available Beds", "50", Green);
         tabBed.setBounds(startX + (tabWidth + 20) * 2, tabY, tabWidth, tabHeight);
         pnlMain.add(tabBed);
         
-        JPanel tabApp = createTab("Today's Appointments", "24", Yellow);
+        tabApp = createTab("Today's Appointments", "24", Yellow);
         tabApp.setBounds(startX + (tabWidth + 20) * 3, tabY, tabWidth, tabHeight);
         pnlMain.add(tabApp);
      
-        JPanel pnlSelection = new JPanel();
+        pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
         pnlSelection.setBackground(Color.WHITE);
         pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
         pnlSelection.setBounds(startX, 210, 650, 80);
         pnlMain.add(pnlSelection);
         
-        JLabel lblName = new JLabel("Name:");
+        lblName = new JLabel("Name:");
         lblName.setBounds(15, 28, 80, 25);
         lblName.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblName);
@@ -77,7 +78,7 @@ public class PatientCentralPanel extends JPanel {
         txtName.setBounds(65, 26, 150, 28);
         pnlSelection.add(txtName);
         
-        JLabel lblRoom = new JLabel("Room:");
+        lblRoom = new JLabel("Room:");
         lblRoom.setBounds(230, 28, 50, 25);
         lblRoom.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblRoom);
@@ -103,11 +104,11 @@ public class PatientCentralPanel extends JPanel {
         tblPC.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 18));
         tblPC.getTableHeader().setBackground(lightBlue);
         
-        JScrollPane srcRoom = new JScrollPane(tblPC);
+        srcRoom = new JScrollPane(tblPC);
         srcRoom.setBounds(startX, 310, panelWidth - 60, 530);
         pnlMain.add(srcRoom);
        
-        JPanel pnlBot = new JPanel();
+        pnlBot = new JPanel();
         pnlBot.setLayout(null);
         pnlBot.setBackground(Color.WHITE);
         pnlBot.setBorder(BorderFactory.createLineBorder(borderLBLUE));
@@ -145,23 +146,23 @@ public class PatientCentralPanel extends JPanel {
     }
     
     private JPanel createTab(String title, String value, Color color) {
-        JPanel tab = new JPanel();
-        tab.setLayout(null);
-        tab.setBackground(color);
+        tabUpdate = new JPanel();
+        tabUpdate.setLayout(null);
+        tabUpdate.setBackground(color);
         
-        JLabel lblTitle = new JLabel(title);
+        lblTitle = new JLabel(title);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setBounds(15, 20, 250, 20);
-        tab.add(lblTitle);
+        tabUpdate.add(lblTitle);
         
-        JLabel lblValue = new JLabel(value);
+        lblValue = new JLabel(value);
         lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
         lblValue.setForeground(Color.WHITE);
         lblValue.setBounds(15, 50, 150, 40);
-        tab.add(lblValue);
+        tabUpdate.add(lblValue);
         
-        return tab;
+        return tabUpdate;
     }
     
     private void addPatient() {
@@ -229,7 +230,6 @@ public class PatientCentralPanel extends JPanel {
     private void addSampData() {
         tblModel.addRow(new Object[]{"Jane Smith", "102", "Admitted"});
         tblModel.addRow(new Object[]{"Bob Johnson", "103", "Discharged"});
-        tblModel.addRow(new Object[]{"Melvin", "321", "Active"});
         
         updateSummary();
     }

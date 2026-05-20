@@ -155,8 +155,8 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         pnlBot.add(btnUr);
         
         btnRev = new JButton("Remove");
-        btnRev.setBounds(300, 15, 120, 30);
-        btnRev.setBackground(LightRed);
+        btnRev.setBounds(440, 15, 120, 30);
+        btnRev.setBackground(darkBlue);
         btnRev.setForeground(Color.WHITE);
         btnRev.addActionListener(ee -> RemoveApp());
         pnlBot.add(btnRev);
@@ -173,7 +173,7 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         lblTitle2.setFont(new Font("Calibri", Font.BOLD, 20));
         lblTitle2.setForeground(Color.WHITE);
         lblTitle2.setBounds(20, 20, 200, 25);
-        tabUpdate.add(lblTitle);
+        tabUpdate.add(lblTitle2);
         
        lblValue = new JLabel(value);
         lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
