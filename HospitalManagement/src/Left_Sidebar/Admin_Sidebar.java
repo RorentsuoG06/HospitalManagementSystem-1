@@ -3,7 +3,7 @@ package Left_Sidebar;
 import Appointments.Admin_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Admin_Dashboard;
-import Generating_Reports.Admin_Reports;
+import Generating_Reports_Admin.Admin_Reports;
 import Inventory.InventoryPanel;
 import Inventory.LogisticsPanel;
 import Inventory.PatientCentralPanel;
@@ -16,7 +16,12 @@ import javax.swing.*;
 
 public class Admin_Sidebar extends JPanel implements ActionListener{
 
-    private JButton btnDashboard, btnUManagement, btnPInfo, btnAppointment, btnInventory, btnIManagement, btnLogistics, btnReport, btnLogout;
+    private JPanel leftSidebar, pnlInventory;
+    private JLabel lblLogo, lblLogoTitle;
+    private JButton btnDashboard, btnUManagement, btnPInfo, btnAppointment, btnInventory, btnPOptions, btnIManagement, btnLogistics, btnReport, btnLogout, btnDesign, btnLout;
+    private ImageIcon imgDlogo;
+    private Image imgbg;
+    private JRadioButton rbtnDarkMode;
     private Admin_SideBarFrame navPage;
     
     public Admin_Sidebar(Admin_SideBarFrame navPage) {
@@ -24,19 +29,19 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         setLayout(null);
         
         //Left Sidebar
-        JPanel leftSidebar = new JPanel();
+        leftSidebar = new JPanel();
         leftSidebar.setLayout(null);
         leftSidebar.setBounds(0, 0, 300, 1000);
         leftSidebar.setBackground(darkBlue);
         add(leftSidebar);
         
-        ImageIcon imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
-        Image imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-        JLabel lblLogo = new JLabel(new ImageIcon(imgbg));
+        imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
+        imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        lblLogo = new JLabel(new ImageIcon(imgbg));
         lblLogo.setBounds(60, 40, 180, 180);
         leftSidebar.add(lblLogo);
         
-        JLabel lblLogoTitle = new JLabel("eTriage");
+        lblLogoTitle = new JLabel("eTriage");
         lblLogoTitle.setBounds(105, 200, 120, 30);
         lblLogoTitle.setForeground(Color.WHITE);
         lblLogoTitle.setFont(new Font("Calibri", Font.ITALIC, 28));
@@ -57,7 +62,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         btnInventory = btnSideBar("Inventory  +", 20, 500, 260, 45, darkBlue);
         leftSidebar.add(btnInventory);
         
-        JPanel pnlInventory = new JPanel();
+        pnlInventory = new JPanel();
         pnlInventory.setLayout(null);
         pnlInventory.setBounds(40, 545, 240, 90);
         pnlInventory.setBackground(darkBlue);
@@ -67,7 +72,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
         String[] InventoryOptions = {"Inventory Management", "Logistics"};
         int InveOption = 0;
         for (String InventoryOp : InventoryOptions) {
-            JButton btnPOptions = btnInve(InventoryOp, 0, InveOption, 240, 35);
+            btnPOptions = btnInve(InventoryOp, 0, InveOption, 240, 35);
             pnlInventory.add(btnPOptions);
             
             if(InventoryOp.equals("Inventory Management")) {
@@ -99,11 +104,11 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
             leftSidebar.revalidate();
         });
 
-        // For show only
+        // For show only, it errors if "JButton" is removed.
         JButton btnAppearance = btnSideBar("Appearance", 20, 830, 260, 45, darkBlue);
         leftSidebar.add(btnAppearance);
         
-        JRadioButton rbtnDarkMode = new JRadioButton("Dark Mode");
+        rbtnDarkMode = new JRadioButton("Dark Mode");
         rbtnDarkMode.setBounds(60, 880, 200, 30);
         rbtnDarkMode.setForeground(Color.WHITE);
         rbtnDarkMode.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -157,7 +162,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
     } 
 
     private JButton btnSideBar(String text, int x, int y, int wid, int hei, Color darkblue) {
-        JButton btnDesign = new JButton(text);
+        btnDesign = new JButton(text);
         btnDesign.setBounds(x, y, wid, hei);
         btnDesign.setFont(new Font("Calibri", Font.BOLD, 20));
         btnDesign.setForeground(Color.WHITE);
@@ -172,7 +177,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
     }
     
     private JButton btnInve(String text, int x, int y, int wid, int hei) {
-            JButton btnPOptions = new JButton(text);
+            btnPOptions = new JButton(text);
             btnPOptions.setBounds(x, y, wid, hei);
             btnPOptions.setForeground(Color.WHITE);
             btnPOptions.setBackground(darkBlue);
@@ -187,7 +192,7 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
     }
     
     private JButton btnLog(String text, int x, int y, int wid, int hei, Color veryLightBlue) {
-        JButton btnLout = new JButton(text);
+        btnLout = new JButton(text);
         btnLout.setBounds(x, y, wid, hei);
         btnLout.setFont(new Font("Calibri", Font.BOLD, 20));
         btnLout.setForeground(Color.BLACK);

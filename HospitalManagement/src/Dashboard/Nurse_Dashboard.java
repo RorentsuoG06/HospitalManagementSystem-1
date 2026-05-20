@@ -9,8 +9,14 @@ import javax.swing.*;
 
 public class Nurse_Dashboard extends JPanel{
     
-    private JPanel pnlMain;
-    private JLabel lblView;
+    private JPanel pnlMain, pnlPatients, pnlAppointment, pnlPrescription, pnlCritical, pnlMSched, pnlWard, pnlSummary, pnlSelection;
+    private JLabel lblView, lblDashboard, lblDT, lblPatients, lblPCount, lblATitle, lblACount, lblPrCount, lblPrTitle, lblCTitle, lblCCount,
+                   lblMSched, lblWard, lblStatusAct, lblSummary, lblQuickA;
+    private JButton btnVitals, btnSeeAppointment, btnMChart, btnWriteNote, btnViewAll;
+    private JTable tblMSched, tblSummary, tblWard;
+    private JTableHeader hdrMSched, summaryHeader, HdrWard;
+    private DefaultTableCellRenderer centerMSched, center, leftRenderer;
+    private JScrollPane scrMSched, scrSummary, scrWard;
     
     public Nurse_Dashboard() {
         setLayout(null);
@@ -22,96 +28,96 @@ public class Nurse_Dashboard extends JPanel{
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
-        JLabel lblMainPlaceholder = new JLabel("NURSE Dashboard");
-        lblMainPlaceholder.setBounds(50, 45, 300, 30);
-        lblMainPlaceholder.setFont(new Font("Calibri", Font.BOLD, 28));
-        pnlMain.add(lblMainPlaceholder);
+        lblDashboard = new JLabel("NURSE Dashboard");
+        lblDashboard.setBounds(50, 45, 300, 30);
+        lblDashboard.setFont(new Font("Calibri", Font.BOLD, 28));
+        pnlMain.add(lblDashboard);
         
-        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT = new JLabel("May 21, 2026 | 10:00 AM");
         lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
         lblDT.setForeground(Color.darkGray);
         lblDT.setBounds(1390, 20, 400, 40);
         pnlMain.add(lblDT);
         
-        JPanel pnlPatients = new JPanel();
+        pnlPatients = new JPanel();
         pnlPatients.setLayout(null);
         pnlPatients.setBounds(70, 100, 280, 120);
         pnlPatients.setBackground(LightRed);
         pnlMain.add(pnlPatients);
         
-        JLabel lblPatients = new JLabel("Patients Assigned");
+        lblPatients = new JLabel("Patients Assigned");
         lblPatients.setBounds(15, 15, 200, 20);
         lblPatients.setFont(new Font("Calibri", Font.BOLD, 22));
         lblPatients.setForeground(Color.WHITE);
         pnlPatients.add(lblPatients);
         
-        JLabel lblPCount = new JLabel("24");
+        lblPCount = new JLabel("24");
         lblPCount.setBounds(190, 65, 200, 40);
         lblPCount.setForeground(Color.WHITE);
         lblPCount.setFont(new Font("Calibri", Font.BOLD, 32));
         pnlPatients.add(lblPCount);
         
-        JPanel pnlAppointment = new JPanel();
+        pnlAppointment = new JPanel();
         pnlAppointment.setLayout(null);
         pnlAppointment.setBounds(370, 100, 280, 120);
         pnlAppointment.setBackground(Blue);
         pnlMain.add(pnlAppointment);
 
-        JLabel lblATitle = new JLabel("Today's Tasks");
+        lblATitle = new JLabel("Today's Tasks");
         lblATitle.setBounds(15, 15, 200, 20);
         lblATitle.setForeground(Color.WHITE);
         lblATitle.setFont(new Font("Calibri", Font.BOLD, 20));
         pnlAppointment.add(lblATitle);
 
-        JLabel lblACount = new JLabel("12");
+        lblACount = new JLabel("12");
         lblACount.setBounds(190,65, 200, 40);
         lblACount.setForeground(Color.WHITE);
         lblACount.setFont(new Font("Calibri", Font.BOLD, 32));
         pnlAppointment.add(lblACount);
         
-        JPanel pnlPrescription = new JPanel();
+        pnlPrescription = new JPanel();
         pnlPrescription.setLayout(null);
         pnlPrescription.setBounds(670, 100, 280, 120);
         pnlPrescription.setBackground(Yellow);
         pnlMain.add(pnlPrescription);
 
-        JLabel lblPrTitle = new JLabel("Medication to Administer");
+        lblPrTitle = new JLabel("Medication to Administer");
         lblPrTitle.setBounds(15, 15, 250, 20);
         lblPrTitle.setForeground(Color.WHITE);
         lblPrTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         pnlPrescription.add(lblPrTitle);
 
-        JLabel lblPrCount = new JLabel("8");
+        lblPrCount = new JLabel("8");
         lblPrCount.setBounds(190,65, 200, 40);
         lblPrCount.setForeground(Color.WHITE);
         lblPrCount.setFont(new Font("Calibri", Font.BOLD, 28));
         pnlPrescription.add(lblPrCount);
         
-        JPanel pnlCritical = new JPanel();
+        pnlCritical = new JPanel();
         pnlCritical.setLayout(null);
         pnlCritical.setBounds(970, 100, 280, 120);
         pnlCritical.setBackground(Green);
         pnlMain.add(pnlCritical);
 
-        JLabel lblCTitle = new JLabel("Critical Cases");
+        lblCTitle = new JLabel("Critical Cases");
         lblCTitle.setBounds(15, 15, 200, 20);
         lblCTitle.setForeground(Color.WHITE);
         lblCTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         pnlCritical.add(lblCTitle);
 
-        JLabel lblCCount = new JLabel("3");
+        lblCCount = new JLabel("3");
         lblCCount.setBounds(190, 65, 200, 40);
         lblCCount.setForeground(Color.WHITE);
         lblCCount.setFont(new Font("Calibri", Font.BOLD, 28));
         pnlCritical.add(lblCCount);
         
-        JPanel pnlMSched = new JPanel();
+        pnlMSched = new JPanel();
         pnlMSched.setLayout(null);
         pnlMSched.setBounds(70, 240, 1080, 400);
         pnlMSched.setBackground(Color.WHITE);
         pnlMain.add(pnlMSched);
 
-        JLabel lblMSched = new JLabel("Patients Vitals | Medication Schedule");
+        lblMSched = new JLabel("Patients Vitals | Medication Schedule");
         lblMSched.setBounds(20, 15, 400, 30);
         lblMSched.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlMSched.add(lblMSched);
@@ -141,29 +147,29 @@ public class Nurse_Dashboard extends JPanel{
             {"P014", "Nicole Torres", "Room 114", "02:30 PM", "74", "115/75", "36.6°C", "Pain Reliever", "Given"}
         };
 
-        JTable tblMSched = new JTable(RwMSched, clmMSched);
+        tblMSched = new JTable(RwMSched, clmMSched);
         tblMSched.setFont(new Font("Calibri", Font.PLAIN, 16));
         tblMSched.setRowHeight(35);
         tblMSched.setGridColor(Color.LIGHT_GRAY);
         tblMSched.setBackground(Color.WHITE);
 
-        JTableHeader hdrMSched = tblMSched.getTableHeader();
+        hdrMSched = tblMSched.getTableHeader();
         hdrMSched.setFont(new Font("Calibri", Font.BOLD, 14));
 
-        DefaultTableCellRenderer centerMSched = new DefaultTableCellRenderer();
+        centerMSched = new DefaultTableCellRenderer();
         centerMSched.setHorizontalAlignment(SwingConstants.CENTER);
 
         for (int i = 0; i < 4; i++) {
             tblMSched.getColumnModel().getColumn(i).setCellRenderer(centerMSched);
         }
 
-        JScrollPane scrMSched = new JScrollPane(tblMSched);
+        scrMSched = new JScrollPane(tblMSched);
         scrMSched.setBounds(20, 50, 1040, 340);
         scrMSched.setBorder(BorderFactory.createEmptyBorder());
         pnlMSched.add(scrMSched);
         
         tblMSched.getColumnModel().getColumn(7).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-        JLabel lblStatusAct = new JLabel(value.toString(), SwingConstants.CENTER);
+        lblStatusAct = new JLabel(value.toString(), SwingConstants.CENTER);
         lblStatusAct.setOpaque(true);
         lblStatusAct.setFont(new Font("Calibri", Font.BOLD, 16));
         
@@ -191,13 +197,13 @@ public class Nurse_Dashboard extends JPanel{
         });
         
         // Room Assignment Summary
-        JPanel pnlSummary = new JPanel();
+        pnlSummary = new JPanel();
         pnlSummary.setLayout(null);
         pnlSummary.setBounds(70, 650, 700, 230);
         pnlSummary.setBackground(Color.WHITE);
         pnlMain.add(pnlSummary);
 
-        JLabel lblSummary = new JLabel("Room Assignment Summary");
+        lblSummary = new JLabel("Room Assignment Summary");
         lblSummary.setBounds(20, 15, 400, 30);
         lblSummary.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSummary.add(lblSummary);
@@ -217,39 +223,39 @@ public class Nurse_Dashboard extends JPanel{
             {"Room 104", "Dr. Ramos", "Nurse Villanueva", "Wheelchair"}
         };
 
-        JTable tblSummary = new JTable(RwSummary, clmSummary);
+        tblSummary = new JTable(RwSummary, clmSummary);
         tblSummary.setFont(new Font("Calibri", Font.PLAIN, 16));
         tblSummary.setRowHeight(35);
         tblSummary.setGridColor(Color.LIGHT_GRAY);
         tblSummary.setBackground(Color.WHITE);
 
-        JTableHeader summaryHeader = tblSummary.getTableHeader();
+        summaryHeader = tblSummary.getTableHeader();
         summaryHeader.setFont(new Font("Calibri", Font.BOLD, 14));
 
-        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
 
         for (int i = 0; i < 4; i++) {
             tblSummary.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
-        JScrollPane scrSummary = new JScrollPane(tblSummary);
+        scrSummary = new JScrollPane(tblSummary);
         scrSummary.setBounds(20, 50, 660, 150);
         scrSummary.setBorder(BorderFactory.createEmptyBorder());
         pnlSummary.add(scrSummary);
         
-        JPanel pnlSelection = new JPanel();
+        pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
         pnlSelection.setBounds(800, 650, 350, 230);
         pnlSelection.setBackground(Color.WHITE);
         pnlMain.add(pnlSelection);
         
-        JLabel lblQuickA = new JLabel("Quick Actions");
+        lblQuickA = new JLabel("Quick Actions");
         lblQuickA.setBounds(20, 15, 200, 30);
         lblQuickA.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSelection.add(lblQuickA);
 
-        JButton btnVitals = new JButton("Take Vitals");
+        btnVitals = new JButton("Take Vitals");
         btnVitals.setBounds(20, 55, 140, 65);
         btnVitals.setFont(new Font("Calibri", Font.BOLD, 18));
         btnVitals.setBackground(Green);
@@ -257,7 +263,7 @@ public class Nurse_Dashboard extends JPanel{
         btnVitals.setFocusPainted(false);
         pnlSelection.add(btnVitals);
 
-        JButton btnSeeAppointment = new JButton("See Appointment");
+        btnSeeAppointment = new JButton("See Appointment");
         btnSeeAppointment.setBounds(20, 140, 140, 65);
         btnSeeAppointment.setFont(new Font("Calibri", Font.BOLD, 14));
         btnSeeAppointment.setBackground(Yellow);
@@ -265,7 +271,7 @@ public class Nurse_Dashboard extends JPanel{
         btnSeeAppointment.setFocusPainted(false);
         pnlSelection.add(btnSeeAppointment);
         
-        JButton btnMChart = new JButton("Medication Chart");
+        btnMChart = new JButton("Medication Chart");
         btnMChart.setBounds(190, 55, 140, 65);
         btnMChart.setFont(new Font("Calibri", Font.BOLD, 14));
         btnMChart.setBackground(Blue);
@@ -273,7 +279,7 @@ public class Nurse_Dashboard extends JPanel{
         btnMChart.setFocusPainted(false);
         pnlSelection.add(btnMChart);
 
-        JButton btnWriteNote = new JButton("Write Note");
+        btnWriteNote = new JButton("Write Note");
         btnWriteNote.setBounds(190, 140, 140, 65);
         btnWriteNote.setFont(new Font("Calibri", Font.BOLD, 18));
         btnWriteNote.setBackground(LightRed);
@@ -281,13 +287,13 @@ public class Nurse_Dashboard extends JPanel{
         btnWriteNote.setFocusPainted(false);
         pnlSelection.add(btnWriteNote);
         
-        JPanel pnlWard = new JPanel();
+        pnlWard = new JPanel();
         pnlWard.setLayout(null);
         pnlWard.setBounds(1170, 240, 420, 600);
         pnlWard.setBackground(Color.WHITE);
         pnlMain.add(pnlWard);
         
-        JLabel lblWard = new JLabel("Ward Activity");
+        lblWard = new JLabel("Ward Activity");
         lblWard.setBounds(20, 20, 300, 30);
         lblWard.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlWard.add(lblWard);
@@ -311,16 +317,16 @@ public class Nurse_Dashboard extends JPanel{
             {"Nicole Torres", "Administer pain medication", "4 hrs"}
             };
         
-        JTable tblWard = new JTable(RwWard, clmWard);
+        tblWard = new JTable(RwWard, clmWard);
         tblWard.setFont(new Font("Calibri", Font.PLAIN, 14));
         tblWard.setRowHeight(55);
         tblWard.setGridColor(Color.LIGHT_GRAY);
         tblWard.setBackground(Color.WHITE);
         
-        JTableHeader HdrWard = tblWard.getTableHeader();
+        HdrWard = tblWard.getTableHeader();
         HdrWard.setFont(new Font("Calibri", Font.BOLD, 14));
 
-        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
         for (int i = 0; i < 3; i++) {
@@ -331,12 +337,12 @@ public class Nurse_Dashboard extends JPanel{
         tblWard.getColumnModel().getColumn(1).setPreferredWidth(190);
         tblWard.getColumnModel().getColumn(2).setPreferredWidth(80);
 
-        JScrollPane scrWard = new JScrollPane(tblWard);
+        scrWard = new JScrollPane(tblWard);
         scrWard.setBounds(20, 70, 380, 450);
         scrWard.setBorder(BorderFactory.createEmptyBorder());
         pnlWard.add(scrWard);
         
-        JButton btnViewAll = new JButton("View All Activity");
+        btnViewAll = new JButton("View All Activity");
         btnViewAll.setBounds(125, 535, 180, 50);
         btnViewAll.setFont(new Font("Calibri", Font.BOLD, 18));
         btnViewAll.setBackground(Blue);

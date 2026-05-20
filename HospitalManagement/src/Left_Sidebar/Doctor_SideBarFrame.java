@@ -8,6 +8,10 @@ import javax.swing.*;
 public class Doctor_SideBarFrame extends JFrame{
     
     private JPanel window;
+    private JPanel header;
+    private JTextField txtSearch;
+    private JLabel lblDoctorName, lblDoctorIcon;
+    private ImageIcon imgDoctor;
     
     public Doctor_SideBarFrame() {
         setTitle("eTriage | Hospital Management System");
@@ -21,25 +25,25 @@ public class Doctor_SideBarFrame extends JFrame{
         sidebar.setBounds(0, 0, 300, 1080); 
         add(sidebar);
         
-        JPanel header = new JPanel();
+        header = new JPanel();
         header.setLayout(null);
         header.setBounds(300, 0, 1620, 70);
         header.setBackground(lightBlue);
         add(header);
         
-        JTextField lblSearch = new JTextField("Search...");
-        lblSearch.setBounds(970, 18, 260, 35);
-        lblSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
-        header.add(lblSearch);
+        txtSearch = new JTextField("Search...");
+        txtSearch.setBounds(970, 18, 260, 35);
+        txtSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
+        header.add(txtSearch);
         
-        JLabel lblDoctorName = new JLabel("Doctor | Isabella Ramos");
+        lblDoctorName = new JLabel("Doctor | Isabella Ramos");
         lblDoctorName.setFont(new Font("Calibri", Font.BOLD, 20));
         lblDoctorName.setBounds(1320, 20, 300, 35);
         header.add(lblDoctorName);
         
-        ImageIcon imgDoctor = new ImageIcon(getClass().getResource("/resources/DOCTOR.PHOTO.png"));
+        imgDoctor = new ImageIcon(getClass().getResource("/resources/DOCTOR.PHOTO.png"));
         Image imgDoc = imgDoctor.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-        JLabel lblDoctorIcon = new JLabel(new ImageIcon(imgDoc));
+        lblDoctorIcon = new JLabel(new ImageIcon(imgDoc));
         lblDoctorIcon.setBounds(1250, 13, 60, 60);
         header.add(lblDoctorIcon);
 

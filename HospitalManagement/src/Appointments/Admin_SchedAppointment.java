@@ -17,12 +17,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Admin_SchedAppointment extends JPanel implements ActionListener{
 
-    private JPanel pnlMain;
+    private JPanel pnlMain, tabPatients, tabUrgent, tabPending, pnlSelection, pnlBot, tabUpdate;
     private DefaultTableModel tblModel;
     private JTextField txtPatient, txtDoc, txtTreatment;
     private JTable tblAppoint;
-    private JLabel lblTPatient, lblUCases, lblPAppointments;
+    private JLabel lblTitle, lblDT, lblPatient, lblDoc, lblTreatment, lblTPatient, lblUCases, lblPAppointments,
+                   lblTitle2, lblValue;
     private JButton btnAdd, btnRef, btnAdmit, btnCom, btnUr, btnRev;
+    private JScrollPane srcApp;
     
     public Admin_SchedAppointment() {
         setLayout(null);
@@ -35,41 +37,41 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         pnlMain.setBounds(0, 0, 1620, 930);
         add(pnlMain);
         
-        JLabel lblTitle = new JLabel("Appointment Dashboard");
+        lblTitle = new JLabel("Appointment Management");
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 24));
         lblTitle.setForeground(Color.BLACK);
         lblTitle.setBounds(30, 20, 400, 40);
         pnlMain.add(lblTitle);
         
-        JLabel lblDT = new JLabel("May 21, 2026 | 10:00 AM");
+        lblDT = new JLabel("May 21, 2026 | 10:00 AM");
         lblDT.setFont(new Font("Calibri", Font.BOLD, 18));
         lblDT.setForeground(Color.darkGray);
         lblDT.setBounds(1390, 20, 400, 40);
         pnlMain.add(lblDT);
         
-        JPanel tabPatients = createTab("Today's Patients", "0", Blue);
+        tabPatients = createTab("Today's Patients", "0", Blue);
         tabPatients.setBounds(30, 80, 250, 100);
         pnlMain.add(tabPatients);
         lblTPatient = (JLabel) tabPatients.getComponent(1);
 
-        JPanel tabUrgent = createTab("Urgent Cases", "0", LightRed);
+        tabUrgent = createTab("Urgent Cases", "0", LightRed);
         tabUrgent.setBounds(300, 80, 250, 100);
         pnlMain.add(tabUrgent);
         lblUCases = (JLabel) tabUrgent.getComponent(1);
 
-        JPanel tabPending = createTab("Pending Appointments", "0", Yellow);
+        tabPending = createTab("Pending Appointments", "0", Yellow);
         tabPending.setBounds(570, 80, 250, 100);
         pnlMain.add(tabPending);
         lblPAppointments = (JLabel) tabPending.getComponent(1);
         
-        JPanel pnlSelection = new JPanel();
+        pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
         pnlSelection.setBackground(Color.WHITE);
         pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
         pnlSelection.setBounds(30, 210, 1130, 80);
         pnlMain.add(pnlSelection);
         
-        JLabel lblPatient = new JLabel("Patient: ");
+        lblPatient = new JLabel("Patient: ");
         lblPatient.setBounds(15, 28, 80, 25);
         lblPatient.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblPatient);
@@ -78,7 +80,7 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         txtPatient.setBounds(80, 26, 150, 28);
         pnlSelection.add(txtPatient);
         
-        JLabel lblDoc = new JLabel("Doctor: ");
+        lblDoc = new JLabel("Doctor: ");
         lblDoc.setBounds(260, 28, 80, 25);
         lblDoc.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblDoc);
@@ -87,7 +89,7 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         txtDoc.setBounds(320, 26, 150, 28);
         pnlSelection.add(txtDoc);
         
-        JLabel lblTreatment = new JLabel("Treatment: ");
+        lblTreatment = new JLabel("Treatment: ");
         lblTreatment.setBounds(500, 28, 100, 25);
         lblTreatment.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblTreatment);
@@ -120,11 +122,11 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         tblAppoint.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 18));
         tblAppoint.getTableHeader().setBackground(lightBlue);
         
-        JScrollPane srcApp = new JScrollPane(tblAppoint);
+        srcApp = new JScrollPane(tblAppoint);
         srcApp.setBounds(30, 310, 1560, 530);
         pnlMain.add(srcApp);
         
-        JPanel pnlBot = new JPanel();
+        pnlBot = new JPanel();
         pnlBot.setLayout(null);
         pnlBot.setBounds(30, 860, 1560, 50);
         pnlBot.setBackground(Color.WHITE);
@@ -163,23 +165,23 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
     }
     
     private JPanel createTab(String title, String value, Color color) {
-       JPanel tab = new JPanel();
-       tab.setLayout(null);
-       tab.setBackground(color);
+       tabUpdate = new JPanel();
+       tabUpdate.setLayout(null);
+       tabUpdate.setBackground(color);
        
-       JLabel lblTitle = new JLabel(title);
-        lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
-        lblTitle.setForeground(Color.WHITE);
-        lblTitle.setBounds(20, 20, 200, 25);
-        tab.add(lblTitle);
+        lblTitle2 = new JLabel(title);
+        lblTitle2.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblTitle2.setForeground(Color.WHITE);
+        lblTitle2.setBounds(20, 20, 200, 25);
+        tabUpdate.add(lblTitle);
         
-        JLabel lblValue = new JLabel(value);
+       lblValue = new JLabel(value);
         lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
         lblValue.setForeground(Color.WHITE);
         lblValue.setBounds(20, 50, 200, 40);
-        tab.add(lblValue);
+        tabUpdate.add(lblValue);
         
-        return tab;
+        return tabUpdate;
     }
     
     private void addAppointment() {

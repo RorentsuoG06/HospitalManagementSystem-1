@@ -3,6 +3,7 @@ package Left_Sidebar;
 import Appointments.Nurse_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
 import Dashboard.Nurse_Dashboard;
+import Generating_Report_Nurses.Nurses_Report;
 import Inventory.RequestPanel_Nurse;
 import Login_Startup.Login;
 import Patient_Information.PatientInfo_Nurse;
@@ -13,7 +14,12 @@ import javax.swing.*;
 
 public class Nurse_SideBar extends JPanel implements ActionListener{
 
-    private JButton btnDashboard, btnPInfo, btnProfile, btnMHis, btnPres, btnAppointment, btnInventory, btnReport, btnLogout;
+    private JPanel leftSidebar, pnlPInfo;
+    private JLabel lblLogo, lblLogoTitle;
+    private JButton btnDashboard, btnPInfo, btnProfile, btnMHis, btnPres, btnPOptions, btnAppointment, btnInventory, btnReport, btnLogout, btnDesign, btnLout;
+    private ImageIcon imgDlogo;
+    private Image imgbg;
+    private JRadioButton rbtnDarkMode;
     private Nurse_SideBarFrame navPage;
     
     public Nurse_SideBar(Nurse_SideBarFrame navPage) {
@@ -21,19 +27,19 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
         setLayout(null);
         
         //Left Sidebar
-        JPanel leftSidebar = new JPanel();
+        leftSidebar = new JPanel();
         leftSidebar.setLayout(null);
         leftSidebar.setBounds(0, 0, 300, 1000);
         leftSidebar.setBackground(darkBlue);
         add(leftSidebar);
         
-        ImageIcon imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
-        Image imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-        JLabel lblLogo = new JLabel(new ImageIcon(imgbg));
+        imgDlogo = new ImageIcon(getClass().getResource("/resources/eTriage.Logo.png"));
+        imgbg = imgDlogo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        lblLogo = new JLabel(new ImageIcon(imgbg));
         lblLogo.setBounds(60, 40, 180, 180);
         leftSidebar.add(lblLogo);
         
-        JLabel lblLogoTitle = new JLabel("eTriage");
+        lblLogoTitle = new JLabel("eTriage");
         lblLogoTitle.setBounds(105, 200, 120, 30);
         lblLogoTitle.setForeground(Color.WHITE);
         lblLogoTitle.setFont(new Font("Calibri", Font.ITALIC, 28));
@@ -45,7 +51,7 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
         btnPInfo = btnSideBar("Patient Information  +", 20, 320, 260,45, darkBlue);
         leftSidebar.add(btnPInfo);
         
-        JPanel pnlPInfo = new JPanel();
+        pnlPInfo = new JPanel();
         pnlPInfo.setLayout(null);
         pnlPInfo.setBounds(40, 365, 240, 120);
         pnlPInfo.setBackground(darkBlue);
@@ -93,7 +99,7 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
         JButton btnAppearance = btnSideBar("Appearance", 20, 830, 260, 45, darkBlue);
         leftSidebar.add(btnAppearance);
         
-        JRadioButton rbtnDarkMode = new JRadioButton("Dark Mode");
+        rbtnDarkMode = new JRadioButton("Dark Mode");
         rbtnDarkMode.setBounds(60, 880, 200, 30);
         rbtnDarkMode.setForeground(Color.WHITE);
         rbtnDarkMode.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -138,17 +144,19 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
             //navPage.turnPage(new Admin_Reports());
         } else if (ae.getSource() == btnMHis) {
             //navPage.turnPage(new Admin_Reports());
+        } else if (ae.getSource() == btnPres) {
+            //navPage.turnPage(new  );
         } else if (ae.getSource() == btnAppointment) {
             navPage.turnPage(new  Nurse_SchedAppointment());
         } else if (ae.getSource() == btnInventory) {
             navPage.turnPage(new RequestPanel_Nurse());
         } else if (ae.getSource() == btnReport) {
-            //navPage.turnPage(new ());
+            navPage.turnPage(new Nurses_Report());
         }
     }
     
     private JButton btnSideBar(String text, int x, int y, int wid, int hei, Color darkblue) {
-        JButton btnDesign = new JButton(text);
+        btnDesign = new JButton(text);
         btnDesign.setBounds(x, y, wid, hei);
         btnDesign.setFont(new Font("Calibri", Font.BOLD, 20));
         btnDesign.setForeground(Color.WHITE);
@@ -163,7 +171,7 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
     }
     
     private JButton btnPI(String text, int x, int y, int wid, int hei) {
-            JButton btnPOptions = new JButton(text);
+            btnPOptions = new JButton(text);
             btnPOptions.setBounds(x, y, wid, hei);
             btnPOptions.setForeground(Color.WHITE);
             btnPOptions.setBackground(darkBlue);
@@ -178,7 +186,7 @@ public class Nurse_SideBar extends JPanel implements ActionListener{
     }
     
     private JButton btnLog(String text, int x, int y, int wid, int hei, Color veryLightBlue) {
-        JButton btnLout = new JButton(text);
+        btnLout = new JButton(text);
         btnLout.setBounds(x, y, wid, hei);
         btnLout.setFont(new Font("Calibri", Font.BOLD, 20));
         btnLout.setForeground(Color.BLACK);

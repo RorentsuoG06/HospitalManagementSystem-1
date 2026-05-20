@@ -8,6 +8,10 @@ import javax.swing.*;
 public class Nurse_SideBarFrame extends JFrame{
     
     private JPanel window;
+    private JPanel header;
+    private JTextField txtSearch;
+    private JLabel lblNurseName, lblNurseIcon;
+    private ImageIcon imgNurse;
     
     public Nurse_SideBarFrame() {
         setTitle("eTriage | Hospital Management System");
@@ -21,25 +25,25 @@ public class Nurse_SideBarFrame extends JFrame{
         sidebar.setBounds(0, 0, 300, 1080); 
         add(sidebar);
         
-        JPanel header = new JPanel();
+        header = new JPanel();
         header.setLayout(null);
         header.setBounds(300, 0, 1620, 70);
         header.setBackground(lightBlue);
         add(header);
         
-        JTextField lblSearch = new JTextField("Search...");
-        lblSearch.setBounds(970, 18, 260, 35);
-        lblSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
-        header.add(lblSearch);
+        txtSearch = new JTextField("Search...");
+        txtSearch.setBounds(970, 18, 260, 35);
+        txtSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
+        header.add(txtSearch);
         
-        JLabel lblNurseName = new JLabel("Nurse | Angela Cruz");
+        lblNurseName = new JLabel("Nurse | Angela Cruz");
         lblNurseName.setFont(new Font("Calibri", Font.BOLD, 20));
         lblNurseName.setBounds(1320, 20, 300, 35);
         header.add(lblNurseName);
         
-        ImageIcon imgNurse = new ImageIcon(getClass().getResource("/resources/NURSE.PHOTO.png"));
+        imgNurse = new ImageIcon(getClass().getResource("/resources/NURSE.PHOTO.png"));
         Image imgNur = imgNurse.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-        JLabel lblNurseIcon = new JLabel(new ImageIcon(imgNur));
+        lblNurseIcon = new JLabel(new ImageIcon(imgNur));
         lblNurseIcon.setBounds(1250, 13, 60, 60);
         header.add(lblNurseIcon);
 
