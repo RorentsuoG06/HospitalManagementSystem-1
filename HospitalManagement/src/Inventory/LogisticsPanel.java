@@ -12,8 +12,9 @@ public class LogisticsPanel extends JPanel {
     private JTextField txtItem, txtAmount;
     private JLabel lbltitle, lblDT, lblItem, lblAmount, lblPending, lblDelivered, lblTValue, lblTitle, lblValue;
     private JTable tblLogis;
-    private JButton btnAdd, btnDeliver, btnRemove;
+    private JButton btnAdd, btnEdit, btnDeliver, btnRemove;
     private JScrollPane srcLog;
+    private int ONum = 10000;
     
     public LogisticsPanel() {
         setLayout(null);
@@ -56,7 +57,7 @@ public class LogisticsPanel extends JPanel {
         pnlSelection.setLayout(null);
         pnlSelection.setBackground(Color.WHITE);
         pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
-        pnlSelection.setBounds(30, 210, 700, 80);
+        pnlSelection.setBounds(30, 210, 1000, 80);
         pnlMain.add(pnlSelection);
         
         lblItem = new JLabel("Item:");
@@ -65,16 +66,16 @@ public class LogisticsPanel extends JPanel {
         pnlSelection.add(lblItem);
         
         txtItem = new JTextField();
-        txtItem.setBounds(65, 26, 150, 28);
+        txtItem.setBounds(100, 26, 200, 28);
         pnlSelection.add(txtItem);
         
         lblAmount = new JLabel("Amount:");
-        lblAmount.setBounds(230, 28, 100, 25);
+        lblAmount.setBounds(330, 28, 100, 25);
         lblAmount.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblAmount);
         
         txtAmount = new JTextField();
-        txtAmount.setBounds(300, 26, 150, 28);
+        txtAmount.setBounds(420, 26, 200, 28);
         pnlSelection.add(txtAmount);
         
         btnAdd = new JButton("Add Order");
@@ -82,14 +83,24 @@ public class LogisticsPanel extends JPanel {
         btnAdd.setForeground(Color.WHITE);
         btnAdd.setFont(new Font("Calibri", Font.BOLD, 16));
         btnAdd.setFocusPainted(false);
-        btnAdd.setBounds(480, 22, 150, 35);
+        btnAdd.setBounds(650, 22, 150, 35);
         btnAdd.addActionListener(e -> addOrder());
         pnlSelection.add(btnAdd);
+        
+        btnEdit = new JButton("Edit Order");
+        btnEdit.setBackground(darkBlue);
+        btnEdit.setForeground(Color.WHITE);
+        btnEdit.setFont(new Font("Calibri", Font.BOLD, 16));
+        btnEdit.setFocusPainted(false);
+        btnEdit.setBounds(820, 22, 150, 35);
+        btnEdit.addActionListener(e -> editOrder());
+        pnlSelection.add(btnEdit);
        
-        String[] clm = {"Item", "Amount", "Status"};
+        String[] clm = {"Order ID","Item", "Amount", "Status"};
         tblModel = new DefaultTableModel(clm, 0);
         tblLogis = new JTable(tblModel);
         tblLogis.setRowHeight(35);
+        tblLogis.setAutoCreateRowSorter(true);
         tblLogis.setFont(new Font("Calibri", Font.PLAIN, 16));
         tblLogis.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 18));
         tblLogis.getTableHeader().setBackground(lightBlue);
@@ -147,21 +158,53 @@ public class LogisticsPanel extends JPanel {
     }
     
     private void addOrder() {
-        if (txtItem.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Enter item name!");
+        String item = txtItem.getText().trim();
+        String amtStr = txtAmount.getText().trim();
+
+        if (item.isEmpty() || amtStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter item name and amount!");
             return;
         }
-        tblModel.addRow(new Object[]{txtItem.getText(), "₱" + txtAmount.getText(), "Pending"});
+
+        double amount;
+        try {
+            amount = Double.parseDouble(amtStr.replace(",", "").trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid amount!");
+            return;
+        }
+
+        int row = tblLogis.getSelectedRow();
+        if (row >= 0) {
+            tblModel.setValueAt(item, row, 1);
+            tblModel.setValueAt(amount, row, 2);
+            JOptionPane.showMessageDialog(this, "Order updated!");
+        } else {
+            String orderID = "ORD-" + (++ONum);
+            tblModel.addRow(new Object[]{orderID, item, amount, "Pending"});
+            JOptionPane.showMessageDialog(this, "Order added!");
+        }
+
         txtItem.setText("");
         txtAmount.setText("");
         updateSummary();
-        JOptionPane.showMessageDialog(this, "Order added!");
     }
     
+    private void editOrder() {
+        int row = tblLogis.getSelectedRow();
+            if (row >= 0) {
+                txtItem.setText(tblModel.getValueAt(row, 1).toString());
+                txtAmount.setText(tblModel.getValueAt(row, 2).toString().replace("₱", ""));
+                JOptionPane.showMessageDialog(this, "Edit fields and click Add Order to save changes.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Select an order to edit!");
+            }
+    }
+
     private void markDelivered() {
         int row = tblLogis.getSelectedRow();
         if (row >= 0) {
-            tblModel.setValueAt("Delivered", row, 2);
+            tblModel.setValueAt("Delivered", row, 3);
             updateSummary();
             JOptionPane.showMessageDialog(this, "Order delivered!");
         } else {
@@ -183,26 +226,26 @@ public class LogisticsPanel extends JPanel {
     private void updateSummary() {
         double total = 0.0;
         int pending = 0, delivered = 0;
-        
+
         for (int i = 0; i < tblModel.getRowCount(); i++) {
-            String status = tblModel.getValueAt(i, 2).toString();
+            String status = tblModel.getValueAt(i, 3).toString();
             if (status.equals("Pending")) pending++;
             if (status.equals("Delivered")) delivered++;
-            
-            String amt = tblModel.getValueAt(i, 1).toString()
-            .replace("₱", "").replace(",", "").trim();
-                    
-            try { total += Double.parseDouble(amt); } catch (NumberFormatException e) {}
+
+            Object amtObj = tblModel.getValueAt(i, 2);
+            if (amtObj instanceof Number) {
+                total += ((Number) amtObj).doubleValue();
+            }
         }
         lblPending.setText(String.valueOf(pending));
         lblDelivered.setText(String.valueOf(delivered));
         lblTValue.setText("₱" + String.format("%,.2f", total));
     }
-    
+
     private void addSampData() {
-        tblModel.addRow(new Object[]{"Surgical Masks", "₱5,000", "Pending"});
-        tblModel.addRow(new Object[]{"Disposable Gloves", "₱3,000", "Delivered"});
-        tblModel.addRow(new Object[]{"Medical Gauze", "₱5,000", "Pending"});
+        tblModel.addRow(new Object[]{"ORD-" + (++ONum), "Surgical Masks", 5000.0, "Pending"});
+        tblModel.addRow(new Object[]{"ORD-" + (++ONum), "Disposable Gloves", 3000.0, "Delivered"});
+        tblModel.addRow(new Object[]{"ORD-" + (++ONum), "Medical Gauze", 5000.0, "Pending"});
         
         updateSummary();
     }

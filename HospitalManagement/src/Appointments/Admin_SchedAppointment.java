@@ -9,13 +9,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class Admin_SchedAppointment extends JPanel implements ActionListener{
 
-    private JPanel pnlMain, tabPatients, tabUrgent, tabPending, pnlSelection, pnlBot, tabUpdate;
+    private JPanel pnlMain, tabPatients, tabAdmitted, tabCompleted, tabPending, tabUr, pnlSelection, pnlBot, tabUpdate;
     private DefaultTableModel tblModel;
     private JTextField txtPatient, txtDoc, txtTreatment;
     private JTable tblAppoint;
-    private JLabel lblTitle, lblDT, lblPatient, lblDoc, lblTreatment, lblTPatient, lblUCases, lblPAppointments, lblTitle2, lblValue;
-    private JButton btnAdd, btnRef, btnAdmit, btnCom, btnUr, btnRev;
+    private JLabel lblTitle, lblDT, lblPatient, lblDoc, lblTreatment, lblTPatient, lblUCases, lblPAppointments, 
+                   lblTitle2, lblValue, lblAdmitted, lblCompleted;
+    private JButton btnAdd, btnEdit, btnRev, btnChangeStatus;
     private JScrollPane srcApp;
+    private int PNum = 10000;
     
     public Admin_SchedAppointment() {
         setLayout(null);
@@ -41,19 +43,29 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         pnlMain.add(lblDT);
         
         tabPatients = createTab("Today's Patients", "0", Blue);
-        tabPatients.setBounds(30, 80, 250, 100);
+        tabPatients.setBounds(30, 80, 300, 100);
         pnlMain.add(tabPatients);
         lblTPatient = (JLabel) tabPatients.getComponent(1);
 
-        tabUrgent = createTab("Urgent Cases", "0", LightRed);
-        tabUrgent.setBounds(300, 80, 250, 100);
-        pnlMain.add(tabUrgent);
-        lblUCases = (JLabel) tabUrgent.getComponent(1);
-
         tabPending = createTab("Pending Appointments", "0", Yellow);
-        tabPending.setBounds(570, 80, 250, 100);
+        tabPending.setBounds(350, 80, 300, 100);
         pnlMain.add(tabPending);
         lblPAppointments = (JLabel) tabPending.getComponent(1);
+        
+        tabAdmitted = createTab("Admitted Appointments", "0", darkBlue);
+        tabAdmitted.setBounds(670, 80, 300, 100);
+        pnlMain.add(tabAdmitted);
+        lblAdmitted = (JLabel) tabAdmitted.getComponent(1);
+
+        tabUr = createTab("Urgent Cases", "0", LightRed);
+        tabUr.setBounds(990, 80, 300, 100);
+        pnlMain.add(tabUr);
+        lblUCases = (JLabel) tabUr.getComponent(1);
+        
+        tabCompleted = createTab("Completed Appointments", "0", Green);
+        tabCompleted.setBounds(1310, 80, 280, 100);
+        pnlMain.add(tabCompleted);
+        lblCompleted = (JLabel) tabCompleted.getComponent(1);
         
         pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
@@ -97,15 +109,16 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         btnAdd.addActionListener(e -> addAppointment());
         pnlSelection.add(btnAdd);
         
-        btnRef = new JButton("Refresh");
-        btnRef.setBounds(940, 20, 150, 35);
-        btnRef.setBackground(Blue);
-        btnRef.setForeground(Color.WHITE);
-        btnRef.setFont(new Font("Calibri", Font.BOLD, 14));
-        btnRef.addActionListener(e -> RefreshApp());
-        pnlSelection.add(btnRef);
+        btnEdit = new JButton("Edit");
+        btnEdit.setBounds(940, 20, 150, 35);
+        btnEdit.setBackground(darkBlue);
+        btnEdit.setForeground(Color.WHITE);
+        btnEdit.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnEdit.setFocusPainted(false);
+        btnEdit.addActionListener(e -> editAppointment());
+        pnlSelection.add(btnEdit);
         
-        String[] clm = {"Patient", "Doctor", "Treatment", "Status"};
+        String[] clm = {"Patient Number", "Patient", "Doctor", "Treatment", "Status"};
         tblModel = new DefaultTableModel(clm, 0);
         tblAppoint = new JTable(tblModel);
         tblAppoint.setRowHeight(35);
@@ -124,29 +137,17 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         pnlBot.setBorder(BorderFactory.createLineBorder(borderLBLUE));
         pnlMain.add(pnlBot);
         
-        btnAdmit = new JButton("Admit");
-        btnAdmit.setBounds(20, 15, 120, 30);
-        btnAdmit.setBackground(darkBlue);
-        btnAdmit.setForeground(Color.WHITE);
-        btnAdmit.addActionListener(e -> updateStatus("Admitted"));
-        pnlBot.add(btnAdmit);
-        
-        btnCom = new JButton("Complete");
-        btnCom.setBounds(160, 15, 120, 30);
-        btnCom.setBackground(Blue);
-        btnCom.setForeground(Color.WHITE);
-        btnCom.addActionListener(e -> updateStatus("Complete"));
-        pnlBot.add(btnCom);
-        
-        btnUr = new JButton("Urgent");
-        btnUr.setBounds(300, 15, 120, 30);
-        btnUr.setBackground(LightRed);
-        btnUr.setForeground(Color.WHITE);
-        btnUr.addActionListener(ee -> updateStatus("Urgent"));
-        pnlBot.add(btnUr);
+        btnChangeStatus = new JButton("Change Status");
+        btnChangeStatus.setBounds(20, 10, 150, 30);
+        btnChangeStatus.setBackground(orange);
+        btnChangeStatus.setForeground(Color.WHITE);
+        btnChangeStatus.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnChangeStatus.setFocusPainted(false);
+        btnChangeStatus.addActionListener(e -> changeStatus());
+        pnlBot.add(btnChangeStatus);
         
         btnRev = new JButton("Remove");
-        btnRev.setBounds(440, 15, 120, 30);
+        btnRev.setBounds(190, 10, 120, 30);
         btnRev.setBackground(darkBlue);
         btnRev.setForeground(Color.WHITE);
         btnRev.addActionListener(ee -> RemoveApp());
@@ -163,7 +164,7 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         lblTitle2 = new JLabel(title);
         lblTitle2.setFont(new Font("Calibri", Font.BOLD, 20));
         lblTitle2.setForeground(Color.WHITE);
-        lblTitle2.setBounds(20, 20, 200, 25);
+        lblTitle2.setBounds(20, 20, 250, 25);
         tabUpdate.add(lblTitle2);
         
        lblValue = new JLabel(value);
@@ -179,34 +180,53 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         String patient = txtPatient.getText().trim();
         String doctor = txtDoc.getText().trim();
         String treatment = txtTreatment.getText().trim();
-        
-        if (patient.isEmpty() || doctor.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter Patient and Doctor.");
+
+        if (patient.isEmpty() || doctor.isEmpty() || treatment.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Patient, Doctor, and Treatment are required!");
             return;
         }
-        
-        tblModel.addRow(new Object[]{patient, doctor, treatment, "Pending"});
+
+        doctor = "Dr. " + doctor;
+
+        int row = tblAppoint.getSelectedRow();
+            if (row >= 0) {
+                tblModel.setValueAt(patient, row, 1);
+                tblModel.setValueAt(doctor, row, 2);
+                tblModel.setValueAt(treatment, row, 3);
+                JOptionPane.showMessageDialog(this, "Appointment updated!");
+            } else {
+                String patientID = "AP-" + (++PNum);
+                tblModel.addRow(new Object[]{patientID, patient, doctor, treatment, "Pending"});
+                JOptionPane.showMessageDialog(this, "Appointment added!");
+            }
+
         txtPatient.setText("");
         txtDoc.setText("");
         txtTreatment.setText("");
         updateSummary();
     }
     
-    private void RefreshApp() {
-        tblModel.setRowCount(0);
-        addSampData();
-        JOptionPane.showMessageDialog(this, "Table refreshed!");
-    }
-    
-    private void updateStatus(String status) {
+    private void editAppointment() {
         int row = tblAppoint.getSelectedRow();
         if (row >= 0) {
-            tblModel.setValueAt(status, row, 3);
-            updateSummary();
+            txtPatient.setText(tblModel.getValueAt(row, 1).toString());
+            
+            String doctor = tblModel.getValueAt(row, 2).toString();
+            if (doctor.startsWith("Dr. ")) {
+                doctor = doctor.substring(4);
+            }
+            
+            txtDoc.setText(doctor);
+            txtTreatment.setText(tblModel.getValueAt(row, 3).toString());
+
+            String status = tblModel.getValueAt(row, 4).toString();
+            JOptionPane.showMessageDialog(this, 
+                "Edit the details and click 'Add Appointment' to save changes.\nCurrent Status: " + status);
         } else {
-            JOptionPane.showMessageDialog(this, "Select an Appointment.");
+            JOptionPane.showMessageDialog(this, "Select an appointment to edit!");
         }
     }
+
     
     private void RemoveApp() {
         int row = tblAppoint.getSelectedRow();
@@ -216,30 +236,55 @@ public class Admin_SchedAppointment extends JPanel implements ActionListener{
         }
     }
     
+    private void changeStatus() {
+        int row = tblAppoint.getSelectedRow();
+        if (row >= 0) {
+            String currentStatus = tblModel.getValueAt(row, 4).toString();
+            String[] options = {"Pending", "Admitted", "Complete", "Urgent"};
+
+            String newStatus = (String) JOptionPane.showInputDialog(this,"Change appointment status:","Update Status",
+                JOptionPane.PLAIN_MESSAGE,null,options,currentStatus);
+
+            if (newStatus != null) {
+                tblModel.setValueAt(newStatus, row, 4);
+                updateSummary();
+                JOptionPane.showMessageDialog(this, "Status updated to " + newStatus);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select an appointment to change status!");
+        }
+    }
+    
     private void updateSummary() {
         int total = tblModel.getRowCount();
-        int urgent = 0, pending = 0;
+        int urgent = 0, pending = 0, admitted = 0, completed = 0;
+
         for (int i = 0; i < total; i++) {
-            String status = tblModel.getValueAt(i, 3).toString();
-            if (status.equals("Urgent")) urgent++;
+            String status = tblModel.getValueAt(i, 4).toString();
             if (status.equals("Pending")) pending++;
+            if (status.equals("Admitted")) admitted++;
+            if (status.equals("Urgent")) urgent++;
+            if (status.equals("Complete")) completed++;
         }
+
         lblTPatient.setText(String.valueOf(total));
-        lblUCases.setText(String.valueOf(urgent));
         lblPAppointments.setText(String.valueOf(pending));
+        lblAdmitted.setText(String.valueOf(admitted));
+        lblUCases.setText(String.valueOf(urgent));
+        lblCompleted.setText(String.valueOf(completed));
     }
     
     private void addSampData() {
-        tblModel.addRow(new Object[]{"Maria Santos", "Dr. Reyes", "Cardiac", "Pending"});
-        tblModel.addRow(new Object[]{"Daniel Cruz", "Dr. Villanueva", "Orthopedia", "Pending"});
-        tblModel.addRow(new Object[]{"Angela Ramirez", "Dr. Delgado", "Diabetes", "Pending"});
-        tblModel.addRow(new Object[]{"Roberto Garcia", "Dr. Mendoza", "Dental", "Pending"});
-        tblModel.addRow(new Object[]{"Melvin Mallon", "Dr. Santiago", "General", "Pending"});
-        tblModel.addRow(new Object[]{"Joshua Garcia", "Dr. Santiago", "General", "Pending"});
-        
+        tblModel.addRow(new Object[]{"AP-10001", "Maria Santos", "Dr. Reyes", "Cardiac", "Pending"});
+        tblModel.addRow(new Object[]{"AP-10002", "Daniel Cruz", "Dr. Villanueva", "Orthopedia", "Admitted"});
+        tblModel.addRow(new Object[]{"AP-10003", "Angela Ramirez", "Dr. Delgado", "Diabetes", "Urgent"});
+        tblModel.addRow(new Object[]{"AP-10004", "Roberto Garcia", "Dr. Mendoza", "Dental", "Complete"});
+        tblModel.addRow(new Object[]{"AP-10005", "Melvin Mallon", "Dr. Santiago", "General", "Pending"});
+        tblModel.addRow(new Object[]{"AP-10006", "Joshua Garcia", "Dr. Santiago", "General", "Pending"});
+
         updateSummary();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

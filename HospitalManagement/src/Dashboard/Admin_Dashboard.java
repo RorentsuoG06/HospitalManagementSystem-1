@@ -8,14 +8,15 @@ import javax.swing.table.*;
 
 public class Admin_Dashboard extends JPanel{
     
-    private JPanel pnlMain, pnlPatients, pnlAppointment, pnlPrescription, pnlBeds, pnlSupplies, pnlEquipment, pnlStock, pnlActivity, pnlSummary;
-    private JLabel lblOverview, lblDT, lblPatients, lblPCount, lblATitle, lblACount, lblPrTitle, lblPrCount, lblBTitle, lblBCount, lblMonth,
-                   lblSupplies, lblSuppliesCount, lblEquipment, lblEquipCount, lblStock, lblStockCount, lblActivity, lblFilter, lblSummary;
+    private JPanel pnlMain, tabItem, pnlActivity, pnlSummary, tabUpdate, tabLows, tabValue, tabSup, tabEq, tabMed;
+    private JLabel lblOverview, lblDT, lblMonth, lblTitle, lblValue, lblTValue, lblActive, lblSup, lblEq, lblMed,
+                   lblActivity, lblFilter, lblSummary, lblTItem, lblLStock;
     private JTable tblCalendar, tblActivities, tblSummary;
     private JTableHeader HActivities;
     private JScrollPane scrCalendar, scrActivities, scrSummary;
     private DefaultTableCellRenderer RwLeft, RwRight;
     JComboBox<String> cmbActivity;
+    private JButton btnPrev, btnNext;
     
     public Admin_Dashboard() {
         setLayout(null);
@@ -29,8 +30,9 @@ public class Admin_Dashboard extends JPanel{
         add(pnlMain);
         
         lblOverview = new JLabel("Hospital Overview");
-        lblOverview.setBounds(50, 45, 300, 30);
-        lblOverview.setFont(new Font("Calibri", Font.BOLD, 28));
+        lblOverview.setBounds(30, 20, 400, 40);
+        lblOverview.setFont(new Font("Calibri", Font.BOLD, 24));
+        lblOverview.setForeground(Color.BLACK);
         pnlMain.add(lblOverview);
         
         lblDT = new JLabel("May 21, 2026 | 10:00 AM");
@@ -39,85 +41,59 @@ public class Admin_Dashboard extends JPanel{
         lblDT.setBounds(1390, 20, 400, 40);
         pnlMain.add(lblDT);
         
-        pnlPatients = new JPanel();
-        pnlPatients.setLayout(null);
-        pnlPatients.setBounds(70, 100, 280, 120);
-        pnlPatients.setBackground(TealGreen);
-        pnlMain.add(pnlPatients);
+        tabItem = createTab("Total Patients", "0", darkBlue);
+        tabItem.setBounds(30, 80, 350, 120);
+        pnlMain.add(tabItem);
+        lblTItem = (JLabel) tabItem.getComponent(1);
         
-        lblPatients = new JLabel("Total Patients");
-        lblPatients.setBounds(15, 15, 200, 20);
-        lblPatients.setFont(new Font("Calibri", Font.BOLD, 22));
-        lblPatients.setForeground(Color.WHITE);
-        pnlPatients.add(lblPatients);
+        tabLows = createTab("Today's Appointment", "0", Yellow);
+        tabLows.setBounds(400, 80, 350, 120);
+        pnlMain.add(tabLows);
+        lblLStock = (JLabel) tabLows.getComponent(1);
         
-        lblPCount = new JLabel("150");
-        lblPCount.setBounds(190, 65, 200, 40);
-        lblPCount.setForeground(Color.WHITE);
-        lblPCount.setFont(new Font("Calibri", Font.BOLD, 32));
-        pnlPatients.add(lblPCount);
+        tabMed = createTab("Medical Alerts", "0", LightRed);
+        tabMed.setBounds(770, 80, 350, 120);
+        pnlMain.add(tabMed);
+        lblMed = (JLabel) tabMed.getComponent(1);
         
-        pnlAppointment = new JPanel();
-        pnlAppointment.setLayout(null);
-        pnlAppointment.setBounds(370, 100, 280, 120);
-        pnlAppointment.setBackground(Blue);
-        pnlMain.add(pnlAppointment);
-
-        lblATitle = new JLabel("Today's Appointments");
-        lblATitle.setBounds(15, 15, 200, 20);
-        lblATitle.setForeground(Color.WHITE);
-        lblATitle.setFont(new Font("Calibri", Font.BOLD, 20));
-        pnlAppointment.add(lblATitle);
-
-        lblACount = new JLabel("18");
-        lblACount.setBounds(190,65, 200, 40);
-        lblACount.setForeground(Color.WHITE);
-        lblACount.setFont(new Font("Calibri", Font.BOLD, 32));
-        pnlAppointment.add(lblACount);
+        tabSup = createTab("Medical Supplies", "0", Blue);
+        tabSup.setBounds(30, 220, 350, 120);
+        pnlMain.add(tabSup);
+        lblSup = (JLabel) tabSup.getComponent(1);
         
-        pnlPrescription = new JPanel();
-        pnlPrescription.setLayout(null);
-        pnlPrescription.setBounds(670, 100, 220, 120);
-        pnlPrescription.setBackground(orange);
-        pnlMain.add(pnlPrescription);
-
-        lblPrTitle = new JLabel("Active Prescriptions");
-        lblPrTitle.setBounds(15, 15, 200, 20);
-        lblPrTitle.setForeground(Color.WHITE);
-        lblPrTitle.setFont(new Font("Calibri", Font.BOLD, 22));
-        pnlPrescription.add(lblPrTitle);
-
-        lblPrCount = new JLabel("96");
-        lblPrCount.setBounds(160,65, 200, 40);
-        lblPrCount.setForeground(Color.WHITE);
-        lblPrCount.setFont(new Font("Calibri", Font.BOLD, 28));
-        pnlPrescription.add(lblPrCount);
+        tabEq = createTab("Equipment", "0", orange);
+        tabEq.setBounds(400, 220, 350, 120);
+        pnlMain.add(tabEq);
+        lblEq = (JLabel) tabEq.getComponent(1);
         
-        pnlBeds = new JPanel();
-        pnlBeds.setLayout(null);
-        pnlBeds.setBounds(910, 100, 220, 120);
-        pnlBeds.setBackground(LightRed);
-        pnlMain.add(pnlBeds);
-
-        lblBTitle = new JLabel("Available Beds");
-        lblBTitle.setBounds(15, 15, 200, 20);
-        lblBTitle.setForeground(Color.WHITE);
-        lblBTitle.setFont(new Font("Calibri", Font.BOLD, 22));
-        pnlBeds.add(lblBTitle);
-
-        lblBCount = new JLabel("14");
-        lblBCount.setBounds(160, 65, 200, 40);
-        lblBCount.setForeground(Color.WHITE);
-        lblBCount.setFont(new Font("Calibri", Font.BOLD, 28));
-        pnlBeds.add(lblBCount);
+        tabValue = createTab("Active Prescriptions", "0", Green);
+        tabValue.setBounds(770, 220, 350, 120);
+        pnlMain.add(tabValue);
+        lblActive = (JLabel) tabValue.getComponent(1);
         
+        btnPrev = new JButton("<");
+        btnPrev.setBounds(1140, 80, 50, 50);
+        btnPrev.setFont(new Font("Calibri", Font.BOLD, 18));
+        btnPrev.setBackground(darkBlue);
+        btnPrev.setForeground(Color.WHITE);
+        btnPrev.setFocusPainted(false);
+        pnlMain.add(btnPrev);
+                
         lblMonth = new JLabel("May 2026", SwingConstants.CENTER);
         lblMonth.setFont(new Font("Calibri", Font.BOLD, 24));
-        lblMonth.setBounds(1170, 100, 420, 50);
+        lblMonth.setBounds(1190, 80, 350, 50);
         lblMonth.setOpaque(true);
         lblMonth.setBackground(darkBlue);
         lblMonth.setForeground(Color.WHITE);
         pnlMain.add(lblMonth);
+        
+        btnNext = new JButton(">");
+        btnNext.setBounds(1540, 80, 50, 50);
+        btnNext.setFont(new Font("Calibri", Font.BOLD, 18));
+        btnNext.setBackground(darkBlue);
+        btnNext.setForeground(Color.WHITE);
+        btnNext.setFocusPainted(false);
+        pnlMain.add(btnNext);
         
         String [] days = {"Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"};
         String[][] DateNum = {{"", "", "", "", "1", "2", "3"},
@@ -135,63 +111,12 @@ public class Admin_Dashboard extends JPanel{
         tblCalendar.setSelectionForeground(Color.WHITE);
         
         scrCalendar = new JScrollPane(tblCalendar);
-        scrCalendar.setBounds(1170, 150, 420, 320);
+        scrCalendar.setBounds(1140, 130, 450, 300);
         pnlMain.add(scrCalendar);
-        
-        pnlSupplies = new JPanel();
-        pnlSupplies.setLayout(null);
-        pnlSupplies.setBounds(70, 250, 350, 130);
-        pnlSupplies.setBackground(Color.WHITE);
-        pnlSupplies.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlMain.add(pnlSupplies);
-
-        lblSupplies = new JLabel("Medical Supplies");
-        lblSupplies.setBounds(20, 20, 200, 25);
-        lblSupplies.setFont(new Font("Calibri", Font.BOLD, 20));
-        pnlSupplies.add(lblSupplies);
-
-        lblSuppliesCount = new JLabel("120 Items");
-        lblSuppliesCount.setBounds(200, 70, 200, 30);
-        lblSuppliesCount.setFont(new Font("Calibri", Font.BOLD, 22));
-        pnlSupplies.add(lblSuppliesCount);
-        
-        pnlEquipment = new JPanel();
-        pnlEquipment.setLayout(null);
-        pnlEquipment.setBounds(440, 250, 320, 130);
-        pnlEquipment.setBackground(Color.WHITE);
-        pnlEquipment.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlMain.add(pnlEquipment);
-        
-        lblEquipment = new JLabel("Equipment");
-        lblEquipment.setBounds(20, 20, 200, 25);
-        lblEquipment.setFont(new Font("Calibri", Font.BOLD, 20));
-        pnlEquipment.add(lblEquipment);
-
-        lblEquipCount = new JLabel("45 Units");
-        lblEquipCount.setBounds(200, 70, 200, 30);
-        lblEquipCount.setFont(new Font("Calibri", Font.BOLD, 22));
-        pnlEquipment.add(lblEquipCount);
-        
-        pnlStock = new JPanel();
-        pnlStock.setLayout(null);
-        pnlStock.setBounds(780, 250, 350, 130);
-        pnlStock.setBackground(Color.WHITE);
-        pnlStock.setBorder(BorderFactory.createLineBorder(borderLBLUE, 2));
-        pnlMain.add(pnlStock);
-        
-        lblStock = new JLabel("Medical Alerts");
-        lblStock.setBounds(20, 20, 200, 25);
-        lblStock.setFont(new Font("Calibri", Font.BOLD, 20));
-        pnlStock.add(lblStock);
-
-        lblStockCount = new JLabel("5 Alerts");
-        lblStockCount.setBounds(230, 70, 200, 30);
-        lblStockCount.setFont(new Font("Calibri", Font.BOLD, 22));
-        pnlStock.add(lblStockCount);
         
         pnlActivity = new JPanel();
         pnlActivity.setLayout(null);
-        pnlActivity.setBounds(70, 400, 1060, 500);
+        pnlActivity.setBounds(30, 360, 1090, 550);
         pnlActivity.setBackground(Color.WHITE);
         pnlMain.add(pnlActivity);
         
@@ -202,13 +127,13 @@ public class Admin_Dashboard extends JPanel{
         
         lblFilter = new JLabel("Activity: ");
         lblFilter.setFont(new Font("Calibri", Font.BOLD, 22));
-        lblFilter.setBounds(760, 20, 80, 30);
+        lblFilter.setBounds(790, 20, 80, 30);
         pnlActivity.add(lblFilter);
         
         String[] activity = {"All", "System Updates", "Inventory", "Staff Management", "System Activity"};
         cmbActivity = new JComboBox<>(activity);
         cmbActivity.setFont(new Font("Calibri", Font.PLAIN, 16));
-        cmbActivity.setBounds(850, 20, 190, 30);
+        cmbActivity.setBounds(880, 20, 190, 30);
         pnlActivity.add(cmbActivity);
         
         String[] clmActivities = {"Activity", "Date"};
@@ -240,57 +165,101 @@ public class Admin_Dashboard extends JPanel{
         HActivities.setForeground(Color.BLACK);
         
         scrActivities = new JScrollPane(tblActivities);
-        scrActivities.setBounds(20, 70, 1020, 400);
+        scrActivities.setBounds(20, 70, 1050, 460);
         pnlActivity.add(scrActivities);
         
         pnlSummary = new JPanel();
         pnlSummary.setLayout(null);
-        pnlSummary.setBounds(1170, 500, 420, 400);
+        pnlSummary.setBounds(1140, 450, 450, 460);
         pnlSummary.setBackground(Color.WHITE);
         pnlMain.add(pnlSummary);
         
-        lblSummary = new JLabel("Today's Summary");
+        lblSummary = new JLabel("Trend Overview");
         lblSummary.setBounds(20, 20, 300, 30);
         lblSummary.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSummary.add(lblSummary);
         
-        String[] clmSummary = {"", ""};
+        String[] clmSummary = {"Metric", "Today", "Change"};
         
         String[][] RwSummary = {
-            {"Patients Today", "25"},
-            {"Doctors on Duty", "7"},
-            {"Emergency Cases", "6"},
-            {"Appointments", "18"},
-            {"Admissions", "6"},
-            {"Discharges", "4"},
-            {"Waiting Patients", "6"}
+            {"Patients Today", "25", "+5"},
+            {"Doctors on Duty", "7", "+1"},
+            {"Emergency Cases", "6", "+3"},
+            {"Appointments", "18", "-2"},
+            {"Admissions", "6", "0"},
+            {"Discharges", "4", "-1"},
+            {"Waiting Patients", "6", "+2"}
             };
         
         tblSummary = new JTable(RwSummary, clmSummary);
         tblSummary.setFont(new Font("Calibri", Font.PLAIN, 18));
-        tblSummary.setRowHeight(45);
+        tblSummary.setRowHeight(40);
         tblSummary.setGridColor(Color.LIGHT_GRAY);
         tblSummary.setBackground(Color.WHITE);
         
-        tblSummary.setShowGrid(false);
-        tblSummary.setIntercellSpacing(new Dimension(0,0));
-        tblSummary.setTableHeader(null);
+        tblSummary.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 16));
+        tblSummary.getTableHeader().setForeground(Color.BLACK);
         
         RwLeft = new DefaultTableCellRenderer();
         RwLeft.setHorizontalAlignment(SwingConstants.LEFT);
         
         RwRight = new DefaultTableCellRenderer();
-        RwRight.setHorizontalAlignment(SwingConstants.RIGHT);
-        RwRight.setFont(new Font("Calibri", Font.BOLD, 22));
+        RwRight.setHorizontalAlignment(SwingConstants.CENTER);
+        RwRight.setFont(new Font("Calibri", Font.BOLD, 20));
+        
+        DefaultTableCellRenderer RwCenter = new DefaultTableCellRenderer();
+        RwCenter.setHorizontalAlignment(SwingConstants.CENTER);
+        RwCenter.setFont(new Font("Calibri", Font.BOLD, 20));
         
         tblSummary.getColumnModel().getColumn(0).setCellRenderer(RwLeft);
         tblSummary.getColumnModel().getColumn(1).setCellRenderer(RwRight);
+        tblSummary.getColumnModel().getColumn(2).setCellRenderer(RwCenter);
+        
+        tblSummary.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int col) {
+        JLabel cell = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+        cell.setHorizontalAlignment(SwingConstants.CENTER);
+        cell.setFont(new Font("Calibri", Font.BOLD, 20));
+        String val = value.toString();
+        if (val.startsWith("+")) {
+            cell.setForeground(new Color(0x2E8B57)); // green
+        } else if (val.startsWith("-")) {
+            cell.setForeground(Color.RED);
+        } else {
+            cell.setForeground(Color.GRAY);
+        }
+        return cell;
+        }
+    });
         
         scrSummary = new JScrollPane(tblSummary);
-        scrSummary.setBounds(20, 70, 380, 280);
+        scrSummary.setBounds(20, 70, 400, 350);
         scrSummary.setBorder(BorderFactory.createEmptyBorder());
         pnlSummary.add(scrSummary);
         
         setVisible(true);
     }
+    
+    private JPanel createTab(String title, String value, Color color) {
+        tabUpdate = new JPanel();
+        tabUpdate.setLayout(null);
+        tabUpdate.setBackground(color);
+        
+        lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblTitle.setForeground(Color.WHITE);
+        lblTitle.setBounds(20, 20, 250, 25);
+        tabUpdate.add(lblTitle);
+        
+        lblValue = new JLabel(value);
+        lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
+        lblValue.setForeground(Color.WHITE);
+        lblValue.setBounds(20, 50, 150, 40);
+        tabUpdate.add(lblValue);
+        
+        return tabUpdate;
+    }
+    
 }

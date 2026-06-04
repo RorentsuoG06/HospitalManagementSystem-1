@@ -7,13 +7,15 @@ import java.awt.*;
 
 public class PatientCentralPanel extends JPanel {
     
-    private JPanel pnlMain,tabPatient,tabAdmission,tabBed,tabApp,pnlSelection,pnlBot,tabUpdate;
+    private JPanel pnlMain,tabPatient,tabAdmission, pnlSelection,pnlBot,tabUpdate, tabDis, tabCri;
     private DefaultTableModel tblModel;
     private JTextField txtName, txtRoom;
-    private JLabel lblTPatient, lblAct,lbltitle,lblDT,lblName,lblRoom, lblTitle, lblValue;
+    private JLabel lblTPatient, lblAct,lbltitle,lblDT,lblName,lblRoom, lblTitle, lblValue, lblDoc, lblNur, lblStatus, lblCri, lblDis;
     private JTable tblPC;
-    private JButton btnAdd, btnAdmit, btnDischarge, btnRemove;
+    private JButton btnAdd, btnAdmit, btnDischarge, btnRemove, btnCStatus;
     private JScrollPane srcRoom;
+    private JComboBox<String> cmbDoc, cmbNur, cmbStatus;
+    private int PNum = 10000;
     
     public PatientCentralPanel() {
         setLayout(null);
@@ -42,54 +44,83 @@ public class PatientCentralPanel extends JPanel {
         pnlMain.add(tabPatient);
         lblTPatient = (JLabel) tabPatient.getComponent(1);
         
-        tabAdmission = createTab("Active Admissions", "0", mediumBlue);
+        tabAdmission = createTab("Active Admissions", "0", Yellow);
         tabAdmission.setBounds(350, 80, 300, 100);
         pnlMain.add(tabAdmission);
         lblAct = (JLabel) tabAdmission.getComponent(1);
         
-        tabBed = createTab("Available Beds", "50", Green);
-        tabBed.setBounds(670, 80, 300,100);
-        pnlMain.add(tabBed);
+        tabDis = createTab("Discharged Patients", "0", Blue);
+        tabDis.setBounds(670, 80, 300, 100);
+        pnlMain.add(tabDis);
+        lblDis = (JLabel) tabDis.getComponent(1);
         
-        tabApp = createTab("Today's Appointments", "24", Yellow);
-        tabApp.setBounds(990, 80, 300, 100);
-        pnlMain.add(tabApp);
+        tabCri = createTab("Critical Patients", "0", LightRed);
+        tabCri.setBounds(990, 80, 300, 100);
+        pnlMain.add(tabCri);
+        lblCri = (JLabel) tabCri.getComponent(1);
      
         pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
         pnlSelection.setBackground(Color.WHITE);
         pnlSelection.setBorder(BorderFactory.createLineBorder(borderLBLUE));
-        pnlSelection.setBounds(30, 210, 650, 80);
+        pnlSelection.setBounds(30, 210, 1350, 120);
         pnlMain.add(pnlSelection);
         
         lblName = new JLabel("Name:");
-        lblName.setBounds(15, 28, 80, 25);
+        lblName.setBounds(15, 28, 100, 25);
         lblName.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblName);
         
         txtName = new JTextField();
-        txtName.setBounds(65, 26, 150, 28);
+        txtName.setBounds(120, 26, 200, 28);
         pnlSelection.add(txtName);
         
         lblRoom = new JLabel("Room:");
-        lblRoom.setBounds(230, 28, 50, 25);
+        lblRoom.setBounds(340, 28, 100, 25);
         lblRoom.setFont(new Font("Calibri", Font.BOLD, 16));
         pnlSelection.add(lblRoom);
         
         txtRoom = new JTextField();
-        txtRoom.setBounds(280, 26, 150, 28);
+        txtRoom.setBounds(445, 26, 200, 28);
         pnlSelection.add(txtRoom);
+        
+        lblDoc = new JLabel("Doctor:");
+        lblDoc.setBounds(665, 28, 100, 25);
+        lblDoc.setFont(new Font("Calibri", Font.BOLD, 16));
+        pnlSelection.add(lblDoc);
+        
+        cmbDoc = new JComboBox<>(new String[]{"Dr. Lee", "Dr. Cruz", "Dr. Santos"});
+        cmbDoc.setBounds(770, 26, 200, 28);
+        pnlSelection.add(cmbDoc);
+        
+        lblNur = new JLabel("Nurse:");
+        lblNur.setBounds(340, 70, 100, 25);
+        lblNur.setFont(new Font("Calibri", Font.BOLD, 16));
+        pnlSelection.add(lblNur);
+        
+        cmbNur = new JComboBox<>(new String[]{"Nurse Watson", "Nurse Reyes", "Nurse Tan"});
+        cmbNur.setBounds(445, 70, 200, 28);
+        pnlSelection.add(cmbNur);
+        
+        lblStatus = new JLabel("Status:");
+        lblStatus.setBounds(15, 70, 100, 25);
+        lblStatus.setFont(new Font("Calibri", Font.BOLD, 16));
+        pnlSelection.add(lblStatus);
+
+        cmbStatus = new JComboBox<>(new String[]{"Active", "Admitted", "Discharged", "Under Observation", "Critical"});
+        cmbStatus.setBounds(120, 68, 200, 28);
+        pnlSelection.add(cmbStatus);
         
         btnAdd = new JButton("Add Patient");
         btnAdd.setBackground(Green);
         btnAdd.setForeground(Color.WHITE);
         btnAdd.setFont(new Font("Calibri", Font.BOLD, 16));
         btnAdd.setFocusPainted(false);
-        btnAdd.setBounds(460, 22, 150, 35);
+        btnAdd.setBounds(1010, 25, 150, 35);
         btnAdd.addActionListener(e -> addPatient());
         pnlSelection.add(btnAdd);
        
-        String[] clm = {"Name", "Room", "Status"};
+        String[] clm = {"Patient ID", "Name", "Room", "Doctor", "Nurse", "Status"};
         tblModel = new DefaultTableModel(clm, 0);
         tblPC = new JTable(tblModel);
         tblPC.setRowHeight(35);
@@ -98,7 +129,7 @@ public class PatientCentralPanel extends JPanel {
         tblPC.getTableHeader().setBackground(lightBlue);
         
         srcRoom = new JScrollPane(tblPC);
-        srcRoom.setBounds(30, 310, 1560, 530);
+        srcRoom.setBounds(30, 350, 1560, 500);
         pnlMain.add(srcRoom);
        
         pnlBot = new JPanel();
@@ -135,6 +166,25 @@ public class PatientCentralPanel extends JPanel {
         btnRemove.addActionListener(e -> removePatient());
         pnlBot.add(btnRemove);
         
+        JButton btnViewProfile = new JButton("View Profile");
+        btnViewProfile.setBackground(mediumBlue);
+        btnViewProfile.setForeground(Color.WHITE);
+        btnViewProfile.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnViewProfile.setFocusPainted(false);
+        btnViewProfile.setBounds(510, 10, 150, 30);
+        btnViewProfile.addActionListener(e -> viewProfile());
+        pnlBot.add(btnViewProfile);
+        
+        btnCStatus = new JButton("Change Status");
+        btnCStatus.setBackground(orange);
+        btnCStatus.setForeground(Color.WHITE);
+        btnCStatus.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnCStatus.setFocusPainted(false);
+        btnCStatus.setBounds(680, 10, 150, 30);
+        btnCStatus.addActionListener(e -> changeStatus());
+        pnlBot.add(btnCStatus);
+
+        
         addSampData();
     }
     
@@ -161,13 +211,23 @@ public class PatientCentralPanel extends JPanel {
     private void addPatient() {
         String name = txtName.getText().trim();
         String room = txtRoom.getText().trim();
+        String doc = cmbDoc.getSelectedItem().toString();
+        String nur = cmbNur.getSelectedItem().toString();
+        String status = cmbStatus.getSelectedItem().toString();
+        
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter patient name!");
             return;
         }
-        tblModel.addRow(new Object[]{name, room, "Active"});
+        
+        String PatID = "P+" + (++PNum);
+        tblModel.addRow(new Object[]{PatID, name, room, doc, nur, status});
         txtName.setText("");
         txtRoom.setText("");
+        cmbDoc.setSelectedIndex(0);
+        cmbNur.setSelectedIndex(0);
+        cmbStatus.setSelectedIndex(0);
+        
         updateSummary();
         JOptionPane.showMessageDialog(this, "Patient added!");
     }
@@ -182,6 +242,42 @@ public class PatientCentralPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Select a patient!");
         }
     }
+    
+    private void viewProfile() {
+        int row = tblPC.getSelectedRow();
+        if (row >= 0) {
+            String profile =
+                "Patient Profile:\n\n" +
+                "Patient ID: " + tblModel.getValueAt(row, 0) + "\n" +
+                "Name: " + tblModel.getValueAt(row, 1) + "\n" +
+                "Room: " + tblModel.getValueAt(row, 2) + "\n" +
+                "Doctor: " + tblModel.getValueAt(row, 3) + "\n" +
+                "Nurse: " + tblModel.getValueAt(row, 4) + "\n" +
+                "Status: " + tblModel.getValueAt(row, 5);
+
+            JOptionPane.showMessageDialog(this, profile, "Patient Details", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a patient to view profile!");
+        }
+    }
+    
+    private void changeStatus() {
+        int row = tblPC.getSelectedRow();
+            if (row >= 0) {
+                String currentStatus = tblModel.getValueAt(row, 5).toString();
+                String[] options = {"Active", "Admitted", "Discharged", "Under Observation"};
+                String newStatus = (String) JOptionPane.showInputDialog(this,"Change status:","Update Patient Status",JOptionPane.PLAIN_MESSAGE,null,options,currentStatus);
+                
+        if (newStatus != null) {
+            tblModel.setValueAt(newStatus, row, 5);
+            updateSummary();
+            JOptionPane.showMessageDialog(this, "Status updated to " + newStatus);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Select an patient to change status!");
+    }
+}
+
     
     private void dischargePatient() {
         int row = tblPC.getSelectedRow();
@@ -212,18 +308,26 @@ public class PatientCentralPanel extends JPanel {
     
     private void updateSummary() {
         int total = tblModel.getRowCount();
-        int admitted = 0;
+        int admitted = 0, discharged = 0, critical = 0;
+        
         for (int i = 0; i < total; i++) {
-            if (tblModel.getValueAt(i, 2).equals("Admitted")) admitted++;
+            String status = tblModel.getValueAt(i, 5).toString();
+            if (status.equals("Admitted")) admitted++;
+            if (status.equals("Discharged")) discharged++;
+            if (status.equals("Critical")) critical++;
         }
         lblTPatient.setText(String.valueOf(total));
         lblAct.setText(String.valueOf(admitted));
+        lblDis.setText(String.valueOf(discharged));
+        lblCri.setText(String.valueOf(critical));
     }
     
     private void addSampData() {
-        tblModel.addRow(new Object[]{"Jane Smith", "102", "Admitted"});
-        tblModel.addRow(new Object[]{"Bob Johnson", "103", "Discharged"});
-        
+        tblModel.addRow(new Object[]{"P-10001", "Jane Smith", "102", "Dr. Lee", "Nurse Watson", "Admitted"});
+        tblModel.addRow(new Object[]{"P-10002", "Bob Johnson", "103", "Dr. Cruz", "Nurse Reyes", "Discharged"});
+        tblModel.addRow(new Object[]{"P-10003", "Alice Brown", "104", "Dr. Santos", "Nurse Tan", "Under Observation"});
+        tblModel.addRow(new Object[]{"P-10004", "Mark Davis", "105", "Dr. Lee", "Nurse Watson", "Critical"});
+
         updateSummary();
     }
 }
