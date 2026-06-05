@@ -216,6 +216,7 @@ public class Admin_Dashboard extends JPanel{
         tblSummary.getColumnModel().getColumn(2).setCellRenderer(RwCenter);
         
         tblSummary.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+    
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int col) {
