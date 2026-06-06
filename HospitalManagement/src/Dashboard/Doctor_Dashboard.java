@@ -1,6 +1,8 @@
 package Dashboard;
 
+import Appointments.Doctor_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
+import Patient_Information.PatientInfo_Doctor;
 import java.awt.*;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -8,15 +10,18 @@ import javax.swing.table.*;
 
 public class Doctor_Dashboard extends JPanel{
 
-    private JPanel pnlMain, pnlNotif, tabUpdate, tabItem, tabLows, tabMed, tabSup, pnlRecent, pnlSchedule, pnlSummary, pnlSelection;
+    private JPanel pnlMain, pnlPat, tabUpdate, tabItem, tabLows, tabMed, tabSup, pnlRecent, pnlSchedule, pnlSummary, pnlSelection;
     private JLabel lblView, lblDashboard, lblDT, lblTItem, lblLStock, lblMed, lblSup, lblACount, lblPrCount, lblPrTitle, lblCTitle, lblCCount,
-                   lblTitle, lblSchedule, lblStatusAct, lblSummary, lblTasks;
-    private JTable tblActivities, tblSummary;
-    private JTableHeader HActivities, summaryHeader;
+                   lblPatientIcon, lblPatientName, lblPatientID, lblSchedule, lblStatusAct, lblSummary, lblTasks;
+    private JTable tblActivities, tblSummary, tblItems;
+    private JTableHeader HActivities, summaryHeader, tblHdr;
     private DefaultTableCellRenderer centerRenderer, center;
     private DefaultListModel<String> notif, tasks;
-    private JScrollPane scrNotif, scrActivities, scrSummary, scrTasks;
-    private JList<String> lstNotif, lstTasks;
+    private JScrollPane scrActivities, scrSummary, scrItems;
+    private JList<String> lstTasks;
+    private ImageIcon imgPatient;
+    private Image imgPat;
+    private JButton btnV, btnN;
     
     public Doctor_Dashboard() {
         setLayout(null);
@@ -55,35 +60,45 @@ public class Doctor_Dashboard extends JPanel{
         pnlMain.add(tabMed);
         lblMed = (JLabel) tabMed.getComponent(1);
         
-        tabSup = createTab("Critical Patients Today", "0", LightRed);
+        tabSup = createTab("Critical Patients", "0", LightRed);
         tabSup.setBounds(1200, 80, 370, 120);
         pnlMain.add(tabSup);
         lblSup = (JLabel) tabSup.getComponent(1);
         
-        pnlNotif = new JPanel();
-        pnlNotif.setLayout(null);
-        pnlNotif.setBounds(30, 220, 430, 380);
-        pnlNotif.setBackground(Color.WHITE);
-        pnlMain.add(pnlNotif);
+        pnlPat = new JPanel();
+        pnlPat.setLayout(null);
+        pnlPat.setBounds(30, 220, 430, 380);
+        pnlPat.setBackground(Color.WHITE);
+        pnlMain.add(pnlPat);
 
-        lblTitle = new JLabel("Notifications");
-        lblTitle.setFont(new Font("Calibri", Font.BOLD, 24));
-        lblTitle.setBounds(20, 20, 300, 30);
-        pnlNotif.add(lblTitle);
+        imgPatient = new ImageIcon(getClass().getResource("/resources/Male_Icon.png"));
+        imgPat = imgPatient.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        lblPatientIcon = new JLabel(new ImageIcon(imgPat));
+        lblPatientIcon.setBounds(130, 30, 150, 150);
+        pnlPat.add(lblPatientIcon);
+        
+        lblPatientName = new JLabel("Patient Name", SwingConstants.CENTER);
+        lblPatientName.setFont(new Font("Calibri", Font.BOLD, 30));
+        lblPatientName.setBounds(70, 200, 260, 30);
+        pnlPat.add(lblPatientName);
+        
+        // DB should show the Patient ID
+        lblPatientID = new JLabel("Patient ID: P ", SwingConstants.CENTER);
+        lblPatientID.setFont(new Font("Calibri", Font.PLAIN, 24));
+        lblPatientID.setBounds(70, 240, 260, 25);
+        pnlPat.add(lblPatientID); 
+        
+        btnV = new JButton("View Profile");
+        btnV.setBounds(60, 300, 150, 40);
+        btnV.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnV.setFocusPainted(false);
+        pnlPat.add(btnV);
 
-        notif = new DefaultListModel<>();
-        notif.addElement("Lab results ready for Maria Santos");
-        notif.addElement("Prescription renewal due for Michael Tan");
-        notif.addElement("Urgent case flagged: Angela Reyes");
-        notif.addElement("New patient added: Sophia Lim");
-
-        lstNotif = new JList<>(notif);
-        lstNotif.setFont(new Font("Calibri", Font.PLAIN, 18));
-        lstNotif.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        scrNotif = new JScrollPane(lstNotif);
-        scrNotif.setBounds(20, 70, 390, 290);
-        pnlNotif.add(scrNotif);
+        btnN = new JButton("View Notes");
+        btnN.setBounds(220, 300, 150, 40);
+        btnN.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnN.setFocusPainted(false);
+        pnlPat.add(btnN);
         
         pnlSchedule = new JPanel();
         pnlSchedule.setLayout(null);
@@ -175,7 +190,17 @@ public class Doctor_Dashboard extends JPanel{
         lblView.setForeground(Color.BLUE);
         lblView.setBounds(1000, 20, 80, 30);
         lblView.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        pnlSchedule.add(lblView);
+        lblView.addMouseListener(new java.awt.event.MouseAdapter() {
+        
+            @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            pnlMain.removeAll();
+            pnlMain.add(new PatientInfo_Doctor());
+            pnlMain.revalidate();
+            pnlMain.repaint();
+        }
+    });
+    pnlSchedule.add(lblView);
         
         pnlSummary = new JPanel();
         pnlSummary.setLayout(null);
@@ -193,7 +218,17 @@ public class Doctor_Dashboard extends JPanel{
         lblView.setForeground(Color.BLUE);
         lblView.setBounds(820, 15, 80, 30);
         lblView.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        pnlSummary.add(lblView);
+        lblView.addMouseListener(new java.awt.event.MouseAdapter() {
+        
+            @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            pnlMain.removeAll();
+            pnlMain.add(new Doctor_SchedAppointment());
+            pnlMain.revalidate();
+            pnlMain.repaint();
+        }
+    });
+    pnlSummary.add(lblView);
 
         String[] clmSummary = {"Room Number", "Doctor", "Nurse", "Equipment"};
 
@@ -233,48 +268,35 @@ public class Doctor_Dashboard extends JPanel{
         pnlSelection.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
         pnlMain.add(pnlSelection);
 
-        lblTasks = new JLabel("Today's Tasks");
+        lblTasks = new JLabel("Requested Items");
         lblTasks.setBounds(20, 15, 300, 30);
         lblTasks.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSelection.add(lblTasks);
 
-        tasks = new DefaultListModel<>();
-        tasks.addElement("✔ | Review lab results for Maria Santos");
-        tasks.addElement("✔ | Sign discharge papers for Room 104");
-        tasks.addElement("✖ | Call pharmacy for prescription refill");
-        tasks.addElement("Alert | Prepare report for weekly meeting");
+        String[] clmItems = {"Category", "Item", "Status"};
 
-        lstTasks = new JList<>(tasks);
-        lstTasks.setFont(new Font("Calibri", Font.PLAIN, 18));
-        lstTasks.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        String[][] RwItems = {
+            {"Medicine", "Paracetamol", "Requested"},
+            {"Supplies", "Surgical Masks", "Pending"},
+            {"Equipment", "IV Stand", "Delivered"},
+            {"Medicine", "Antibiotics", "Pending"},
+            {"Supplies", "Gloves", "Requested"}
+        };
 
-        lstTasks.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
-            JLabel lbl = new JLabel(value);
-            lbl.setFont(new Font("Calibri", Font.PLAIN, 18));
-            lbl.setOpaque(true);
-            lbl.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        tblItems = new JTable(RwItems, clmItems);
+        tblItems.setFont(new Font("Calibri", Font.PLAIN, 18));
+        tblItems.setRowHeight(35);
+        tblItems.setGridColor(Color.LIGHT_GRAY);
+        tblItems.setBackground(Color.WHITE);
 
-            if (value.startsWith("✔")) {
-                lbl.setBackground(Green);
-            } else if (value.startsWith("✖")) {
-                lbl.setBackground(Yellow);
-            } else if (value.startsWith("Alert")) {
-                lbl.setBackground(LightRed);
-            } else {
-                lbl.setBackground(Color.LIGHT_GRAY);
-            }
+        tblHdr = tblItems.getTableHeader();
+        tblItems.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 16));
+        tblHdr.setBackground(lightBlue);
+        tblItems.getTableHeader().setForeground(Color.BLACK);
 
-            if (isSelected) {
-                lbl.setBackground(lightBlue);
-                lbl.setForeground(Color.BLACK);
-            }
-
-            return lbl;
-        });
-
-        scrTasks = new JScrollPane(lstTasks);
-        scrTasks.setBounds(20, 60, 600, 200);
-        pnlSelection.add(scrTasks);
+        scrItems = new JScrollPane(tblItems);
+        scrItems.setBounds(20, 60, 600, 200);
+        pnlSelection.add(scrItems);
 
         setVisible(true);
     }

@@ -9,7 +9,6 @@ public class Doctor_SideBarFrame extends JFrame{
     
     private JPanel window;
     private JPanel header;
-    private JTextField txtSearch;
     private JLabel lblDoctorName, lblDoctorIcon;
     private ImageIcon imgDoctor;
     
@@ -30,11 +29,6 @@ public class Doctor_SideBarFrame extends JFrame{
         header.setBounds(300, 0, 1620, 70);
         header.setBackground(lightBlue);
         add(header);
-        
-        txtSearch = new JTextField("Search...");
-        txtSearch.setBounds(970, 18, 260, 35);
-        txtSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
-        header.add(txtSearch);
         
         lblDoctorName = new JLabel("Doctor | Isabella Ramos");
         lblDoctorName.setFont(new Font("Calibri", Font.BOLD, 20));

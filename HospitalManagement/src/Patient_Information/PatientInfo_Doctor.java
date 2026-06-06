@@ -58,13 +58,13 @@ public class PatientInfo_Doctor extends JPanel {
         accent.setBackground(darkBlue);
         profileCard.add(accent);
 
-        imgP = new ImageIcon(getClass().getResource("/resources/PATIENT.PHOTO.png"));
-        ImgPT = imgP.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
+        imgP = new ImageIcon(getClass().getResource("/resources/Male_Icon.png"));
+        ImgPT = imgP.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         lblPat = new JLabel(new ImageIcon(ImgPT));
-        lblPat.setBounds(10, 15, 140, 140);
+        lblPat.setBounds(25, 20, 100, 100);
         profileCard.add(lblPat);
         
-        name = new JLabel("Joshua Garcia");
+        name = new JLabel("Name");
         name.setFont(new Font("Calibri", Font.BOLD, 22));
         name.setBounds(150, 20, 300, 30);
         profileCard.add(name);
@@ -76,13 +76,13 @@ public class PatientInfo_Doctor extends JPanel {
         statusBadge.setLayout(null);
         profileCard.add(statusBadge);
 
-        status = new JLabel("Status: Observation");
+        status = new JLabel("Status:");
         status.setForeground(Color.WHITE);
         status.setFont(new Font("Calibri", Font.BOLD, 18));
         status.setBounds(5, 5, 180, 20);
         statusBadge.add(status);
 
-        info = new JLabel("ID: P-10021   |   Age: 29   |   Blood: O+");
+        info = new JLabel("ID: P-   |   Age:    |   Blood: ");
         info.setFont(new Font("Calibri", Font.BOLD, 15));
         info.setForeground(Color.DARK_GRAY);
         info.setBounds(150, 90, 400, 22);
@@ -128,7 +128,7 @@ public class PatientInfo_Doctor extends JPanel {
         lblAdd.setBounds(20, 50, 200, 30);
         details.add(lblAdd);
         
-        lblAddre = new JLabel("Biñan, Laguna");
+        lblAddre = new JLabel("Location");
         lblAddre.setFont(new Font("Calibri", Font.PLAIN, 22));
         lblAddre.setForeground(darkBlue);
         lblAddre.setBounds(200, 50, 200, 30);
@@ -140,7 +140,7 @@ public class PatientInfo_Doctor extends JPanel {
         lblCnum.setBounds(20, 80, 200, 30);
         details.add(lblCnum);
         
-        lblNum = new JLabel("+63 923 456 789");
+        lblNum = new JLabel("+63");
         lblNum.setFont(new Font("Calibri", Font.PLAIN, 22));
         lblNum.setForeground(darkBlue);
         lblNum.setBounds(200, 80, 200, 30);
@@ -153,7 +153,7 @@ public class PatientInfo_Doctor extends JPanel {
         lblAllergy.setBounds(20, 150, 150, 22);
         details.add(lblAllergy);
 
-        allergyText = new JTextArea("- Penicillin\n- Dust Allergy");
+        allergyText = new JTextArea("- \n- ");
         allergyText.setBounds(20, 170, 200, 55);
         allergyText.setEditable(false);
         allergyText.setOpaque(false);
@@ -167,7 +167,7 @@ public class PatientInfo_Doctor extends JPanel {
         lblCondition.setBounds(250, 150, 150, 22);
         details.add(lblCondition);
 
-        conditionText = new JTextArea("- Diabetes\n- Hypertension");
+        conditionText = new JTextArea("- \n- ");
         conditionText.setBounds(250, 170, 200, 55);
         conditionText.setEditable(false);
         conditionText.setOpaque(false);
@@ -181,7 +181,7 @@ public class PatientInfo_Doctor extends JPanel {
         lblMed.setBounds(480, 150, 200, 22);
         details.add(lblMed);
 
-        medText = new JTextArea("- Metformin (Daily)\n- Ibuprofen (As needed)");
+        medText = new JTextArea("- \n- ");
         medText.setBounds(480, 170, 230, 55);
         medText.setEditable(false);
         medText.setOpaque(false);
@@ -207,9 +207,7 @@ public class PatientInfo_Doctor extends JPanel {
         notesLine.setBackground(lightBlue);
         doctorNotes.add(notesLine);
 
-        notesText = new JTextArea("Patient recovering well post consultation.\n" 
-                                            +"Blood pressure stabilizing.\n\n" 
-                                            +"Recommendation:\nContinue medication and follow-up next week.");
+        notesText = new JTextArea("");
         notesText.setFont(new Font("Calibri", Font.PLAIN, 22));
         notesText.setBounds(20, 50, 700, 260);
         notesText.setEditable(false);
@@ -238,10 +236,10 @@ public class PatientInfo_Doctor extends JPanel {
         vitals.add(vitalsLine);
 
         String[][] vitalRows = {
-            {"Blood Pressure", "120/80 mmHg"},
-            {"Heart Rate", "72 bpm"},
-            {"Temperature", "36.8°C"},
-            {"SpO2", "98%"}
+            {"Blood Pressure", ""},
+            {"Heart Rate", ""},
+            {"Temperature", ""},
+            {"SpO2", ""}
         };
 
         int y = 50;
@@ -286,7 +284,7 @@ public class PatientInfo_Doctor extends JPanel {
         txtCon.setOpaque(false);
         emergency.add(txtCon);
 
-        eText = new JTextArea("Gabriella Santos\n\nMother\n\n+63 912 345 6789");
+        eText = new JTextArea("");
         eText.setFont(new Font("Calibri", Font.PLAIN, 20));
         eText.setBounds(250, 50, 500, 170);
         eText.setEditable(false);

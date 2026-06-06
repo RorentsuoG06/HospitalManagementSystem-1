@@ -103,18 +103,6 @@ public class Admin_Sidebar extends JPanel implements ActionListener{
             leftSidebar.repaint();
             leftSidebar.revalidate();
         });
-
-        // For show only, it errors if "JButton" is removed.
-        JButton btnAppearance = btnSideBar("Appearance", 20, 830, 260, 45, darkBlue);
-        leftSidebar.add(btnAppearance);
-        
-        rbtnDarkMode = new JRadioButton("Dark Mode");
-        rbtnDarkMode.setBounds(60, 880, 200, 30);
-        rbtnDarkMode.setForeground(Color.WHITE);
-        rbtnDarkMode.setFont(new Font("Calibri", Font.PLAIN, 18));
-        rbtnDarkMode.setBackground(darkBlue);
-        rbtnDarkMode.setOpaque(true);
-        leftSidebar.add(rbtnDarkMode);
         
         btnLogout = btnLog("Logout", 20, 930, 260, 45, veryLightBlue);
         leftSidebar.add(btnLogout);

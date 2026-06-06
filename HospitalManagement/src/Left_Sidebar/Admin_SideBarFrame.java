@@ -17,7 +17,6 @@ public class Admin_SideBarFrame extends JFrame{
      
     private JPanel window;
     private JPanel hdr;
-    private JTextField txtSearch;
     private JLabel lblAdminName, lblAdminIcon;
     private ImageIcon imgAdmin;
     private Image imdAd, imgAD;
@@ -40,11 +39,6 @@ public class Admin_SideBarFrame extends JFrame{
         hdr.setBounds(300, 0, 1620, 70);
         hdr.setBackground(lightBlue);
         add(hdr);
-        
-        txtSearch = new JTextField("Search...");
-        txtSearch.setBounds(970, 18, 260, 35);
-        txtSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
-        hdr.add(txtSearch);
         
         lblAdminName = new JLabel("Admin | John Smith");
         lblAdminName.setFont(new Font("Calibri", Font.BOLD, 20));

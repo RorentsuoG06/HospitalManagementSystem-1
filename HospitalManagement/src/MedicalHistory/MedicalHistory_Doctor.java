@@ -59,10 +59,10 @@ public class MedicalHistory_Doctor extends JPanel{
         accent.setBackground(darkBlue);
         profileCard.add(accent);
 
-        imgP = new ImageIcon(getClass().getResource("/resources/PATIENT.PHOTO.png"));
-        ImgPT = imgP.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
+        imgP = new ImageIcon(getClass().getResource("/resources/Male_Icon.png"));
+        ImgPT = imgP.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         lblPat = new JLabel(new ImageIcon(ImgPT));
-        lblPat.setBounds(10, 15, 140, 140);
+        lblPat.setBounds(25, 20, 100, 100);
         profileCard.add(lblPat);
         
         name = new JLabel("Joshua Garcia");
@@ -83,7 +83,7 @@ public class MedicalHistory_Doctor extends JPanel{
         status.setBounds(5, 5, 180, 20);
         statusBadge.add(status);
 
-        info = new JLabel("ID: P-10021   |   Age: 29   |   Blood: O+");
+        info = new JLabel("ID: P-   |   Age:    |   Blood: ");
         info.setFont(new Font("Calibri", Font.BOLD, 15));
         info.setForeground(Color.DARK_GRAY);
         info.setBounds(150, 90, 400, 22);
@@ -128,7 +128,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblAll.setBounds(20, 50, 200, 30);
         details.add(lblAll);
         
-        lblP = new JLabel("Pennicilin");
+        lblP = new JLabel("");
         lblP.setFont(new Font("Calibri", Font.PLAIN, 22));
         lblP.setForeground(Color.BLACK);
         lblP.setBounds(20, 80, 200, 30);
@@ -140,7 +140,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblCD.setBounds(350, 50, 200, 30);
         details.add(lblCD);
         
-        lblObb = new JLabel("Obesity");
+        lblObb = new JLabel("");
         lblObb.setFont(new Font("Calibri", Font.PLAIN, 22));
         lblObb.setForeground(Color.BLACK);
         lblObb.setBounds(350, 80, 200, 30);
@@ -152,7 +152,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblSH.setBounds(20, 150, 200, 30);
         details.add(lblSH);
         
-        lblLP = new JLabel("Liposuction");
+        lblLP = new JLabel("");
         lblLP.setFont(new Font("Calibri", Font.PLAIN, 22));
         lblLP.setForeground(Color.BLACK);
         lblLP.setBounds(20, 180, 200, 30);
@@ -164,7 +164,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblFH.setBounds(350, 150, 200, 30);
         details.add(lblFH);
         
-        lblOb = new JLabel("Obesity");
+        lblOb = new JLabel("");
         lblOb.setFont(new Font("Calibri", Font.PLAIN, 22));
         lblOb.setForeground(Color.BLACK);
         lblOb.setBounds(350, 180, 200, 30);
@@ -206,7 +206,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblCar.setBounds(350, 60, 200, 30);
         PhyNotes.add(lblCar);
         
-        lblNum = new JLabel("Regular and normal peripheral pulses");
+        lblNum = new JLabel("");
         lblNum.setFont(new Font("Calibri", Font.PLAIN, 20));
         lblNum.setForeground(Color.BLACK);
         lblNum.setBounds(350, 90, 350, 30);
@@ -218,7 +218,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblRes.setBounds(20, 150, 200, 30);
         PhyNotes.add(lblRes);
         
-        lblRC = new JLabel("Clear breath sounds, no wheezes");
+        lblRC = new JLabel("");
         lblRC.setFont(new Font("Calibri", Font.PLAIN, 20));
         lblRC.setForeground(Color.BLACK);
         lblRC.setBounds(20, 180, 350, 30);
@@ -230,7 +230,7 @@ public class MedicalHistory_Doctor extends JPanel{
         lblN.setBounds(350, 150, 200, 30);
         PhyNotes.add(lblN);
         
-        lblNC = new JLabel("Cranial nerves intact, reflexes normal");
+        lblNC = new JLabel("");
         lblNC.setFont(new Font("Calibri", Font.PLAIN, 20));
         lblNC.setForeground(Color.BLACK);
         lblNC.setBounds(350, 180, 350, 30);

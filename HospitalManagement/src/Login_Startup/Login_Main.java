@@ -1,11 +1,12 @@
 package Login_Startup;
 
 import Left_Sidebar.Admin_SideBarFrame;
+import Left_Sidebar.Doctor_SideBarFrame;
 
 public class Login_Main {
 
     public static void main(String[] args) {
-        Admin_SideBarFrame lg = new Admin_SideBarFrame();
+        Doctor_SideBarFrame lg = new Doctor_SideBarFrame();
         lg.setVisible(true);
     }
 }
