@@ -263,9 +263,8 @@ public class Doctor_Dashboard extends JPanel{
 
         pnlSelection = new JPanel();
         pnlSelection.setLayout(null);
-        pnlSelection.setBounds(950, 620, 640, 280);
+        pnlSelection.setBounds(950, 620, 620, 280);
         pnlSelection.setBackground(Color.WHITE);
-        pnlSelection.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
         pnlMain.add(pnlSelection);
 
         lblTasks = new JLabel("Requested Items");
@@ -295,7 +294,7 @@ public class Doctor_Dashboard extends JPanel{
         tblItems.getTableHeader().setForeground(Color.BLACK);
 
         scrItems = new JScrollPane(tblItems);
-        scrItems.setBounds(20, 60, 600, 200);
+        scrItems.setBounds(20, 60, 580, 200);
         pnlSelection.add(scrItems);
 
         setVisible(true);

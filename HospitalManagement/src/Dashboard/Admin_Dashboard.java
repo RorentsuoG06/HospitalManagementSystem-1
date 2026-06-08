@@ -10,12 +10,10 @@ public class Admin_Dashboard extends JPanel{
     
     private JPanel pnlMain, tabItem, pnlActivity, pnlSummary, tabUpdate, tabLows, tabValue, tabSup, tabEq, tabMed;
     private JLabel lblOverview, lblDT, lblMonth, lblTitle, lblValue, lblTValue, lblActive, lblSup, lblEq, lblMed,
-                   lblActivity, lblFilter, lblSummary, lblTItem, lblLStock;
+                   lblActivity, lblSummary, lblTItem, lblLStock;
     private JTable tblCalendar, tblActivities, tblSummary;
-    private JTableHeader HActivities;
+    private JTableHeader HActivities, tblCHdr;
     private JScrollPane scrCalendar, scrActivities, scrSummary;
-    private DefaultTableCellRenderer RwLeft, RwRight;
-    JComboBox<String> cmbActivity;
     private JButton btnPrev, btnNext;
     
     public Admin_Dashboard() {
@@ -180,8 +178,12 @@ public class Admin_Dashboard extends JPanel{
         tblSummary.setBackground(Color.WHITE);
 
         tblSummary.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 16));
-        tblSummary.setBackground(lightBlue);
         tblSummary.getTableHeader().setForeground(Color.BLACK);
+        
+        tblCHdr = tblSummary.getTableHeader();
+        tblCHdr.setBackground(lightBlue);
+        tblCHdr.setFont(new Font("Calibri", Font.BOLD, 16));
+        tblCHdr.setForeground(Color.BLACK);
 
         DefaultTableCellRenderer RwLeft = new DefaultTableCellRenderer();
         RwLeft.setHorizontalAlignment(SwingConstants.LEFT);
