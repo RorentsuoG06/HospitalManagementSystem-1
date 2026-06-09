@@ -69,9 +69,9 @@ public class MedicalHistory_Nurse extends JPanel implements ActionListener{
         profileCard.add(accent);
 
         imgP = new ImageIcon(getClass().getResource("/resources/Male_Icon.png"));
-        ImgPT = imgP.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImgPT = imgP.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
         lblPat = new JLabel(new ImageIcon(ImgPT));
-        lblPat.setBounds(25, 20, 100, 100);
+        lblPat.setBounds(10, 15, 140, 140);
         profileCard.add(lblPat);
         
         name = new JLabel("");
@@ -92,7 +92,7 @@ public class MedicalHistory_Nurse extends JPanel implements ActionListener{
         status.setBounds(5, 5, 180, 20);
         statusBadge.add(status);
 
-        info = new JLabel("ID: P-  |   Age:   |   Blood Type: ");
+        info = new JLabel("ID: P-   |   Age:    |   Blood Type: ");
         info.setFont(new Font("Calibri", Font.BOLD, 15));
         info.setForeground(Color.DARK_GRAY);
         info.setBounds(150, 90, 400, 22);
@@ -293,8 +293,8 @@ public class MedicalHistory_Nurse extends JPanel implements ActionListener{
         pnlWard.add(scrDiet);
         
         btnViewAll = new JButton("View Diet Plan");
-        btnViewAll.setBounds(590, 20, 180, 35);
-        btnViewAll.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnViewAll.setBounds(570, 20, 200, 40);
+        btnViewAll.setFont(new Font("Calibri", Font.BOLD, 18));
         btnViewAll.setBackground(Blue);
         btnViewAll.setForeground(Color.WHITE);
         pnlWard.add(btnViewAll);
@@ -346,304 +346,363 @@ public class MedicalHistory_Nurse extends JPanel implements ActionListener{
     }
     
     
-    @Override
-            public void actionPerformed(ActionEvent e) {
+      @Override
+      public void actionPerformed(ActionEvent e) {
     // edit button
-    if (e.getSource() == edit) {
-        editMenu = new JFrame();
-        editMenu.setTitle("Edit Patient");
-        editMenu.setSize(650, 580);
-        editMenu.setLocationRelativeTo(null);
-        editMenu.setLayout(null);
-        editMenu.setResizable(false);
-        editMenu.getContentPane().setBackground(new Color(240, 240, 240));
+        if (e.getSource() == edit) {
+            editMenu = new JFrame();
+            editMenu.setTitle("Edit Patient");
+            editMenu.setSize(650, 580);
+            editMenu.setLocationRelativeTo(null);
+            editMenu.setLayout(null);
+            editMenu.setResizable(false);
+            editMenu.getContentPane().setBackground(new Color(240, 240, 240));
 
-        //med history
-        lblMedHistoryTitle = new JLabel("MEDICAL HISTORY");
-        lblMedHistoryTitle.setBounds(30, 30, 300, 25);
-        lblMedHistoryTitle.setFont(new Font("Calibri", Font.BOLD, 16));
-        lblMedHistoryTitle.setForeground(darkBlue);
-        editMenu.add(lblMedHistoryTitle);
+            //med history
+            lblMedHistoryTitle = new JLabel("MEDICAL HISTORY");
+            lblMedHistoryTitle.setBounds(30, 30, 300, 25);
+            lblMedHistoryTitle.setFont(new Font("Calibri", Font.BOLD, 16));
+            lblMedHistoryTitle.setForeground(darkBlue);
+            editMenu.add(lblMedHistoryTitle);
 
-        lblAllergies = new JLabel("Allergies:");
-        lblAllergies.setBounds(30, 70, 100, 25);
-        lblAllergies.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblAllergies);
+            lblAllergies = new JLabel("Allergies:");
+            lblAllergies.setBounds(30, 70, 100, 25);
+            lblAllergies.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblAllergies);
 
-        txtAllergies = new JTextField(lblP.getText());
-        txtAllergies.setBounds(190, 70, 410, 30);
-        editMenu.add(txtAllergies);
+            txtAllergies = new JTextField(lblP.getText());
+            txtAllergies.setBounds(190, 70, 410, 30);
+            editMenu.add(txtAllergies);
 
-        lblChronicConditions = new JLabel("Chronic Conditions:");
-        lblChronicConditions.setBounds(30, 115, 150, 25);
-        lblChronicConditions.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblChronicConditions);
+            lblChronicConditions = new JLabel("Chronic Conditions:");
+            lblChronicConditions.setBounds(30, 115, 150, 25);
+            lblChronicConditions.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblChronicConditions);
 
-        txtChronicConditions = new JTextField(lblObb.getText());
-        txtChronicConditions.setBounds(190, 115, 410, 30);
-        editMenu.add(txtChronicConditions);
+            txtChronicConditions = new JTextField(lblObb.getText());
+            txtChronicConditions.setBounds(190, 115, 410, 30);
+            editMenu.add(txtChronicConditions);
 
-        lblSurgicalHistory = new JLabel("Surgical History:");
-        lblSurgicalHistory.setBounds(30, 160, 150, 25);
-        lblSurgicalHistory.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblSurgicalHistory);
+            lblSurgicalHistory = new JLabel("Surgical History:");
+            lblSurgicalHistory.setBounds(30, 160, 150, 25);
+            lblSurgicalHistory.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblSurgicalHistory);
 
-        txtSurgicalHistory = new JTextField(lblLP.getText());
-        txtSurgicalHistory.setBounds(190, 160, 410, 30);
-        editMenu.add(txtSurgicalHistory);
+            txtSurgicalHistory = new JTextField(lblLP.getText());
+            txtSurgicalHistory.setBounds(190, 160, 410, 30);
+            editMenu.add(txtSurgicalHistory);
 
-        lblFamilyHistory = new JLabel("Family History:");
-        lblFamilyHistory.setBounds(30, 205, 150, 25);
-        lblFamilyHistory.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblFamilyHistory);
+            lblFamilyHistory = new JLabel("Family History:");
+            lblFamilyHistory.setBounds(30, 205, 150, 25);
+            lblFamilyHistory.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblFamilyHistory);
 
-        txtFamilyHistory = new JTextField(lblOb.getText());
-        txtFamilyHistory.setBounds(190, 205, 410, 30);
-        editMenu.add(txtFamilyHistory);
+            txtFamilyHistory = new JTextField(lblOb.getText());
+            txtFamilyHistory.setBounds(190, 205, 410, 30);
+            editMenu.add(txtFamilyHistory);
 
-        //phys examination
-        lblPhyTitle = new JLabel("PHYSICAL EXAMINATION");
-        lblPhyTitle.setBounds(30, 260, 300, 25);
-        lblPhyTitle.setFont(new Font("Calibri", Font.BOLD, 16));
-        lblPhyTitle.setForeground(darkBlue);
-        editMenu.add(lblPhyTitle);
+            //phys examination
+            lblPhyTitle = new JLabel("PHYSICAL EXAMINATION");
+            lblPhyTitle.setBounds(30, 260, 300, 25);
+            lblPhyTitle.setFont(new Font("Calibri", Font.BOLD, 16));
+            lblPhyTitle.setForeground(darkBlue);
+            editMenu.add(lblPhyTitle);
 
-        lblGeneralAppearance = new JLabel("General Appearance:");
-        lblGeneralAppearance.setBounds(30, 300, 150, 25);
-        lblGeneralAppearance.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblGeneralAppearance);
+            lblGeneralAppearance = new JLabel("General Appearance:");
+            lblGeneralAppearance.setBounds(30, 300, 150, 25);
+            lblGeneralAppearance.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblGeneralAppearance);
 
-        txtGeneralAppearance = new JTextField(lblGS.getText());
-        txtGeneralAppearance.setBounds(190, 300, 410, 30);
-        editMenu.add(txtGeneralAppearance);
+            txtGeneralAppearance = new JTextField(lblGS.getText());
+            txtGeneralAppearance.setBounds(190, 300, 410, 30);
+            editMenu.add(txtGeneralAppearance);
 
-        lblCardiovascular = new JLabel("Cardiovascular:");
-        lblCardiovascular.setBounds(30, 345, 150, 25);
-        lblCardiovascular.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblCardiovascular);
+            lblCardiovascular = new JLabel("Cardiovascular:");
+            lblCardiovascular.setBounds(30, 345, 150, 25);
+            lblCardiovascular.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblCardiovascular);
 
-        txtCardiovascular = new JTextField(lblNum.getText());
-        txtCardiovascular.setBounds(190, 345, 410, 30);
-        editMenu.add(txtCardiovascular);
+            txtCardiovascular = new JTextField(lblNum.getText());
+            txtCardiovascular.setBounds(190, 345, 410, 30);
+            editMenu.add(txtCardiovascular);
 
-        lblRespiratory = new JLabel("Respiratory:");
-        lblRespiratory.setBounds(30, 390, 150, 25);
-        lblRespiratory.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblRespiratory);
+            lblRespiratory = new JLabel("Respiratory:");
+            lblRespiratory.setBounds(30, 390, 150, 25);
+            lblRespiratory.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblRespiratory);
 
-        txtRespiratory = new JTextField(lblRC.getText());
-        txtRespiratory.setBounds(190, 390, 410, 30);
-        editMenu.add(txtRespiratory);
+            txtRespiratory = new JTextField(lblRC.getText());
+            txtRespiratory.setBounds(190, 390, 410, 30);
+            editMenu.add(txtRespiratory);
 
-        lblNeurological = new JLabel("Neurological:");
-        lblNeurological.setBounds(30, 435, 150, 25);
-        lblNeurological.setFont(new Font("Calibri", Font.BOLD, 14));
-        editMenu.add(lblNeurological);
+            lblNeurological = new JLabel("Neurological:");
+            lblNeurological.setBounds(30, 435, 150, 25);
+            lblNeurological.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblNeurological);
 
-        txtNeurological = new JTextField(lblNC.getText());
-        txtNeurological.setBounds(190, 435, 410, 30);
-        editMenu.add(txtNeurological);
+            txtNeurological = new JTextField(lblNC.getText());
+            txtNeurological.setBounds(190, 435, 410, 30);
+            editMenu.add(txtNeurological);
 
-        //buttons
-        btnSave = new JButton("Save Changes");
-        btnSave.setBounds(180, 490, 130, 35);
-        btnSave.setBackground(darkBlue);
-        btnSave.setForeground(Color.WHITE);
-        btnSave.addActionListener(this);
-        editMenu.add(btnSave);
+            //buttons
+            btnSave = new JButton("Save Changes");
+            btnSave.setBounds(180, 490, 130, 35);
+            btnSave.setBackground(darkBlue);
+            btnSave.setForeground(Color.WHITE);
+            btnSave.addActionListener(this);
+            editMenu.add(btnSave);
 
-        btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(330, 490, 130, 35);
-        btnCancel.setBackground(Color.GRAY);
-        btnCancel.setForeground(Color.WHITE);
-        btnCancel.addActionListener(this);
-        editMenu.add(btnCancel);
+            btnCancel = new JButton("Cancel");
+            btnCancel.setBounds(330, 490, 130, 35);
+            btnCancel.setBackground(Color.GRAY);
+            btnCancel.setForeground(Color.WHITE);
+            btnCancel.addActionListener(this);
+            editMenu.add(btnCancel);
 
-        editMenu.setVisible(true);
-    }
-    
-    // save (inside edit menu)
-    else if (e.getSource() == btnSave) {
-        lblP.setText(txtAllergies.getText());
-        lblObb.setText(txtChronicConditions.getText());
-        lblLP.setText(txtSurgicalHistory.getText());
-        lblOb.setText(txtFamilyHistory.getText());
-
-        lblGS.setText(txtGeneralAppearance.getText());
-        lblNum.setText(txtCardiovascular.getText());
-        lblRC.setText(txtRespiratory.getText());
-        lblNC.setText(txtNeurological.getText());
-
-        if (editMenu != null) {
-            editMenu.dispose();
+            editMenu.setVisible(true);
         }
-        JOptionPane.showMessageDialog(this, "Medical History and Physical Examination updated successfully!");
-    }
-    
-    // cancel (inside edit menu)
-    else if (e.getSource() == btnCancel) {
-        if (editMenu != null) {
-            editMenu.dispose();
-        }
-    }
-    
-    // update button
-    else if (e.getSource() == update) {
-        updateMenu = new JFrame();
-        updateMenu.setTitle("Update Diet Plan");
-        updateMenu.setSize(750, 400);
-        updateMenu.setLocationRelativeTo(null);
-        updateMenu.setLayout(null);
-        updateMenu.setResizable(false);
-        updateMenu.getContentPane().setBackground(new Color(240, 240, 240));
 
-        lblUpdateTitle = new JLabel("Edit Diet Plan");
-        lblUpdateTitle.setFont(new Font("Calibri", Font.BOLD, 18));
-        lblUpdateTitle.setForeground(darkBlue);
-        lblUpdateTitle.setBounds(30, 20, 200, 30);
-        updateMenu.add(lblUpdateTitle);
+        // save (inside edit menu)
+        else if (e.getSource() == btnSave) {
 
-        //diet column headers
-        JLabel lblColFood = new JLabel("Food");
-        lblColFood.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblColFood.setBounds(120, 60, 150, 25);
-        updateMenu.add(lblColFood);
+            String missingFields = "";
 
-        JLabel lblColWater = new JLabel("Water");
-        lblColWater.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblColWater.setBounds(290, 60, 100, 25);
-        updateMenu.add(lblColWater);
-
-        JLabel lblColMed = new JLabel("Medication");
-        lblColMed.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblColMed.setBounds(410, 60, 150, 25);
-        updateMenu.add(lblColMed);
-
-        //breakfast row
-        lblBreakfast = new JLabel("Breakfast:");
-        lblBreakfast.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblBreakfast.setBounds(30, 100, 80, 25);
-        updateMenu.add(lblBreakfast);
-
-        txtBreakfastFood = new JTextField();
-        txtBreakfastFood.setText((String) tblDiet.getValueAt(0, 1));
-        txtBreakfastFood.setBounds(120, 100, 150, 30);
-        updateMenu.add(txtBreakfastFood);
-
-        txtBreakfastWater = new JTextField();
-        txtBreakfastWater.setText((String) tblDiet.getValueAt(0, 2));
-        txtBreakfastWater.setBounds(290, 100, 100, 30);
-        updateMenu.add(txtBreakfastWater);
-
-        txtBreakfastMed = new JTextField();
-        txtBreakfastMed.setBounds(410, 100, 200, 30);
-        updateMenu.add(txtBreakfastMed);
-
-        //lunch row
-        lblLunch = new JLabel("Lunch:");
-        lblLunch.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblLunch.setBounds(30, 160, 80, 25);
-        updateMenu.add(lblLunch);
-
-        txtLunchFood = new JTextField();
-        txtLunchFood.setText((String) tblDiet.getValueAt(1, 1));
-        txtLunchFood.setBounds(120, 160, 150, 30);
-        updateMenu.add(txtLunchFood);
-
-        txtLunchWater = new JTextField();
-        txtLunchWater.setText((String) tblDiet.getValueAt(1, 2));
-        txtLunchWater.setBounds(290, 160, 100, 30);
-        updateMenu.add(txtLunchWater);
-
-        txtLunchMed = new JTextField();
-        txtLunchMed.setBounds(410, 160, 200, 30);
-        updateMenu.add(txtLunchMed);
-
-        //dinner row
-        lblDinner = new JLabel("Dinner:");
-        lblDinner.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblDinner.setBounds(30, 220, 80, 25);
-        updateMenu.add(lblDinner);
-
-        txtDinnerFood = new JTextField();
-        txtDinnerFood.setText((String) tblDiet.getValueAt(2, 1));
-        txtDinnerFood.setBounds(120, 220, 150, 30);
-        updateMenu.add(txtDinnerFood);
-
-        txtDinnerWater = new JTextField();
-        txtDinnerWater.setText((String) tblDiet.getValueAt(2, 2));
-        txtDinnerWater.setBounds(290, 220, 100, 30);
-        updateMenu.add(txtDinnerWater);
-
-        txtDinnerMed = new JTextField();
-        txtDinnerMed.setBounds(410, 220, 200, 30);
-        updateMenu.add(txtDinnerMed);
-
-        //buttons
-        btnUpdateSave = new JButton("Save Changes");
-        btnUpdateSave.setBounds(150, 290, 130, 35);
-        btnUpdateSave.setBackground(darkBlue);
-        btnUpdateSave.setForeground(Color.WHITE);
-        btnUpdateSave.addActionListener(this);
-        updateMenu.add(btnUpdateSave);
-
-        btnUpdateClear = new JButton("Clear");
-        btnUpdateClear.setBounds(300, 290, 130, 35);
-        btnUpdateClear.setBackground(LightRed);
-        btnUpdateClear.setForeground(Color.WHITE);
-        btnUpdateClear.addActionListener(this);
-        updateMenu.add(btnUpdateClear);
-
-        btnUpdateCancel = new JButton("Cancel");
-        btnUpdateCancel.setBounds(450, 290, 130, 35);
-        btnUpdateCancel.setBackground(Color.GRAY);
-        btnUpdateCancel.setForeground(Color.WHITE);
-        btnUpdateCancel.addActionListener(this);
-        updateMenu.add(btnUpdateCancel);
-
-        updateMenu.setVisible(true);
-    }
-    
-    // save diet button
-    else if (e.getSource() == btnUpdateSave) {
- 
-        String breakfastText = "Breakfast: " + txtBreakfastFood.getText();
-        tblDiet.setValueAt(breakfastText, 0, 0);
-        tblDiet.setValueAt(txtBreakfastWater.getText(), 0, 1);
-
-        String lunchText = "Lunch: " + txtLunchFood.getText();
-        tblDiet.setValueAt(lunchText, 1, 0);
-        tblDiet.setValueAt(txtLunchWater.getText(), 1, 1);
-
-        String dinnerText = "Dinner: " + txtDinnerFood.getText();
-        tblDiet.setValueAt(dinnerText, 2, 0);
-        tblDiet.setValueAt(txtDinnerWater.getText(), 2, 1);
-
-        if (updateMenu != null) {
-            updateMenu.dispose();
-        }
-        JOptionPane.showMessageDialog(this, "Diet Plan updated successfully!");
-    }
-    
-    // clear diet button
-    else if (e.getSource() == btnUpdateClear) {
-        txtBreakfastFood.setText("");
-        txtBreakfastWater.setText("");
-        txtBreakfastMed.setText("");
-        txtLunchFood.setText("");
-        txtLunchWater.setText("");
-        txtLunchMed.setText("");
-        txtDinnerFood.setText("");
-        txtDinnerWater.setText("");
-        txtDinnerMed.setText("");
-    }
-    
-    // cancel in update menu
-    else if (e.getSource() == btnUpdateCancel) {
-        if (updateMenu != null) {
-            updateMenu.dispose();
-        }
-    }
+            if (txtGeneralAppearance.getText().trim().isEmpty()) {
+                missingFields += "- General Appearance\n";
             }
-}
+            if (txtCardiovascular.getText().trim().isEmpty()) {
+                missingFields += "- Cardiovascular Examination\n";
+            }
+            if (txtRespiratory.getText().trim().isEmpty()) {
+                missingFields += "- Respiratory Examination\n";
+            }
+            if (txtNeurological.getText().trim().isEmpty()) {
+                missingFields += "- Neurological Examination\n";
+            }
 
+            if (!missingFields.isEmpty()) {
+                JOptionPane.showMessageDialog(editMenu, "Please complete the following required fields:\n\n" + missingFields, "Incomplete Physical Examination", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            lblP.setText(txtAllergies.getText());
+            lblObb.setText(txtChronicConditions.getText());
+            lblLP.setText(txtSurgicalHistory.getText());
+            lblOb.setText(txtFamilyHistory.getText());
+
+            lblGS.setText(txtGeneralAppearance.getText());
+            lblNum.setText(txtCardiovascular.getText());
+            lblRC.setText(txtRespiratory.getText());
+            lblNC.setText(txtNeurological.getText());
+
+            if (editMenu != null) {
+                editMenu.dispose();
+            }
+            JOptionPane.showMessageDialog(this, "Medical History and Physical Examination updated successfully!");
+        }
+
+        // cancel (inside edit menu)
+        else if (e.getSource() == btnCancel) {
+            if (editMenu != null) {
+                editMenu.dispose();
+            }
+        }
+
+        // update button
+        else if (e.getSource() == update) {
+            updateMenu = new JFrame();
+            updateMenu.setTitle("Update Diet Plan");
+            updateMenu.setSize(750, 400);
+            updateMenu.setLocationRelativeTo(null);
+            updateMenu.setLayout(null);
+            updateMenu.setResizable(false);
+            updateMenu.getContentPane().setBackground(new Color(240, 240, 240));
+
+            lblUpdateTitle = new JLabel("Edit Diet Plan");
+            lblUpdateTitle.setFont(new Font("Calibri", Font.BOLD, 18));
+            lblUpdateTitle.setForeground(darkBlue);
+            lblUpdateTitle.setBounds(30, 20, 200, 30);
+            updateMenu.add(lblUpdateTitle);
+
+            //diet column headers
+            JLabel lblColFood = new JLabel("Food");
+            lblColFood.setFont(new Font("Calibri", Font.BOLD, 14));
+            lblColFood.setBounds(120, 60, 150, 25);
+            updateMenu.add(lblColFood);
+
+            JLabel lblColWater = new JLabel("Water");
+            lblColWater.setFont(new Font("Calibri", Font.BOLD, 14));
+            lblColWater.setBounds(290, 60, 100, 25);
+            updateMenu.add(lblColWater);
+
+            JLabel lblColMed = new JLabel("Medication");
+            lblColMed.setFont(new Font("Calibri", Font.BOLD, 14));
+            lblColMed.setBounds(410, 60, 150, 25);
+            updateMenu.add(lblColMed);
+
+            //breakfast row
+            lblBreakfast = new JLabel("Breakfast:");
+            lblBreakfast.setFont(new Font("Calibri", Font.BOLD, 14));
+            lblBreakfast.setBounds(30, 100, 80, 25);
+            updateMenu.add(lblBreakfast);
+
+            txtBreakfastFood = new JTextField();
+            txtBreakfastFood.setText((String) tblDiet.getValueAt(0, 1));
+            txtBreakfastFood.setBounds(120, 100, 150, 30);
+            updateMenu.add(txtBreakfastFood);
+
+            txtBreakfastWater = new JTextField();
+            txtBreakfastWater.setText((String) tblDiet.getValueAt(0, 2));
+            txtBreakfastWater.setBounds(290, 100, 100, 30);
+            updateMenu.add(txtBreakfastWater);
+
+            txtBreakfastMed = new JTextField();
+            txtBreakfastMed.setBounds(410, 100, 200, 30);
+            updateMenu.add(txtBreakfastMed);
+
+            //lunch row
+            lblLunch = new JLabel("Lunch:");
+            lblLunch.setFont(new Font("Calibri", Font.BOLD, 14));
+            lblLunch.setBounds(30, 160, 80, 25);
+            updateMenu.add(lblLunch);
+
+            txtLunchFood = new JTextField();
+            txtLunchFood.setText((String) tblDiet.getValueAt(1, 1));
+            txtLunchFood.setBounds(120, 160, 150, 30);
+            updateMenu.add(txtLunchFood);
+
+            txtLunchWater = new JTextField();
+            txtLunchWater.setText((String) tblDiet.getValueAt(1, 2));
+            txtLunchWater.setBounds(290, 160, 100, 30);
+            updateMenu.add(txtLunchWater);
+
+            txtLunchMed = new JTextField();
+            txtLunchMed.setBounds(410, 160, 200, 30);
+            updateMenu.add(txtLunchMed);
+
+            //dinner row
+            lblDinner = new JLabel("Dinner:");
+            lblDinner.setFont(new Font("Calibri", Font.BOLD, 14));
+            lblDinner.setBounds(30, 220, 80, 25);
+            updateMenu.add(lblDinner);
+
+            txtDinnerFood = new JTextField();
+            txtDinnerFood.setText((String) tblDiet.getValueAt(2, 1));
+            txtDinnerFood.setBounds(120, 220, 150, 30);
+            updateMenu.add(txtDinnerFood);
+
+            txtDinnerWater = new JTextField();
+            txtDinnerWater.setText((String) tblDiet.getValueAt(2, 2));
+            txtDinnerWater.setBounds(290, 220, 100, 30);
+            updateMenu.add(txtDinnerWater);
+
+            txtDinnerMed = new JTextField();
+            txtDinnerMed.setBounds(410, 220, 200, 30);
+            updateMenu.add(txtDinnerMed);
+
+            //buttons
+            btnUpdateSave = new JButton("Save Changes");
+            btnUpdateSave.setBounds(150, 290, 130, 35);
+            btnUpdateSave.setBackground(darkBlue);
+            btnUpdateSave.setForeground(Color.WHITE);
+            btnUpdateSave.addActionListener(this);
+            updateMenu.add(btnUpdateSave);
+
+            btnUpdateClear = new JButton("Clear");
+            btnUpdateClear.setBounds(300, 290, 130, 35);
+            btnUpdateClear.setBackground(LightRed);
+            btnUpdateClear.setForeground(Color.WHITE);
+            btnUpdateClear.addActionListener(this);
+            updateMenu.add(btnUpdateClear);
+
+            btnUpdateCancel = new JButton("Cancel");
+            btnUpdateCancel.setBounds(450, 290, 130, 35);
+            btnUpdateCancel.setBackground(Color.GRAY);
+            btnUpdateCancel.setForeground(Color.WHITE);
+            btnUpdateCancel.addActionListener(this);
+            updateMenu.add(btnUpdateCancel);
+
+            updateMenu.setVisible(true);
+        }
+
+        // save diet button
+        else if (e.getSource() == btnUpdateSave) {
+            String missingDietFields = "";
+
+            if (txtBreakfastFood.getText().trim().isEmpty()) {
+                missingDietFields += "- Breakfast Food\n";
+            }
+            if (txtBreakfastWater.getText().trim().isEmpty()) {
+                missingDietFields += "- Breakfast Water\n";
+            }
+            if (txtBreakfastMed.getText().trim().isEmpty()) {
+                missingDietFields += "- Breakfast Medication\n";
+            }
+
+            if (txtLunchFood.getText().trim().isEmpty()) {
+                missingDietFields += "- Lunch Food\n";
+            }
+            if (txtLunchWater.getText().trim().isEmpty()) {
+                missingDietFields += "- Lunch Water\n";
+            }
+            if (txtLunchMed.getText().trim().isEmpty()) {
+                missingDietFields += "- Lunch Medication\n";
+            }
+
+            if (txtDinnerFood.getText().trim().isEmpty()) {
+                missingDietFields += "- Dinner Food\n";
+            }
+            if (txtDinnerWater.getText().trim().isEmpty()) {
+                missingDietFields += "- Dinner Water\n";
+            }
+            if (txtDinnerMed.getText().trim().isEmpty()) {
+                missingDietFields += "- Dinner Medication\n";
+            }
+
+            if (!missingDietFields.isEmpty()) {
+                JOptionPane.showMessageDialog(updateMenu, "Please complete the following fields:\n\n" + missingDietFields, "Incomplete Diet Plan", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String breakfastText = "Breakfast: " + txtBreakfastFood.getText();
+            tblDiet.setValueAt(breakfastText, 0, 0);
+            tblDiet.setValueAt(txtBreakfastWater.getText(), 0, 1);
+            tblDiet.setValueAt(txtBreakfastMed.getText(), 0, 2);
+
+            String lunchText = "Lunch: " + txtLunchFood.getText();
+            tblDiet.setValueAt(lunchText, 1, 0);
+            tblDiet.setValueAt(txtLunchWater.getText(), 1, 1);
+            tblDiet.setValueAt(txtLunchMed.getText(), 1, 2);
+
+            String dinnerText = "Dinner: " + txtDinnerFood.getText();
+            tblDiet.setValueAt(dinnerText, 2, 0);
+            tblDiet.setValueAt(txtDinnerWater.getText(), 2, 1);
+            tblDiet.setValueAt(txtDinnerMed.getText(), 2, 2);
+
+            if (updateMenu != null) {
+                updateMenu.dispose();
+            }
+            JOptionPane.showMessageDialog(this, "Diet Plan updated successfully!");
+        }
+
+        // clear diet button
+        else if (e.getSource() == btnUpdateClear) {
+            txtBreakfastFood.setText("");
+            txtBreakfastWater.setText("");
+            txtBreakfastMed.setText("");
+            txtLunchFood.setText("");
+            txtLunchWater.setText("");
+            txtLunchMed.setText("");
+            txtDinnerFood.setText("");
+            txtDinnerWater.setText("");
+            txtDinnerMed.setText("");
+        }
+
+        // cancel in update menu
+        else if (e.getSource() == btnUpdateCancel) {
+            if (updateMenu != null) {
+                updateMenu.dispose();
+            }
+        }
+      }
+    }

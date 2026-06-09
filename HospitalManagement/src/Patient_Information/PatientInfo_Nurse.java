@@ -11,16 +11,16 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
     private JPanel pnlMain, profileCard, accent, statusBadge, details, detailsLine, doctorNotes, notesLine,
                    vitals, vitalsLine, emergency, emergencyLine, appointment, appLine;
     private JLabel lbltitle, lblDT, lblPat, name, status, info, lblDetails, lblAdd, lblAddre, lblCnum,
-                   lblNum, lblAllergy, lblCondition, lblMed, lblNotes, lblVitals, lblVT, lblval, lblENum ,lblEmergency,
-                   lblApp, lblTime, lblT, lblRoom, lblR, lblType, lblTy, lblEName, lblENameVal, lblERelVal, lblENumVal, 
+                   lblNum, lblAllergy, lblCondition, lblMed, lblNotes, lblVitals, lblVT, lblval, lblENum , 
+                   lblEmergency, lblApp, lblTime, lblT, lblRoom, lblR, lblType, lblTy, lblEName, lblENameVal, lblERelVal, lblENumVal, 
                    lblERel, lblPhoto, lblFullName, lblPatientID, lblPatientAge, lblStatus, lblHRUnitDisplay, lblO2UnitDisplay, lblTempUnitDisplay, lblBPUnitDisplay,
-                   lblBlood, lblAddress, lblContact,lblAllergies, lblConditions, lblMedication, lblEEditName, lblEEditRel, lblEEditNum,
+                   lblBlood, lblAddress, lblContact,lblAllergies, lblConditions, lblMedication, lblEEditName, lblEEditRel, lblEEditNum, lblVitalsTitle, lblBP, lblHR, lblTemp, lblO2,
                    lblBPValue, lblTempValue, lblSpO2Value, lblHRValue;
     private ImageIcon imgP;
     private Image ImgPT;
     private JButton edit, notes, btnSave, btnCancel, btnUploadPhoto, btnNotesSave, btnNotesClear;
     private JTextArea allergyText, conditionText, medText, notesText, lblDate, lblD, txtAllergies, txtConditions, txtMedication;
-    private JTextField txtName, txtAddress, txtContactNum, txtPatientID, txtEName, txtAge, txtERel, txtENum;
+    private JTextField txtName, txtAddress, txtContactNum, txtPatientID, txtEName, txtAge, txtERel, txtENum, txtBP, txtHR, txtTemp, txtSpO2;;
     private JFrame editMenu, notesMenu;
     private JComboBox cmbStatus, cmbBlood;
     
@@ -448,13 +448,13 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
         
     }
     
-    @Override
+ @Override
     public void actionPerformed(ActionEvent e) {
         //edit button
         if (e.getSource() == edit) {
             editMenu = new JFrame();
             editMenu.setTitle("Edit Patient Information");
-            editMenu.setSize(900, 580);
+            editMenu.setSize(900, 650);
             editMenu.setLocationRelativeTo(null);
             editMenu.setLayout(null);
             editMenu.setResizable(false);
@@ -550,6 +550,48 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
             txtContactNum.setBounds(160, 345, 280, 30);
             editMenu.add(txtContactNum);
             
+            // VITALS SNAPSHOT SECTION - MOVED TO LEFT SIDE
+            lblVitalsTitle = new JLabel("Vitals Snapshot:");
+            lblVitalsTitle.setBounds(30, 390, 150, 25);
+            lblVitalsTitle.setFont(new Font("Calibri", Font.BOLD, 14));
+            editMenu.add(lblVitalsTitle);
+            
+            lblBP = new JLabel("Blood Pressure:");
+            lblBP.setBounds(30, 420, 120, 25);
+            lblBP.setFont(new Font("Calibri", Font.PLAIN, 13));
+            editMenu.add(lblBP);
+            
+            txtBP = new JTextField(lblBPValue.getText());
+            txtBP.setBounds(160, 420, 100, 25);
+            editMenu.add(txtBP);
+            
+            lblHR = new JLabel("Heart Rate:");
+            lblHR.setBounds(30, 450, 120, 25);
+            lblHR.setFont(new Font("Calibri", Font.PLAIN, 13));
+            editMenu.add(lblHR);
+            
+            txtHR = new JTextField(lblHRValue.getText());
+            txtHR.setBounds(160, 450, 100, 25);
+            editMenu.add(txtHR);
+            
+            lblTemp = new JLabel("Temperature:");
+            lblTemp.setBounds(30, 480, 120, 25);
+            lblTemp.setFont(new Font("Calibri", Font.PLAIN, 13));
+            editMenu.add(lblTemp);
+            
+            txtTemp = new JTextField(lblTempValue.getText());
+            txtTemp.setBounds(160, 480, 100, 25);
+            editMenu.add(txtTemp);
+            
+            lblO2 = new JLabel("SpO2:");
+            lblO2.setBounds(30, 510, 120, 25);
+            lblO2.setFont(new Font("Calibri", Font.PLAIN, 13));
+            editMenu.add(lblO2);
+            
+            txtSpO2 = new JTextField(lblSpO2Value.getText());
+            txtSpO2.setBounds(160, 510, 100, 25);
+            editMenu.add(txtSpO2);
+            
             //right side of menu
             lblAllergies = new JLabel("Allergies:");
             lblAllergies.setBounds(470, 30, 180, 25);
@@ -617,14 +659,14 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
             
             //buttons
             btnSave = new JButton("Save Changes");
-            btnSave.setBounds(280, 490, 130, 35);
+            btnSave.setBounds(280, 560, 130, 35);
             btnSave.setBackground(darkBlue);
             btnSave.setForeground(Color.WHITE);
             btnSave.addActionListener(this);
             editMenu.add(btnSave);
             
             btnCancel = new JButton("Cancel");
-            btnCancel.setBounds(430, 490, 130, 35);
+            btnCancel.setBounds(430, 560, 130, 35);
             btnCancel.setBackground(Color.GRAY);
             btnCancel.setForeground(Color.WHITE);
             btnCancel.addActionListener(this);
@@ -633,13 +675,118 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
             editMenu.setVisible(true);
         }
         
-        //upload photo button (decorative only)
+        //upload photo button
         else if (e.getSource() == btnUploadPhoto) {
-            JOptionPane.showMessageDialog(editMenu, "Photo upload feature coming soon!");
+            JOptionPane.showMessageDialog(editMenu, "Nothing here yet");
         }
         
         //save button action
         else if (e.getSource() == btnSave) {
+            
+            String errors = "";
+            
+            // name verify
+            String nameText = txtName.getText().trim();
+            if (nameText.isEmpty()) {
+                errors += "- Name is empty\n";
+            } else if (!nameText.matches("[a-zA-Z\\s]+")) {
+                errors += "- Name should only contain letters and spaces\n";
+            }
+
+            // patient id verify
+            String idText = txtPatientID.getText().trim();
+            if (idText.isEmpty()) {
+                errors += "- Patient ID is empty\n";
+            } else if (!idText.matches("\\d{5}")) {
+                errors += "- Patient ID must be exactly 5 digits (example: 10021)\n";
+            }
+            
+            // age verify
+            String ageText = txtAge.getText().trim();
+            if (ageText.isEmpty()) {
+                errors += "- Age is empty\n";
+            } else if (!ageText.matches("\\d+")) {
+                errors += "- Age should only contain numbers\n";
+            } else {
+                int age = Integer.parseInt(ageText);
+                if (age < 0 || age > 120) {
+                    errors += "- Age must be between 0 and 120\n";
+                }
+            }
+            
+            // contact number verify (optional)
+            String contactText = txtContactNum.getText().trim();
+            if (!contactText.isEmpty()) {
+                if (!contactText.matches("\\d+")) {
+                    errors += "- Contact number should only contain digits\n";
+ 	   } else if (contactText.length() < 11 || contactText.length() > 11) {
+                    errors += "- Contact number must be 11 digits long\n";
+                }
+            }
+            
+            // emergency contact name verify (optional)
+            String emergNameText = txtEName.getText().trim();
+            if (!emergNameText.isEmpty()) {
+                if (!emergNameText.matches("[a-zA-Z\\s]+")) {
+                    errors += "- Emergency contact name should only contain letters and spaces\n";
+                }
+            }
+            
+            // emergency relationship verify (optional)
+            String emergRelText = txtERel.getText().trim();
+            if (!emergRelText.isEmpty()) {
+                if (!emergRelText.matches("[a-zA-Z\\s]+")) {
+                    errors += "- Emergency relationship should only contain letters and spaces\n";
+                }
+            }
+            
+            // emergency contact number verify (optional)
+            String emergNumText = txtENum.getText().trim();
+            if (!emergNumText.isEmpty()) {
+                if (!emergNumText.matches("\\d+")) {
+                    errors += "- Emergency contact number should only contain digits\n";
+                } else if (emergNumText.length() < 11 || emergNumText.length() > 11) {
+                    errors += "- Contact number must be 11 digits long\n";
+                }
+            }
+            
+            // vital snapshot verify (optional
+            String bpText = txtBP.getText().trim();
+            if (!bpText.isEmpty()) {
+                if (!bpText.matches("\\d+")) {
+                    errors += "- Blood Pressure should only contain numbers\n";
+                }
+            }
+            
+            String hrText = txtHR.getText().trim();
+            if (!hrText.isEmpty()) {
+                if (!hrText.matches("\\d+")) {
+                    errors += "- Heart Rate should only contain numbers\n";
+                }
+            }
+            
+            String tempText = txtTemp.getText().trim();
+            if (!tempText.isEmpty()) {
+                if (!tempText.matches("\\d+(\\.\\d+)?")) {
+                    errors += "- Temperature should only contain numbers (decimal allowed)\n";
+                }
+            }
+            
+            String spo2Text = txtSpO2.getText().trim();
+            if (!spo2Text.isEmpty()) {
+                if (!spo2Text.matches("\\d+")) {
+                    errors += "- SpO2 should only contain numbers\n";
+                }
+            }
+
+            if (!errors.isEmpty()) {
+                JOptionPane.showMessageDialog(editMenu, 
+                    "Please fix the following errors:\n\n" + errors, 
+                    "Validation Failed", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+                            
             //savename
             name.setText(txtName.getText());
             
@@ -666,6 +813,12 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
             lblERelVal.setText(txtERel.getText());
             lblENumVal.setText(txtENum.getText());
             
+            //save vital snapshot
+            lblBPValue.setText(txtBP.getText());
+            lblHRValue.setText(txtHR.getText());
+            lblTempValue.setText(txtTemp.getText());
+            lblSpO2Value.setText(txtSpO2.getText());
+            
             editMenu.dispose();
             JOptionPane.showMessageDialog(null, "Patient information updated successfully!");
         }
@@ -680,4 +833,4 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
             JOptionPane.showMessageDialog(null, "Only doctors can edit medical notes.");
         }
     }
-}
+   }

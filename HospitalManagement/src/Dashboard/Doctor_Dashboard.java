@@ -2,6 +2,7 @@ package Dashboard;
 
 import Appointments.Doctor_SchedAppointment;
 import static Color_Palette.ColorPalette.*;
+import Inventory.RequestPanel_Doctor;
 import Patient_Information.PatientInfo_Doctor;
 import java.awt.*;
 import javax.swing.*;
@@ -16,9 +17,7 @@ public class Doctor_Dashboard extends JPanel{
     private JTable tblActivities, tblSummary, tblItems;
     private JTableHeader HActivities, summaryHeader, tblHdr;
     private DefaultTableCellRenderer centerRenderer, center;
-    private DefaultListModel<String> notif, tasks;
     private JScrollPane scrActivities, scrSummary, scrItems;
-    private JList<String> lstTasks;
     private ImageIcon imgPatient;
     private Image imgPat;
     private JButton btnV, btnN;
@@ -193,14 +192,14 @@ public class Doctor_Dashboard extends JPanel{
         lblView.addMouseListener(new java.awt.event.MouseAdapter() {
         
             @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            pnlMain.removeAll();
-            pnlMain.add(new PatientInfo_Doctor());
-            pnlMain.revalidate();
-            pnlMain.repaint();
-        }
-    });
-    pnlSchedule.add(lblView);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMain.removeAll();
+                pnlMain.add(new PatientInfo_Doctor());
+                pnlMain.revalidate();
+                pnlMain.repaint();
+            }
+        });
+        pnlSchedule.add(lblView);
         
         pnlSummary = new JPanel();
         pnlSummary.setLayout(null);
@@ -221,14 +220,14 @@ public class Doctor_Dashboard extends JPanel{
         lblView.addMouseListener(new java.awt.event.MouseAdapter() {
         
             @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            pnlMain.removeAll();
-            pnlMain.add(new Doctor_SchedAppointment());
-            pnlMain.revalidate();
-            pnlMain.repaint();
-        }
-    });
-    pnlSummary.add(lblView);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMain.removeAll();
+                pnlMain.add(new Doctor_SchedAppointment());
+                pnlMain.revalidate();
+                pnlMain.repaint();
+            }
+        });
+        pnlSummary.add(lblView);
 
         String[] clmSummary = {"Room Number", "Doctor", "Nurse", "Equipment"};
 
@@ -271,6 +270,23 @@ public class Doctor_Dashboard extends JPanel{
         lblTasks.setBounds(20, 15, 300, 30);
         lblTasks.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSelection.add(lblTasks);
+        
+        lblView = new JLabel("View All");
+        lblView.setFont(new Font("Calibri", Font.PLAIN, 18));
+        lblView.setForeground(Color.BLUE);
+        lblView.setBounds(540, 15, 80, 30);
+        lblView.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblView.addMouseListener(new java.awt.event.MouseAdapter() {
+        
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMain.removeAll();
+                pnlMain.add(new RequestPanel_Doctor());
+                pnlMain.revalidate();
+                pnlMain.repaint();
+            }
+        });
+        pnlSelection.add(lblView);
 
         String[] clmItems = {"Category", "Item", "Status"};
 
@@ -283,7 +299,7 @@ public class Doctor_Dashboard extends JPanel{
         };
 
         tblItems = new JTable(RwItems, clmItems);
-        tblItems.setFont(new Font("Calibri", Font.PLAIN, 18));
+        tblItems.setFont(new Font("Calibri", Font.PLAIN, 16));
         tblItems.setRowHeight(35);
         tblItems.setGridColor(Color.LIGHT_GRAY);
         tblItems.setBackground(Color.WHITE);
@@ -292,31 +308,38 @@ public class Doctor_Dashboard extends JPanel{
         tblItems.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 16));
         tblHdr.setBackground(lightBlue);
         tblItems.getTableHeader().setForeground(Color.BLACK);
+        
+        center = new DefaultTableCellRenderer();
+        center.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        for (int i = 0; i < 3; i++) {
+            tblItems.getColumnModel().getColumn(i).setCellRenderer(center);
+        }
 
         scrItems = new JScrollPane(tblItems);
-        scrItems.setBounds(20, 60, 580, 200);
+        scrItems.setBounds(20, 50, 580, 200);
         pnlSelection.add(scrItems);
 
         setVisible(true);
     }
     
     private JPanel createTab(String title, String value, Color color) {
-    tabUpdate = new JPanel();
-    tabUpdate.setLayout(null);
-    tabUpdate.setBackground(color);
+        tabUpdate = new JPanel();
+        tabUpdate.setLayout(null);
+        tabUpdate.setBackground(color);
 
-    JLabel lblTitle = new JLabel(title);
-    lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
-    lblTitle.setForeground(Color.WHITE);
-    lblTitle.setBounds(20, 20, 250, 25);
-    tabUpdate.add(lblTitle);
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblTitle.setForeground(Color.WHITE);
+        lblTitle.setBounds(20, 20, 250, 25);
+        tabUpdate.add(lblTitle);
 
-    JLabel lblValue = new JLabel(value);
-    lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
-    lblValue.setForeground(Color.WHITE);
-    lblValue.setBounds(20, 50, 150, 40);
-    tabUpdate.add(lblValue);
+        JLabel lblValue = new JLabel(value);
+        lblValue.setFont(new Font("Calibri", Font.BOLD, 28));
+        lblValue.setForeground(Color.WHITE);
+        lblValue.setBounds(20, 50, 150, 40);
+        tabUpdate.add(lblValue);
 
-    return tabUpdate;
-}
+        return tabUpdate;
+    }
 }

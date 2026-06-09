@@ -1,7 +1,10 @@
 package Dashboard;
 
 import static Color_Palette.ColorPalette.*;
+import Inventory.InventoryPanel;
+import Inventory.UserManagementPanel;
 import java.awt.*;
+import java.awt.image.ColorModel;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.table.*;
@@ -10,11 +13,13 @@ public class Admin_Dashboard extends JPanel{
     
     private JPanel pnlMain, tabItem, pnlActivity, pnlSummary, tabUpdate, tabLows, tabValue, tabSup, tabEq, tabMed;
     private JLabel lblOverview, lblDT, lblMonth, lblTitle, lblValue, lblTValue, lblActive, lblSup, lblEq, lblMed,
-                   lblActivity, lblSummary, lblTItem, lblLStock;
+                   lblActivity, lblSummary, lblTItem, lblLStock, lblView, lblC;
     private JTable tblCalendar, tblActivities, tblSummary;
     private JTableHeader HActivities, tblCHdr;
     private JScrollPane scrCalendar, scrActivities, scrSummary;
     private JButton btnPrev, btnNext;
+    private DefaultTableModel CModel;
+    private java.time.YearMonth CMonth = java.time.YearMonth.now();
     
     public Admin_Dashboard() {
         setLayout(null);
@@ -75,9 +80,13 @@ public class Admin_Dashboard extends JPanel{
         btnPrev.setBackground(darkBlue);
         btnPrev.setForeground(Color.WHITE);
         btnPrev.setFocusPainted(false);
+        btnPrev.addActionListener(e -> {
+            CMonth = CMonth.minusMonths(1);
+            refreshCalendar();
+        });
         pnlMain.add(btnPrev);
                 
-        lblMonth = new JLabel("May 2026", SwingConstants.CENTER);
+        lblMonth = new JLabel("", SwingConstants.CENTER);
         lblMonth.setFont(new Font("Calibri", Font.BOLD, 24));
         lblMonth.setBounds(1190, 80, 350, 50);
         lblMonth.setOpaque(true);
@@ -91,26 +100,63 @@ public class Admin_Dashboard extends JPanel{
         btnNext.setBackground(darkBlue);
         btnNext.setForeground(Color.WHITE);
         btnNext.setFocusPainted(false);
+        btnNext.addActionListener(e -> {
+            CMonth = CMonth.plusMonths(1);
+            refreshCalendar();
+        });
         pnlMain.add(btnNext);
         
         String [] days = {"Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"};
-        String[][] DateNum = {{"", "", "", "", "1", "2", "3"},
-                              {"4", "5", "6", "7", "8", "9", "10"},
-                              {"11", "12", "13", "14", "15", "16", "17"},
-                              {"18", "19", "20", "21", "22", "23", "24"},
-                              {"25", "26", "27", "28", "29", "30", "31"}};
+        CModel = new DefaultTableModel(days, 0) {
+             @Override 
+             public boolean isCellEditable(int r, int c) { 
+                 return false; 
+            }
+        };
         
-        tblCalendar = new JTable(DateNum, days);
+        tblCalendar = new JTable(CModel);
         tblCalendar.setRowHeight(60);
         tblCalendar.setFont(new Font("Calibri", Font.PLAIN, 18));
         tblCalendar.setGridColor(Color.LIGHT_GRAY);
         tblCalendar.setBackground(Color.WHITE);
         tblCalendar.setSelectionBackground(SBlue);
         tblCalendar.setSelectionForeground(Color.WHITE);
+        tblCalendar.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                lblC = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                lblC.setHorizontalAlignment(SwingConstants.CENTER);
+                lblC.setFont(new Font("Calibri", Font.PLAIN, 16));
+                lblC.setBackground(Color.WHITE);
+                lblC.setForeground(Color.BLACK);
+
+                if (value != null && !value.toString().trim().isEmpty()) {
+                    try {
+                        int day = Integer.parseInt(value.toString().trim());
+                        java.time.LocalDate date = CMonth.atDay(day);
+                        if (date.equals(java.time.LocalDate.now())) {
+                            lblC.setBackground(darkBlue);
+                            lblC.setForeground(Color.WHITE);
+                            lblC.setFont(new Font("Calibri", Font.BOLD, 16));
+                        }
+                    } catch (Exception ignored) {}
+                }
+                if (isSelected) {
+                    lblC.setBackground(SBlue);
+                    lblC.setForeground(Color.WHITE);
+                }
+                return lblC;
+            }
+        });
+        
+        tblCalendar.getTableHeader().setBackground(lightBlue);
+        tblCalendar.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 14));
+        tblCalendar.getTableHeader().setForeground(Color.BLACK);
         
         scrCalendar = new JScrollPane(tblCalendar);
         scrCalendar.setBounds(1140, 130, 450, 300);
         pnlMain.add(scrCalendar);
+        refreshCalendar();
         
         pnlActivity = new JPanel();
         pnlActivity.setLayout(null);
@@ -149,6 +195,23 @@ public class Admin_Dashboard extends JPanel{
         scrActivities.setBounds(20, 70, 1050, 460);
         pnlActivity.add(scrActivities);
         
+        lblView = new JLabel("View All");
+        lblView.setFont(new Font("Calibri", Font.PLAIN, 18));
+        lblView.setForeground(Color.BLUE);
+        lblView.setBounds(1000, 20, 80, 30);
+        lblView.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblView.addMouseListener(new java.awt.event.MouseAdapter() {
+        
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMain.removeAll();
+                pnlMain.add(new InventoryPanel());
+                pnlMain.revalidate();
+                pnlMain.repaint();
+            }
+        });
+        pnlActivity.add(lblView);
+        
         pnlSummary = new JPanel();
         pnlSummary.setLayout(null);
         pnlSummary.setBounds(1140, 450, 450, 460);
@@ -159,6 +222,23 @@ public class Admin_Dashboard extends JPanel{
         lblSummary.setBounds(20, 20, 300, 30);
         lblSummary.setFont(new Font("Calibri", Font.BOLD, 24));
         pnlSummary.add(lblSummary);
+        
+        lblView = new JLabel("View All");
+        lblView.setFont(new Font("Calibri", Font.PLAIN, 18));
+        lblView.setForeground(Color.BLUE);
+        lblView.setBounds(360, 20, 80, 30);
+        lblView.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblView.addMouseListener(new java.awt.event.MouseAdapter() {
+        
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMain.removeAll();
+                pnlMain.add(new UserManagementPanel());
+                pnlMain.revalidate();
+                pnlMain.repaint();
+            }
+        });
+        pnlSummary.add(lblView);
 
         String[] clmStaff = {"Role", "Name", "Status"};
 
@@ -245,4 +325,29 @@ public class Admin_Dashboard extends JPanel{
         return tabUpdate;
     }
     
+    private void refreshCalendar() {
+        CModel.setRowCount(0);
+        lblMonth.setText(CMonth.format(
+            java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy")));
+
+        java.time.LocalDate first = CMonth.atDay(1);
+        int offset = first.getDayOfWeek().getValue() - 1;
+        int dim = CMonth.lengthOfMonth();
+        int day = 1;
+
+        for (int r = 0; r < 6; r++) {
+            String[] row = new String[7];
+            for (int c = 0; c < 7; c++) {
+                if (r == 0 && c < offset || day > dim) {
+                    row[c] = "";
+                } else {
+                    row[c] = String.valueOf(day++);
+                }
+            }
+            CModel.addRow(row);
+            if (day > dim) break;
+        }
+        tblCalendar.revalidate();
+        tblCalendar.repaint();
+    }
 }

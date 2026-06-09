@@ -68,10 +68,10 @@ public class MedicalHistory_Doctor extends JPanel implements ActionListener{
         accent.setBackground(darkBlue);
         profileCard.add(accent);
 
-        imgP = new ImageIcon(getClass().getResource("/resources/Male_Icon.png"));
-        ImgPT = imgP.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        imgP = new ImageIcon(getClass().getResource("/resources/PATIENT.PHOTO.png"));
+        ImgPT = imgP.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
         lblPat = new JLabel(new ImageIcon(ImgPT));
-        lblPat.setBounds(10, 15, 100, 100);
+        lblPat.setBounds(10, 15, 140, 140);
         profileCard.add(lblPat);
         
         name = new JLabel("");
@@ -92,7 +92,7 @@ public class MedicalHistory_Doctor extends JPanel implements ActionListener{
         status.setBounds(5, 5, 180, 20);
         statusBadge.add(status);
 
-        info = new JLabel("ID: P-  |   Age:   |   Blood Type: ");
+        info = new JLabel("ID: P-   |   Age:    |   Blood Type: ");
         info.setFont(new Font("Calibri", Font.BOLD, 15));
         info.setForeground(Color.DARK_GRAY);
         info.setBounds(150, 90, 400, 22);
@@ -246,8 +246,8 @@ public class MedicalHistory_Doctor extends JPanel implements ActionListener{
         pnlWard.add(scrDiet);
         
         btnViewAll = new JButton("View Diet Plan");
-        btnViewAll.setBounds(590, 20, 180, 35);
-        btnViewAll.setFont(new Font("Calibri", Font.BOLD, 14));
+        btnViewAll.setBounds(570, 20, 200, 40);
+        btnViewAll.setFont(new Font("Calibri", Font.BOLD, 18));
         btnViewAll.setBackground(Blue);
         btnViewAll.setForeground(Color.WHITE);
         pnlWard.add(btnViewAll);
@@ -267,7 +267,7 @@ public class MedicalHistory_Doctor extends JPanel implements ActionListener{
         
         // Edit Recommendations button
         btnAddRec = new JButton("Add Recommendations");
-        btnAddRec.setBounds(590, 15, 180, 35);
+        btnAddRec.setBounds(570, 15, 160, 35);
         btnAddRec.setBackground(darkBlue);
         btnAddRec.setForeground(Color.WHITE);
         btnAddRec.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -595,28 +595,66 @@ public class MedicalHistory_Doctor extends JPanel implements ActionListener{
             updateMenu.setVisible(true);
         }
         
-        // save diet button
-        else if (e.getSource() == btnUpdateSave) {
-            String breakfastText = "Breakfast: " + txtBreakfastFood.getText();
-            tblDiet.setValueAt(breakfastText, 0, 0);
-            tblDiet.setValueAt(txtBreakfastWater.getText(), 0, 1);
-            tblDiet.setValueAt(txtBreakfastMed.getText(), 0, 2);
+     // save diet button
+     else if (e.getSource() == btnUpdateSave) {
+            String missingDietFields = "";
 
-            String lunchText = "Lunch: " + txtLunchFood.getText();
-            tblDiet.setValueAt(lunchText, 1, 0);
-            tblDiet.setValueAt(txtLunchWater.getText(), 1, 1);
-            tblDiet.setValueAt(txtLunchMed.getText(), 1, 2);
-
-            String dinnerText = "Dinner: " + txtDinnerFood.getText();
-            tblDiet.setValueAt(dinnerText, 2, 0);
-            tblDiet.setValueAt(txtDinnerWater.getText(), 2, 1);
-            tblDiet.setValueAt(txtDinnerMed.getText(), 2, 2);
-
-            if (updateMenu != null) {
-                updateMenu.dispose();
+            if (txtBreakfastFood.getText().trim().isEmpty()) {
+                missingDietFields += "- Breakfast Food\n";
             }
-            JOptionPane.showMessageDialog(this, "Diet Plan updated successfully!");
+            if (txtBreakfastWater.getText().trim().isEmpty()) {
+                missingDietFields += "- Breakfast Water\n";
+            }
+            if (txtBreakfastMed.getText().trim().isEmpty()) {
+                missingDietFields += "- Breakfast Medication\n";
+            }
+
+            if (txtLunchFood.getText().trim().isEmpty()) {
+                missingDietFields += "- Lunch Food\n";
+            }
+            if (txtLunchWater.getText().trim().isEmpty()) {
+                missingDietFields += "- Lunch Water\n";
+            }
+            if (txtLunchMed.getText().trim().isEmpty()) {
+                missingDietFields += "- Lunch Medication\n";
+            }
+
+            if (txtDinnerFood.getText().trim().isEmpty()) {
+                missingDietFields += "- Dinner Food\n";
+            }
+            if (txtDinnerWater.getText().trim().isEmpty()) {
+                missingDietFields += "- Dinner Water\n";
+            }
+            if (txtDinnerMed.getText().trim().isEmpty()) {
+                missingDietFields += "- Dinner Medication\n";
+            }
+
+            if (!missingDietFields.isEmpty()) {
+                JOptionPane.showMessageDialog(updateMenu, "Please complete the following fields:\n\n" + missingDietFields, "Incomplete Diet Plan", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        
+        String breakfastText = "Breakfast: " + txtBreakfastFood.getText();
+        tblDiet.setValueAt(breakfastText, 0, 0);
+        tblDiet.setValueAt(txtBreakfastWater.getText(), 0, 1);
+        tblDiet.setValueAt(txtBreakfastMed.getText(), 0, 2);
+
+        String lunchText = "Lunch: " + txtLunchFood.getText();
+        tblDiet.setValueAt(lunchText, 1, 0);
+        tblDiet.setValueAt(txtLunchWater.getText(), 1, 1);
+        tblDiet.setValueAt(txtLunchMed.getText(), 1, 2);
+
+        String dinnerText = "Dinner: " + txtDinnerFood.getText();
+        tblDiet.setValueAt(dinnerText, 2, 0);
+        tblDiet.setValueAt(txtDinnerWater.getText(), 2, 1);
+        tblDiet.setValueAt(txtDinnerMed.getText(), 2, 2);
+
+        if (updateMenu != null) {
+            updateMenu.dispose();
         }
+        JOptionPane.showMessageDialog(this, "Diet Plan updated successfully!");
+    }
+    
         
         // clear diet button
         else if (e.getSource() == btnUpdateClear) {

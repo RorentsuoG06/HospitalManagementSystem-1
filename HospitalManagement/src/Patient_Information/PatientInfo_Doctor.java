@@ -445,10 +445,10 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
         lblTy.setFont(new Font("Calibri", Font.PLAIN, 20));
         lblTy.setForeground(Color.BLACK);
         lblTy.setBounds(380, 110, 300, 30);
-        appointment.add(lblTy);
+//        appointment.add(lblTy);
     }
     
-    @Override
+ @Override
     public void actionPerformed(ActionEvent e) {
         //edit button
         if (e.getSource() == edit) {
@@ -637,13 +637,78 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
         //save button action
         else if (e.getSource() == btnSave) {
 
-            if (txtName.getText().trim().isEmpty() || 
-                txtPatientID.getText().trim().isEmpty() || 
-                txtAge.getText().trim().isEmpty() || 
-                txtAddress.getText().trim().isEmpty() || 
-                txtContactNum.getText().trim().isEmpty()) {
+                String errors = "";
+            
+             // name verify
+            String nameText = txtName.getText().trim();
+            if (nameText.isEmpty()) {
+                errors += "- Name is empty\n";
+            } else if (!nameText.matches("[a-zA-Z\\s]+")) {
+                errors += "- Name should only contain letters and spaces\n";
+            }
 
-                JOptionPane.showMessageDialog(editMenu, "Please fill in all required fields!\n\nRequired: Name, Patient ID, Age", "Incomplete Information", JOptionPane.WARNING_MESSAGE);
+            // patient id verify
+            String idText = txtPatientID.getText().trim();
+            if (idText.isEmpty()) {
+                errors += "- Patient ID is empty\n";
+            } else if (!idText.matches("\\d{5}")) {
+                errors += "- Patient ID must be exactly 5 digits (example: 10021)\n";
+            }
+            
+            // age verify
+            String ageText = txtAge.getText().trim();
+            if (ageText.isEmpty()) {
+                errors += "- Age is empty\n";
+            } else if (!ageText.matches("\\d+")) {
+                errors += "- Age should only contain numbers\n";
+            } else {
+                int age = Integer.parseInt(ageText);
+                if (age < 0 || age > 120) {
+                    errors += "- Age must be between 0 and 120\n";
+                }
+            }
+            
+            // contact number verify (optional)
+            String contactText = txtContactNum.getText().trim();
+            if (!contactText.isEmpty()) {
+                if (!contactText.matches("\\d+")) {
+                    errors += "- Contact number should only contain digits\n";
+               } else if (contactText.length() < 11 || contactText.length() > 11) {
+                    errors += "- Contact number must be 11 digits long\n";
+                }
+            }
+            
+            // emergency contact name verify (optional)
+            String emergNameText = txtEName.getText().trim();
+            if (!emergNameText.isEmpty()) {
+                if (!emergNameText.matches("[a-zA-Z\\s]+")) {
+                    errors += "- Emergency contact name should only contain letters and spaces\n";
+                }
+            }
+            
+            // emergency relationship verify (optional)
+            String emergRelText = txtERel.getText().trim();
+            if (!emergRelText.isEmpty()) {
+                if (!emergRelText.matches("[a-zA-Z\\s]+")) {
+                    errors += "- Relationship should only contain letters and spaces\n";
+                }
+            }
+            
+            // emergency contact number verify (optional)
+            String emergNumText = txtENum.getText().trim();
+            if (!emergNumText.isEmpty()) {
+                if (!emergNumText.matches("\\d+")) {
+                    errors += "- Emergency contact number should only contain digits\n";
+                } else if (emergNumText.length() < 11 ||emergNumText.length() > 11) {
+                    errors += "- Contact number must be 11 digits long\n";
+                }
+            }
+
+            if (!errors.isEmpty()) {
+                JOptionPane.showMessageDialog(editMenu, 
+                    "Please fix the following errors:\n\n" + errors, 
+                    "Validation Failed", 
+                    JOptionPane.WARNING_MESSAGE);
                 return;
             }
             
@@ -678,47 +743,6 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
         //cancel button action
         else if (e.getSource() == btnCancel) {
             editMenu.dispose();
-        }
-        
-        //notes button
-        else if (e.getSource() == notes) {
-            notesMenu = new JFrame();
-            notesMenu.setTitle("Doctor's Notes");
-            notesMenu.setSize(500, 400);
-            notesMenu.setLocationRelativeTo(null);
-            notesMenu.setLayout(null);
-            notesMenu.setResizable(false);
-            
-            JLabel lblNotesTitle = new JLabel("Enter Doctor's Notes:");
-            lblNotesTitle.setFont(new Font("Calibri", Font.BOLD, 16));
-            lblNotesTitle.setBounds(20, 20, 200, 30);
-            notesMenu.add(lblNotesTitle);
-            
-            JTextArea txtNotesEditor = new JTextArea();
-            txtNotesEditor.setFont(new Font("Calibri", Font.PLAIN, 14));
-            txtNotesEditor.setLineWrap(true);
-            txtNotesEditor.setWrapStyleWord(true);
-            txtNotesEditor.setText(notesText.getText());
-            
-            JScrollPane scrollNotes = new JScrollPane(txtNotesEditor);
-            scrollNotes.setBounds(20, 60, 440, 250);
-            notesMenu.add(scrollNotes);
-            
-            btnNotesSave = new JButton("Save");
-            btnNotesSave.setBounds(120, 317, 100, 35);
-            btnNotesSave.setBackground(darkBlue);
-            btnNotesSave.setForeground(Color.WHITE);
-            btnNotesSave.addActionListener(this);
-            notesMenu.add(btnNotesSave);
-            
-            btnNotesClear = new JButton("Clear");
-            btnNotesClear.setBounds(260, 317, 100, 35);
-            btnNotesClear.setBackground(LightRed);
-            btnNotesClear.setForeground(Color.WHITE);
-            btnNotesClear.addActionListener(this);
-            notesMenu.add(btnNotesClear);
-            
-            notesMenu.setVisible(true);
         }
         
         //save notes button

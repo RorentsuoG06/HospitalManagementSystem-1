@@ -17,6 +17,7 @@ public class InventoryPanel extends JPanel {
     private JButton btnAdd, btnEdit, btnRestock, btnRemove;
     private JScrollPane srcInve;
     private JComboBox<String> cmbCategory;
+    private LocalDate expDate;
     
     public InventoryPanel() {
         setLayout(null);
@@ -193,39 +194,79 @@ public class InventoryPanel extends JPanel {
         String expiry = txtExpiry.getText().trim();
 
         if (item.isEmpty() || qtyStr.isEmpty() || priceStr.isEmpty() || expiry.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "All fields are required!");
-            return;
-        }
-
-        int qty = Integer.parseInt(qtyStr);
-        double price = Double.parseDouble(priceStr);
-
-        String status = qty < 50 ? "Low Stock" : "Good";
-        try {
-            LocalDate expDate = LocalDate.parse(expiry);
-            if (expDate.isBefore(LocalDate.now().plusDays(30))) {
-                status = "Expiring Soon";
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Invalid expiry date format (use YYYY-MM-DD).");
+            JOptionPane.showMessageDialog(this, "All fields are required.");
             return;
         }
         
-        tblInve.clearSelection();
+        if (!item.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(this, "Item name must contain letters only.");
+            return;
+        }
 
-        int row = tblInve.getSelectedRow();
-            if (row >= 0) {
-                tblModel.setValueAt(category, row, 0);
-                tblModel.setValueAt(item, row, 1);
-                tblModel.setValueAt(qty, row, 2);
-                tblModel.setValueAt("₱" + price, row, 3);
-                tblModel.setValueAt(status, row, 4);
-                tblModel.setValueAt(expiry, row, 5);
-                JOptionPane.showMessageDialog(this, "Item updated!");
-            } else {
-                tblModel.addRow(new Object[]{category, item, qty, "₱" + price, status, expiry});
-                JOptionPane.showMessageDialog(this, "Item added!");
+        int qty;
+        try {
+            qty = Integer.parseInt(qtyStr);
+            if (qty < 0) {
+                JOptionPane.showMessageDialog(this, "Quantity cannot be negative.");
+                return;
             }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantity must be a whole number.");
+            return;
+        }
+        
+        double price;
+        try {
+            price = Double.parseDouble(priceStr);
+            if (price < 0) {
+                JOptionPane.showMessageDialog(this, "Price cannot be negative.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Price must be a valid number.");
+            return;
+        }
+        
+        try {
+            expDate = LocalDate.parse(expiry);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid expiry date format. Use YYYY-MM-DD.");
+            return;
+        }
+        if (expDate.isBefore(LocalDate.now())) {
+            JOptionPane.showMessageDialog(this, "Expiry date cannot be in the past.");
+            return;
+        }
+        
+        int selectedRow = tblInve.getSelectedRow();
+        if (selectedRow < 0) {
+            for (int i = 0; i < tblModel.getRowCount(); i++) {
+                String existing = tblModel.getValueAt(i, 1).toString().toLowerCase();
+                if (existing.equals(item.toLowerCase())) {
+                    JOptionPane.showMessageDialog(this, "An item with this name already exists.");
+                    return;
+                }
+            }
+        }
+        
+        String status = qty < 50 ? "Low Stock" : "Good";
+        if (expDate.isBefore(LocalDate.now().plusDays(30))) {
+            status = "Expiring Soon";
+        }
+
+        if (selectedRow >= 0) {
+            tblModel.setValueAt(category,selectedRow, 0);
+            tblModel.setValueAt(item, selectedRow, 1);
+            tblModel.setValueAt(qty, selectedRow, 2);
+            tblModel.setValueAt("₱" + price,selectedRow, 3);
+            tblModel.setValueAt(status, selectedRow, 4);
+            tblModel.setValueAt(expiry, selectedRow, 5);
+            tblInve.clearSelection();
+            JOptionPane.showMessageDialog(this, "Item updated successfully.");
+        } else {
+            tblModel.addRow(new Object[]{category, item, qty, "₱" + price, status, expiry});
+            JOptionPane.showMessageDialog(this, "Item added successfully.");
+        }
 
         txtItem.setText("");
         txtQty.setText("");
@@ -252,23 +293,39 @@ public class InventoryPanel extends JPanel {
     private void restockItem() {
         int row = tblInve.getSelectedRow();
         if (row >= 0) {
-            int current = (int) tblModel.getValueAt(row, 2);
-            String addStr = JOptionPane.showInputDialog(this, "Current: " + current + "\nAdd:");
-            if (addStr != null) {
-                try {
-                    int add = Integer.parseInt(addStr);
-                    int newQty = current + add;
-                        tblModel.setValueAt(newQty, row, 2);
-                        tblModel.setValueAt(newQty < 50 ? "Low Stock" : "Good", row, 4);
-                    updateSummary();
-                    JOptionPane.showMessageDialog(this, "Restocked! New: " + newQty);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Invalid number entered!");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Select an item first!");
+            JOptionPane.showMessageDialog(this, "Select an item first.");
+            return;  
+        } 
+        
+        int current = Integer.parseInt(tblModel.getValueAt(row, 2).toString());
+        String addStr = JOptionPane.showInputDialog(this, "Current quantity: " + current + "\nEnter amount to add:");
+
+        if (addStr == null) return;
+
+        addStr = addStr.trim();
+        if (addStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a quantity.");
+            return;
         }
+        
+        int add;
+        try {
+            add = Integer.parseInt(addStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantity must be a whole number.");
+            return;
+        }
+
+        if (add <= 0) {
+            JOptionPane.showMessageDialog(this, "Restock amount must be greater than zero.");
+            return;
+        }
+        
+        int newQty = current + add;
+        tblModel.setValueAt(newQty, row, 2);
+        tblModel.setValueAt(newQty < 50 ? "Low Stock" : "Good", row, 4);
+        updateSummary();
+        JOptionPane.showMessageDialog(this, "Restocked successfully. New quantity: " + newQty);
     }
     
     private void removeItem() {
