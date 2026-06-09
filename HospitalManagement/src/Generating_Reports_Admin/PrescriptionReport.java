@@ -1,4 +1,4 @@
-package Generating_Report_Doctors;
+package Generating_Reports_Admin;
 
 import static Color_Palette.ColorPalette.*;
 import java.awt.*;
@@ -78,208 +78,212 @@ public class PrescriptionReport extends JPanel implements ActionListener {
         pnlMain.add(lblContact);
 
         btnNewReport = new JButton("New Report");
-        btnNewReport.setBounds(600, 25, 100, 30);
+        btnNewReport.setBounds(520, 30, 110, 35);
         btnNewReport.setBackground(TealGreen);
         btnNewReport.setForeground(Color.WHITE);
+        btnNewReport.setFont(new Font("Calibri", Font.BOLD, 12));
         btnNewReport.addActionListener(this);
         pnlMain.add(btnNewReport);
 
         btnEdit = new JButton("Edit");
-        btnEdit.setBounds(710, 25, 100, 30);
+        btnEdit.setBounds(640, 30, 90, 35);
         btnEdit.setBackground(darkBlue);
         btnEdit.setForeground(Color.WHITE);
+        btnEdit.setFont(new Font("Calibri", Font.BOLD, 12));
         btnEdit.addActionListener(this);
         pnlMain.add(btnEdit);
         
         btnSave = new JButton("Save");
-        btnSave.setBounds(830, 25, 80, 30);
+        btnSave.setBounds(740, 30, 90, 35);
         btnSave.setBackground(Green);
         btnSave.setForeground(Color.WHITE);
+        btnSave.setFont(new Font("Calibri", Font.BOLD, 12));
         btnSave.addActionListener(this);
         pnlMain.add(btnSave);
         
         btnCopy = new JButton("Copy");
-        btnCopy.setBounds(920, 25, 80, 30);
+        btnCopy.setBounds(840, 30, 90, 35);
         btnCopy.setBackground(mediumBlue);
         btnCopy.setForeground(Color.WHITE);
+        btnCopy.setFont(new Font("Calibri", Font.BOLD, 12));
         btnCopy.addActionListener(this);
         pnlMain.add(btnCopy);
 
         lineTop = new JPanel();
-        lineTop.setBounds(30, 70, 960, 2);
+        lineTop.setBounds(30, 120, 960, 2);
         lineTop.setBackground(neutralGray);
         pnlMain.add(lineTop);
 
         lblPatientName = new JLabel("Patient Name:");
         lblPatientName.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblPatientName.setBounds(30, 90, 110, 25);
+        lblPatientName.setBounds(30, 145, 110, 25);
         pnlMain.add(lblPatientName);
 
         lblPatientNameValue = new JLabel(patientName.isEmpty() ? "________" : patientName);
         lblPatientNameValue.setFont(new Font("Calibri", Font.PLAIN, 14));
-        lblPatientNameValue.setBounds(145, 90, 250, 25);
+        lblPatientNameValue.setBounds(145, 145, 250, 25);
         pnlMain.add(lblPatientNameValue);
 
         lblPatientAddress = new JLabel("Address:");
         lblPatientAddress.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblPatientAddress.setBounds(30, 120, 70, 25);
+        lblPatientAddress.setBounds(30, 175, 70, 25);
         pnlMain.add(lblPatientAddress);
 
         lblPatientAddressValue = new JLabel(patientAddress.isEmpty() ? "________" : patientAddress);
         lblPatientAddressValue.setFont(new Font("Calibri", Font.PLAIN, 12));
-        lblPatientAddressValue.setBounds(105, 120, 400, 25);
+        lblPatientAddressValue.setBounds(105, 175, 400, 25);
         pnlMain.add(lblPatientAddressValue);
 
         lblAge = new JLabel("Age:");
         lblAge.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblAge.setBounds(550, 90, 40, 25);
+        lblAge.setBounds(550, 145, 40, 25);
         pnlMain.add(lblAge);
 
         lblAgeValue = new JLabel(age.isEmpty() ? "__" : age);
         lblAgeValue.setFont(new Font("Calibri", Font.PLAIN, 14));
-        lblAgeValue.setBounds(595, 90, 50, 25);
+        lblAgeValue.setBounds(595, 145, 50, 25);
         pnlMain.add(lblAgeValue);
 
         lblGender = new JLabel("Gender:");
         lblGender.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblGender.setBounds(660, 90, 60, 25);
+        lblGender.setBounds(660, 145, 60, 25);
         pnlMain.add(lblGender);
 
         lblGenderValue = new JLabel(gender.isEmpty() ? "____" : gender);
         lblGenderValue.setFont(new Font("Calibri", Font.PLAIN, 14));
-        lblGenderValue.setBounds(725, 90, 80, 25);
+        lblGenderValue.setBounds(725, 145, 80, 25);
         pnlMain.add(lblGenderValue);
 
         lblDate = new JLabel("Date:");
         lblDate.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblDate.setBounds(820, 90, 45, 25);
+        lblDate.setBounds(820, 145, 45, 25);
         pnlMain.add(lblDate);
 
         lblDateValue = new JLabel(date.isEmpty() ? "________" : date);
         lblDateValue.setFont(new Font("Calibri", Font.PLAIN, 12));
-        lblDateValue.setBounds(870, 90, 120, 25);
+        lblDateValue.setBounds(870, 145, 120, 25);
         pnlMain.add(lblDateValue);
         
         lblRxStatus = new JLabel("Rx Status:");
         lblRxStatus.setFont(new Font("Calibri", Font.BOLD, 14));
         lblRxStatus.setForeground(darkBlue);
-        lblRxStatus.setBounds(30, 155, 80, 25);
+        lblRxStatus.setBounds(30, 210, 80, 25);
         pnlMain.add(lblRxStatus);
         
         lblRxStatusValue = new JLabel(rxStatus);
         lblRxStatusValue.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblRxStatusValue.setBounds(115, 155, 120, 25);
+        lblRxStatusValue.setBounds(115, 210, 120, 25);
         updateRxStatusColor();
         pnlMain.add(lblRxStatusValue);
 
         lblDoctor = new JLabel("Prescribing Physician:");
         lblDoctor.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblDoctor.setBounds(30, 190, 155, 25);
+        lblDoctor.setBounds(30, 245, 155, 25);
         pnlMain.add(lblDoctor);
 
         lblDoctorValue = new JLabel(doctor.isEmpty() ? "________" : doctor);
         lblDoctorValue.setFont(new Font("Calibri", Font.PLAIN, 14));
-        lblDoctorValue.setBounds(190, 190, 250, 25);
+        lblDoctorValue.setBounds(190, 245, 250, 25);
         pnlMain.add(lblDoctorValue);
 
         lblDiagnosis = new JLabel("Clinical Diagnosis:");
         lblDiagnosis.setFont(new Font("Calibri", Font.BOLD, 14));
-        lblDiagnosis.setBounds(30, 225, 125, 25);
+        lblDiagnosis.setBounds(30, 280, 125, 25);
         pnlMain.add(lblDiagnosis);
 
         lblDiagnosisValue = new JLabel(diagnosis.isEmpty() ? "________" : diagnosis);
         lblDiagnosisValue.setFont(new Font("Calibri", Font.PLAIN, 14));
-        lblDiagnosisValue.setBounds(160, 225, 300, 25);
+        lblDiagnosisValue.setBounds(160, 280, 300, 25);
         pnlMain.add(lblDiagnosisValue);
 
         lineMeds = new JPanel();
-        lineMeds.setBounds(30, 260, 960, 2);
+        lineMeds.setBounds(30, 320, 960, 2);
         lineMeds.setBackground(neutralGray);
         pnlMain.add(lineMeds);
 
         lblMed1 = new JLabel("1. " + (med1.isEmpty() ? "________" : med1));
         lblMed1.setFont(new Font("Calibri", Font.BOLD, 13));
-        lblMed1.setBounds(30, 280, 200, 25);
+        lblMed1.setBounds(30, 340, 200, 25);
         pnlMain.add(lblMed1);
 
         lblForm1 = new JLabel(form1.isEmpty() ? "________" : form1);
         lblForm1.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblForm1.setBounds(50, 300, 220, 20);
+        lblForm1.setBounds(50, 360, 220, 20);
         pnlMain.add(lblForm1);
 
         lblQty1 = new JLabel("Disp: " + (qty1.isEmpty() ? "_" : qty1));
         lblQty1.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblQty1.setBounds(300, 280, 120, 20);
+        lblQty1.setBounds(300, 340, 120, 20);
         pnlMain.add(lblQty1);
 
         lblSig1 = new JLabel("Sig: " + (sig1.isEmpty() ? "________" : sig1));
         lblSig1.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblSig1.setBounds(50, 320, 500, 20);
+        lblSig1.setBounds(50, 380, 500, 20);
         pnlMain.add(lblSig1);
 
         lblRefill1 = new JLabel("Refill: " + (refill1.isEmpty() ? "_" : refill1));
         lblRefill1.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblRefill1.setBounds(300, 300, 100, 20);
+        lblRefill1.setBounds(300, 360, 100, 20);
         pnlMain.add(lblRefill1);
 
         lblMed2 = new JLabel("2. " + (med2.isEmpty() ? "________" : med2));
         lblMed2.setFont(new Font("Calibri", Font.BOLD, 13));
-        lblMed2.setBounds(30, 360, 200, 25);
+        lblMed2.setBounds(30, 420, 200, 25);
         pnlMain.add(lblMed2);
 
         lblForm2 = new JLabel(form2.isEmpty() ? "________" : form2);
         lblForm2.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblForm2.setBounds(50, 380, 150, 20);
+        lblForm2.setBounds(50, 440, 150, 20);
         pnlMain.add(lblForm2);
 
         lblQty2 = new JLabel("Disp: " + (qty2.isEmpty() ? "_" : qty2));
         lblQty2.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblQty2.setBounds(300, 360, 120, 20);
+        lblQty2.setBounds(300, 420, 120, 20);
         pnlMain.add(lblQty2);
 
         lblSig2 = new JLabel("Sig: " + (sig2.isEmpty() ? "________" : sig2));
         lblSig2.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblSig2.setBounds(50, 400, 400, 20);
+        lblSig2.setBounds(50, 460, 400, 20);
         pnlMain.add(lblSig2);
 
         lblRefill2 = new JLabel("Refill: " + (refill2.isEmpty() ? "_" : refill2));
         lblRefill2.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblRefill2.setBounds(300, 380, 100, 20);
+        lblRefill2.setBounds(300, 440, 100, 20);
         pnlMain.add(lblRefill2);
 
         lblMed3 = new JLabel("3. " + (med3.isEmpty() ? "________" : med3));
         lblMed3.setFont(new Font("Calibri", Font.BOLD, 13));
-        lblMed3.setBounds(30, 440, 200, 25);
+        lblMed3.setBounds(30, 500, 200, 25);
         pnlMain.add(lblMed3);
 
         lblForm3 = new JLabel(form3.isEmpty() ? "________" : form3);
         lblForm3.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblForm3.setBounds(50, 460, 200, 20);
+        lblForm3.setBounds(50, 520, 200, 20);
         pnlMain.add(lblForm3);
 
         lblQty3 = new JLabel("Disp: " + (qty3.isEmpty() ? "_" : qty3));
         lblQty3.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblQty3.setBounds(300, 440, 120, 20);
+        lblQty3.setBounds(300, 500, 120, 20);
         pnlMain.add(lblQty3);
 
         lblSig3 = new JLabel("Sig: " + (sig3.isEmpty() ? "________" : sig3));
         lblSig3.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblSig3.setBounds(50, 480, 300, 20);
+        lblSig3.setBounds(50, 540, 300, 20);
         pnlMain.add(lblSig3);
 
         lblRefill3 = new JLabel("Refill: " + (refill3.isEmpty() ? "_" : refill3));
         lblRefill3.setFont(new Font("Calibri", Font.PLAIN, 11));
-        lblRefill3.setBounds(300, 460, 100, 20);
+        lblRefill3.setBounds(300, 520, 100, 20);
         pnlMain.add(lblRefill3);
 
         lineDA = new JPanel();
-        lineDA.setBounds(30, 520, 960, 2);
+        lineDA.setBounds(30, 580, 960, 2);
         lineDA.setBackground(neutralGray);
         pnlMain.add(lineDA);
         
         pnlApprove = new JPanel();
         pnlApprove.setLayout(null);
-        pnlApprove.setBounds(30, 540, 960, 80);
+        pnlApprove.setBounds(30, 600, 960, 80);
         pnlApprove.setBackground(Color.WHITE);
         pnlMain.add(pnlApprove);
         
@@ -287,29 +291,30 @@ public class PrescriptionReport extends JPanel implements ActionListener {
         btnApprove.setBounds(380, 15, 200, 45);
         btnApprove.setBackground(Green);
         btnApprove.setForeground(Color.WHITE);
+        btnApprove.setFont(new Font("Calibri", Font.BOLD, 16));
         btnApprove.addActionListener(this);
         pnlApprove.add(btnApprove);
         
         lineFooter = new JPanel();
-        lineFooter.setBounds(30, 640, 960, 2);
+        lineFooter.setBounds(30, 700, 960, 2);
         lineFooter.setBackground(neutralGray);
         pnlMain.add(lineFooter);
         
         lblApprovedBy = new JLabel("");
         lblApprovedBy.setFont(new Font("Calibri", Font.BOLD, 14));
         lblApprovedBy.setForeground(Green);
-        lblApprovedBy.setBounds(60, 660, 500, 25);
+        lblApprovedBy.setBounds(60, 720, 500, 25);
         pnlMain.add(lblApprovedBy);
         
         lblSignature = new JLabel("Physician Signature: ____________________");
         lblSignature.setFont(new Font("Calibri", Font.PLAIN, 14));
-        lblSignature.setBounds(60, 690, 300, 25);
+        lblSignature.setBounds(60, 750, 300, 25);
         pnlMain.add(lblSignature);
         
         lblValidity = new JLabel("This prescription is valid for 30 days from date issued.");
         lblValidity.setFont(new Font("Calibri", Font.ITALIC, 11));
         lblValidity.setForeground(Color.GRAY);
-        lblValidity.setBounds(60, 720, 350, 20);
+        lblValidity.setBounds(60, 780, 350, 20);
         pnlMain.add(lblValidity);
         
         updateApproveButtonState();
@@ -590,7 +595,7 @@ public class PrescriptionReport extends JPanel implements ActionListener {
         
         JPanel approvePanel = new JPanel(new GridLayout(3, 2, 10, 10));
         JTextField txtName = new JTextField(15);
-        JComboBox<String> cmbRole = new JComboBox<>(new String[]{"Doctor", "Department Head"});
+        JComboBox<String> cmbRole = new JComboBox<>(new String[]{"Admin", "Doctor", "Department Head"});
         
         approvePanel.add(new JLabel("Approver Name:"));
         approvePanel.add(txtName);

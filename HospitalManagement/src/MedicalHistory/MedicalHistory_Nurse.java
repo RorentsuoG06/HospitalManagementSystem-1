@@ -69,12 +69,12 @@ public class MedicalHistory_Nurse extends JPanel implements ActionListener{
         profileCard.add(accent);
 
         imgP = new ImageIcon(getClass().getResource("/resources/Male_Icon.png"));
-        ImgPT = imgP.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
+        ImgPT = imgP.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         lblPat = new JLabel(new ImageIcon(ImgPT));
-        lblPat.setBounds(10, 15, 140, 140);
+        lblPat.setBounds(25, 20, 100, 100);
         profileCard.add(lblPat);
         
-        name = new JLabel("");
+        name = new JLabel("Name: ");
         name.setFont(new Font("Calibri", Font.BOLD, 22));
         name.setBounds(150, 20, 300, 30);
         profileCard.add(name);
@@ -291,13 +291,6 @@ public class MedicalHistory_Nurse extends JPanel implements ActionListener{
         scrDiet.setBounds(20, 70, 750, 200);
         scrDiet.setBorder(BorderFactory.createEmptyBorder());
         pnlWard.add(scrDiet);
-        
-        btnViewAll = new JButton("View Diet Plan");
-        btnViewAll.setBounds(570, 20, 200, 40);
-        btnViewAll.setFont(new Font("Calibri", Font.BOLD, 18));
-        btnViewAll.setBackground(Blue);
-        btnViewAll.setForeground(Color.WHITE);
-        pnlWard.add(btnViewAll);
         
         recommend = new JPanel();
         recommend.setLayout(null);

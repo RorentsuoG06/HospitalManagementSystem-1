@@ -129,7 +129,6 @@ public class Doctor_Report extends JPanel implements ActionListener {
         pnlPrev.setLayout(null);
         pnlPrev.setBackground(Color.WHITE);
         pnlPrev.setPreferredSize(new Dimension(1020, 920));
-        pnlMain.add(pnlPrev);
 
         scroll = new JScrollPane(pnlPrev);
         scroll.setBounds(30, 70, 1050, 650);
@@ -159,34 +158,31 @@ public class Doctor_Report extends JPanel implements ActionListener {
         btnPrint.setForeground(Color.BLACK);
         btnPrint.addActionListener(e -> printReport());
         pnlB.add(btnPrint);
-        
+
         btnSaveReport = new JButton("Save Report");
-        btnSaveReport.setBounds(500, 730, 150, 35);
+        btnSaveReport.setBounds(500, 680, 150, 35);
         btnSaveReport.setBackground(Green);
         btnSaveReport.setForeground(Color.WHITE);
         btnSaveReport.addActionListener(e -> saveCurrentReport());
         pnlB.add(btnSaveReport);
-        
-        
+
         btnCopyReport = new JButton("Copy Report");
-        btnCopyReport.setBounds(660, 730, 150, 35);
+        btnCopyReport.setBounds(660, 680, 150, 35);
         btnCopyReport.setBackground(mediumBlue);
         btnCopyReport.setForeground(Color.WHITE);
         btnCopyReport.addActionListener(e -> copyCurrentReport());
         pnlB.add(btnCopyReport);
-        
-        
     }
-    
+
     private void saveCurrentReport() {
-            if (currentReportType.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please select a report first!");
-                return;
-            }
-            setStatus("Saved");
-            JOptionPane.showMessageDialog(this, currentReportType + " saved successfully!");
+        if (currentReportType.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a report first!");
+            return;
         }
-    
+        setStatus("Saved");
+        JOptionPane.showMessageDialog(this, currentReportType + " saved successfully!");
+    }
+
     private void copyCurrentReport() {
         if (currentReportType.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select a report first!");
@@ -210,7 +206,7 @@ public class Doctor_Report extends JPanel implements ActionListener {
         lblStatus.setText("Status: " + status);
         switch (status) {
             case "Complete": lblStatus.setForeground(Green); break;
-            case "Incomplete": lblStatus.setForeground(Color.YELLOW); break;
+            case "Incomplete": lblStatus.setForeground(new Color(255, 140, 0)); break;
             case "Missing": lblStatus.setForeground(Color.RED); break;
             default: lblStatus.setForeground(Color.BLACK);
         }
@@ -254,22 +250,22 @@ public class Doctor_Report extends JPanel implements ActionListener {
             scroll.getVerticalScrollBar().setValue(0);
             currentReportType = "Prescription Report";
             lblStatus.setText("Status: Incomplete");
-            lblStatus.setForeground(orange);
+            lblStatus.setForeground(new Color(255, 140, 0));
             lblType.setText(" > Prescription Report");
-        } else if (ae.getSource() == btnDiagnosis) {
+        }  else if (ae.getSource() == btnDiagnosis) {
             pnlPrev.removeAll();
             DiagnosisSummary ds = new DiagnosisSummary();
-            ds.setBounds(0, 0, 1020, 620);
-            pnlPrev.setPreferredSize(new Dimension(1020, 620));
+            ds.setBounds(0, 0, 1020, 820);  
+            pnlPrev.setPreferredSize(new Dimension(1020, 820));  
             pnlPrev.add(ds);
             pnlPrev.revalidate();
             pnlPrev.repaint();
             scroll.getVerticalScrollBar().setValue(0);
             currentReportType = "Diagnosis Summary";
             lblStatus.setText("Status: Incomplete");
-            lblStatus.setForeground(orange);
+            lblStatus.setForeground(new Color(255, 140, 0));
             lblType.setText(" > Patient Diagnosis Summary");
-        } else if (ae.getSource() == btnAppointment) {
+        }else if (ae.getSource() == btnAppointment) {
             pnlPrev.removeAll();
             AppointmentHistory ah = new AppointmentHistory();
             ah.setBounds(0, 0, 1020, 680);
@@ -280,7 +276,7 @@ public class Doctor_Report extends JPanel implements ActionListener {
             scroll.getVerticalScrollBar().setValue(0);
             currentReportType = "Appointment History";
             lblStatus.setText("Status: Incomplete");
-            lblStatus.setForeground(orange);
+            lblStatus.setForeground(new Color(255, 140, 0));
             lblType.setText(" > Appointment History Report");
         }
     }

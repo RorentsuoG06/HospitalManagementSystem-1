@@ -642,7 +642,7 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
              // name verify
             String nameText = txtName.getText().trim();
             if (nameText.isEmpty()) {
-                errors += "- Name is empty\n";
+                errors += "- Name is required\n";
             } else if (!nameText.matches("[a-zA-Z\\s]+")) {
                 errors += "- Name should only contain letters and spaces\n";
             }
@@ -650,7 +650,7 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
             // patient id verify
             String idText = txtPatientID.getText().trim();
             if (idText.isEmpty()) {
-                errors += "- Patient ID is empty\n";
+                errors += "- Patient ID is required\n";
             } else if (!idText.matches("\\d{5}")) {
                 errors += "- Patient ID must be exactly 5 digits (example: 10021)\n";
             }
@@ -658,7 +658,7 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
             // age verify
             String ageText = txtAge.getText().trim();
             if (ageText.isEmpty()) {
-                errors += "- Age is empty\n";
+                errors += "- Age is required\n";
             } else if (!ageText.matches("\\d+")) {
                 errors += "- Age should only contain numbers\n";
             } else {
@@ -668,47 +668,51 @@ public class PatientInfo_Doctor extends JPanel implements ActionListener {
                 }
             }
             
-            // contact number verify (optional)
-            String contactText = txtContactNum.getText().trim();
-            if (!contactText.isEmpty()) {
-                if (!contactText.matches("\\d+")) {
-                    errors += "- Contact number should only contain digits\n";
-               } else if (contactText.length() < 11 || contactText.length() > 11) {
-                    errors += "- Contact number must be 11 digits long\n";
-                }
-            }
+            // address verify
+              String addressText = txtAddress.getText().trim();
+              if (addressText.isEmpty()) {
+                  errors += "- Address is empty\n";
+              }
             
-            // emergency contact name verify (optional)
+              // contact number verify
+              String contactText = txtContactNum.getText().trim();
+              if (contactText.isEmpty()) {
+                  errors += "- Contact number is empty\n";
+              } else if (!contactText.matches("\\d+")) {
+                  errors += "- Contact number should only contain digits\n";
+              } else if (contactText.length() != 11) {
+                  errors += "- Contact number must be exactly 11 digits long\n";
+              }
+            
+             // emergency contact name verify
             String emergNameText = txtEName.getText().trim();
-            if (!emergNameText.isEmpty()) {
-                if (!emergNameText.matches("[a-zA-Z\\s]+")) {
-                    errors += "- Emergency contact name should only contain letters and spaces\n";
-                }
-            }
-            
-            // emergency relationship verify (optional)
-            String emergRelText = txtERel.getText().trim();
-            if (!emergRelText.isEmpty()) {
-                if (!emergRelText.matches("[a-zA-Z\\s]+")) {
-                    errors += "- Relationship should only contain letters and spaces\n";
-                }
-            }
-            
-            // emergency contact number verify (optional)
-            String emergNumText = txtENum.getText().trim();
-            if (!emergNumText.isEmpty()) {
-                if (!emergNumText.matches("\\d+")) {
-                    errors += "- Emergency contact number should only contain digits\n";
-                } else if (emergNumText.length() < 11 ||emergNumText.length() > 11) {
-                    errors += "- Contact number must be 11 digits long\n";
-                }
+            if (emergNameText.isEmpty()) {
+                errors += "- Emergency contact name is empty\n";
+            } else if (!emergNameText.matches("[a-zA-Z\\s]+")) {
+                errors += "- Emergency contact name should only contain letters and spaces\n";
             }
 
+
+            // emergency relationship verify
+            String emergRelText = txtERel.getText().trim();
+            if (emergRelText.isEmpty()) {
+                errors += "- Emergency relationship is empty\n";
+            } else if (!emergRelText.matches("[a-zA-Z\\s]+")) {
+                errors += "- Relationship should only contain letters and spaces\n";
+            }
+            
+            // emergency contact number verify
+             String emergNumText = txtENum.getText().trim();
+             if (emergNumText.isEmpty()) {
+                 errors += "- Emergency contact number is empty\n";
+             } else if (!emergNumText.matches("\\d+")) {
+                 errors += "- Emergency contact number should only contain digits\n";
+             } else if (emergNumText.length() != 11) {
+                 errors += "- Emergency contact number must be exactly 11 digits long\n";
+             }
+
             if (!errors.isEmpty()) {
-                JOptionPane.showMessageDialog(editMenu, 
-                    "Please fix the following errors:\n\n" + errors, 
-                    "Validation Failed", 
-                    JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(editMenu, "Please fix the following errors:\n\n" + errors,"Error",JOptionPane.WARNING_MESSAGE);
                 return;
             }
             

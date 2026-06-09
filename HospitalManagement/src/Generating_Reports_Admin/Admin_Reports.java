@@ -304,10 +304,10 @@ public class Admin_Reports extends JPanel implements ActionListener{
         
         } else if (ae.getSource() == btnDiagnosisSummary) {
             pnlPrev.removeAll();
-            //DiagnosisSummaryAdmin ds = new DiagnosisSummaryAdmin();
-            //ds.setBounds(0, 0, 1020, 620);
+            DiagnosisSummaryAdmin ds = new DiagnosisSummaryAdmin();
+            ds.setBounds(0, 0, 1020, 620);
             pnlPrev.setPreferredSize(new Dimension(1020, 620));
-            //pnlPrev.add(ds);
+            pnlPrev.add(ds);
             pnlPrev.revalidate();
             pnlPrev.repaint();
             scroll.getVerticalScrollBar().setValue(0);
@@ -320,10 +320,10 @@ public class Admin_Reports extends JPanel implements ActionListener{
         
         } else if (ae.getSource() == btnPrescriptionReport) {
             pnlPrev.removeAll();
-            //PrescriptionReportAdmin pr = new PrescriptionReportAdmin();
-            //pr.setBounds(0, 0, 1020, 820);
+            PrescriptionReport pr = new PrescriptionReport();
+            pr.setBounds(0, 0, 1020, 820);
             pnlPrev.setPreferredSize(new Dimension(1020, 820));
-            //pnlPrev.add(pr);
+            pnlPrev.add(pr);
             pnlPrev.revalidate();
             pnlPrev.repaint();
             scroll.getVerticalScrollBar().setValue(0);

@@ -714,40 +714,52 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
                 }
             }
             
-            // contact number verify (optional)
-            String contactText = txtContactNum.getText().trim();
-            if (!contactText.isEmpty()) {
-                if (!contactText.matches("\\d+")) {
-                    errors += "- Contact number should only contain digits\n";
- 	   } else if (contactText.length() < 11 || contactText.length() > 11) {
-                    errors += "- Contact number must be 11 digits long\n";
-                }
-            }
+            // address verify
+              String addressText = txtAddress.getText().trim();
+              if (addressText.isEmpty()) {
+                  errors += "- Address is empty\n";
+              }
             
-            // emergency contact name verify (optional)
+              // contact number verify
+              String contactText = txtContactNum.getText().trim();
+              if (contactText.isEmpty()) {
+                  errors += "- Contact number is empty\n";
+              } else if (!contactText.matches("\\d+")) {
+                  errors += "- Contact number should only contain digits\n";
+              } else if (contactText.length() != 11) {
+                  errors += "- Contact number must be exactly 11 digits long\n";
+              }
+            
+             // emergency contact name verify
             String emergNameText = txtEName.getText().trim();
-            if (!emergNameText.isEmpty()) {
-                if (!emergNameText.matches("[a-zA-Z\\s]+")) {
-                    errors += "- Emergency contact name should only contain letters and spaces\n";
-                }
+            if (emergNameText.isEmpty()) {
+                errors += "- Emergency contact name is empty\n";
+            } else if (!emergNameText.matches("[a-zA-Z\\s]+")) {
+                errors += "- Emergency contact name should only contain letters and spaces\n";
             }
-            
-            // emergency relationship verify (optional)
+
+
+            // emergency relationship verify
             String emergRelText = txtERel.getText().trim();
-            if (!emergRelText.isEmpty()) {
-                if (!emergRelText.matches("[a-zA-Z\\s]+")) {
-                    errors += "- Emergency relationship should only contain letters and spaces\n";
-                }
+            if (emergRelText.isEmpty()) {
+                errors += "- Emergency relationship is empty\n";
+            } else if (!emergRelText.matches("[a-zA-Z\\s]+")) {
+                errors += "- Relationship should only contain letters and spaces\n";
             }
             
-            // emergency contact number verify (optional)
-            String emergNumText = txtENum.getText().trim();
-            if (!emergNumText.isEmpty()) {
-                if (!emergNumText.matches("\\d+")) {
-                    errors += "- Emergency contact number should only contain digits\n";
-                } else if (emergNumText.length() < 11 || emergNumText.length() > 11) {
-                    errors += "- Contact number must be 11 digits long\n";
-                }
+            // emergency contact number verify
+             String emergNumText = txtENum.getText().trim();
+             if (emergNumText.isEmpty()) {
+                 errors += "- Emergency contact number is empty\n";
+             } else if (!emergNumText.matches("\\d+")) {
+                 errors += "- Emergency contact number should only contain digits\n";
+             } else if (emergNumText.length() != 11) {
+                 errors += "- Emergency contact number must be exactly 11 digits long\n";
+             }
+
+            if (!errors.isEmpty()) {
+                JOptionPane.showMessageDialog(editMenu, "Please fix the following errors:\n\n" + errors,"Error",JOptionPane.WARNING_MESSAGE);
+                return;
             }
             
             // vital snapshot verify (optional
@@ -782,7 +794,7 @@ public class PatientInfo_Nurse extends JPanel implements ActionListener {
             if (!errors.isEmpty()) {
                 JOptionPane.showMessageDialog(editMenu, 
                     "Please fix the following errors:\n\n" + errors, 
-                    "Validation Failed", 
+                    "Error", 
                     JOptionPane.WARNING_MESSAGE);
                 return;
             }
